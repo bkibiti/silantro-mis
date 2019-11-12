@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    <title>Pharmacy Management System - Apotek</title>
+    <title>Silantro Management System</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- Favicon icon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset("apotek.ico")}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset("silantro.ico")}}">
     <!-- range slider -->
     <link rel="stylesheet" href="{{asset("/assets/plugins/range-slider/css/bootstrap-slider.min.css")}}">
     <link rel="stylesheet" href="{{asset("/assets/css/pages/rangeslider.css")}}">
@@ -61,14 +61,14 @@
 
 
     <!-- [ navigation menu ] start -->
-    <nav class="pcoded-navbar brand-red  active-red menu-item-icon-style4 icon-colored">
+    <nav class="pcoded-navbar brand-red active-red menu-item-icon-style4 icon-colored">
         <div class="navbar-wrapper" >
             <div class="navbar-brand header-logo">
                 <a href="{{route('home')}}" class="b-brand">
                     {{-- <div class="b-bg"> --}}
-                        <img src="{{asset('apotek.ico')}}"  alt="Apotek">
+                        {{-- <img src="{{asset('silantro.ico')}}"  alt="Silantro"> --}}
                     {{-- </div> --}}
-                    <span class="b-title">Apotek PMS</span>
+                    <span class="b-title">Silantro Lounge</span>
                 </a>
                 <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
             </div>
@@ -84,14 +84,14 @@
     <!-- [ navigation menu ] end -->
 
     <!-- [ Header ] start -->
-    <header class="navbar pcoded-header navbar-expand-lg navbar-light">
+    <header class="navbar pcoded-header navbar-expand-lg navbar-light header-blue">
         <div class="m-header">
             <a class="mobile-menu" id="mobile-collapse1" href="#!"><span></span></a>
             <a href="index.html" class="b-brand">
                    <div class="b-bg">
                        <i class="feather icon-trending-up"></i>
                    </div>
-                   <span class="b-title">APOTEk</span>
+                   <span class="b-title">Silantro</span>
                </a>
         </div>
         <a class="mobile-menu" id="mobile-header" href="#!">
