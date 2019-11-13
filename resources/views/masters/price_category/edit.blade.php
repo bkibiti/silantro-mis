@@ -14,22 +14,17 @@
 
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label for="code" class="col-md-4 col-form-label text-md-right">{{ __('Category Name') }} <font
-                                color="red">*</font></label>
+                        <label for="code" class="col-md-4 col-form-label text-md-right">{{ __('Category Name') }} </label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" id="name_edit" name="name"
-                                   aria-describedby="emailHelp"
-                                   placeholder="" maxlength="45">
+                            <input type="text" class="form-control" id="name" name="name" maxlength="45">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="code" class="col-md-4 col-form-label text-md-right">{{ __('Price Type') }} <font
+                        <label for="code" class="col-md-4 col-form-label text-md-right">{{ __('Description') }} <font
                                 color="red">*</font></label>
                         <div class="col-md-8">
-                            <select name="code" class="form-control" id="code_edit">
-                                <option>CASH</option>
-                                <option>BILL</option>
-                            </select>
+                                <input type="text" class="form-control" id="description" name="description" maxlength="45">
+
                         </div>
                     </div>
                     <input type="hidden" name="price_category_id" id="price_category_id">
