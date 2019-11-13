@@ -16,35 +16,13 @@ class Product extends Model
         return $this->belongsTo(category::class);
     }
 
-    public function subCategory()
-    {
-        return $this->belongsTo(SubCategory::class, 'sub_category_id');
-    }
 
     public function currentStock()
     {
         return $this->hasMany(currentStock::class, 'product_id');
     }
 
-    public function orderDetail()
-    {
-        return $this->hasMany(orderDetail::class, 'product_id');
-    }
 
-    public function order()
-    {
-        return $this->hasMany(Order::class, 'product_id');
-    }
-
-    public function stockTransfer()
-    {
-        return $this->hasMany(StockTransfer::class, 'product_id');
-    }
-
-    public function incomingStock()
-    {
-        return $this->hasMany(GoodsReceiving::class, 'product_id');
-    }
-
+ 
 
 }

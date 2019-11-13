@@ -103,7 +103,7 @@
 
 <li class="nav-item pcoded-hasmenu">
     <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="fas fa-users"></i></span>
-        <span class="pcoded-mtext">User Management</span>
+        <span class="pcoded-mtext">Users</span>
     </a>
     <ul class="pcoded-submenu">
         <li class=""><a href="{{route('roles.index')}}" class="">Roles</a></li>
@@ -116,8 +116,8 @@
         <span class="pcoded-mtext">Masters</span>
     </a>
     <ul class="pcoded-submenu">
-        <li class=""><a href="{{route('products.index')}}" class="">Products</a></li>
         <li class=""><a href="{{route('categories.index')}}" class="">Product Categories</a></li>
+        <li class=""><a href="{{route('products.index')}}" class="">Products</a></li>
         <li class=""><a href="{{route('price-categories.index')}}" class="">Price Categories</a></li>
         <li class=""><a href="{{route('expense-categories.index')}}" class="">Expense Categories</a></li>
         <li class=""><a href="{{route('adjustment-reasons.index')}}" class="">Adjustment Reasons</a></li>

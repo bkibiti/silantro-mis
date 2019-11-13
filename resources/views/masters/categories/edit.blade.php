@@ -8,7 +8,7 @@
                 </button>
             </div>
             <form action="{{route('categories.update','id')}}" method="post">
-                @csrf()
+                @csrf
                 @method("PUT")
 
                 <div class="modal-body">

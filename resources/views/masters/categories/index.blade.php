@@ -17,18 +17,19 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                        @can('704')
+
                             <button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-secondary btn-sm"
                                     data-toggle="modal"
                                     data-target="#create">
                                 Add Product Category
                             </button>
-                        @endcan
+
                         <div class="table-responsive">
                             <table id="fixed-header-1" class="display table nowrap table-striped table-hover"
                                    style="width:100%">
                                 <thead>
                                 <tr>
+                                    <th>Id #</th>
                                     <th>Name</th>
                                     <th>Action</th>
                                 </tr>
@@ -36,7 +37,9 @@
                                 <tbody>
                                 <tr>
                                     @foreach($categories as $category)
+                                        <td>{{$category->id}}</td>
                                         <td>{{$category->name}}</td>
+
                                         <td>
                                             <a href="#">
                                                 <button class="btn btn-sm btn-rounded btn-info"
@@ -99,17 +102,8 @@
         });
 
         $('#fixed-header-1').DataTable({
-            bAutoWidth: false,
-            aoColumns: [
-                {"sWidth": "50%"},
-                {"sWidth": "50%"}
-            ],
-            columnDefs: [
-                {
-                    "targets": 1,
-                    "className": "text-center"
-                }
-            ]
+            bAutoWidth: true,
+
         });
     </script>
 @endpush

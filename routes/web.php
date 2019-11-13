@@ -39,11 +39,6 @@ Route::middleware(["auth"])->group(function () {
         'index', 'store', 'update', 'destroy'
     ]);
 
-    //Sub Categories Routes
-    Route::resource('masters/sub-categories', 'SubCategoryController')->only([
-        'index', 'store', 'update', 'destroy'
-    ]);
-
     //Supplier routes
     Route::resource('masters/suppliers', 'SupplierController')->only([
         'index', 'store', 'destroy', 'update'
@@ -51,12 +46,6 @@ Route::middleware(["auth"])->group(function () {
 
     //Customer routes
     Route::resource('sales/customers', 'CustomerController')->only([
-        'index', 'store', 'destroy', 'update'
-    ]);
-
-
-    //Location routes
-    Route::resource('masters/locations', 'LocationController')->only([
         'index', 'store', 'destroy', 'update'
     ]);
 
@@ -71,10 +60,6 @@ Route::middleware(["auth"])->group(function () {
 
     //Expense Categories routes
     Route::resource('masters/expense-categories', 'ExpenseCategoryController')->only([
-        'index', 'store', 'update', 'destroy'
-    ]);
-    //Expense Subcategories routes
-    Route::resource('masters/expense-subcategories', 'ExpenseSubcategoryController')->only([
         'index', 'store', 'update', 'destroy'
     ]);
 
@@ -154,11 +139,6 @@ Route::middleware(["auth"])->group(function () {
     Route::get('/returns', 'SaleReturnController@getRetunedProducts')->name('getRetunedProducts');
     Route::post('sales/sales-returns', 'SaleReturnController@store')->name('sale-returns.store');
     Route::get('sales/returns-approval', 'SaleReturnController@getSalesReturn')->name('sale-returns-approval.getSalesReturn');
-
-
-    //No longer used
-    // Route::post('sales/returns-approval', 'SaleReturnController@approve')->name('sale-returns-approval.approve');
-    // Route::post('sales/returns-rejection', 'SaleReturnController@reject')->name('sale-returns-rejection.reject');
 
 
     /*Current Stock routes*/

@@ -198,8 +198,8 @@ Dashboard
 
                                                         @foreach($outOfStockList as $stock)
                                                             <tr>
-                                                                <td>{{$stock->product_id}}</td>
-                                                                <td>{{$stock->product->name}}</td>
+                                                                {{-- <td>{{$stock->product_id}}</td>
+                                                                <td>{{$stock->product->name}}</td> --}}
 
                                                             </tr>
                                                         @endforeach
@@ -229,13 +229,13 @@ Dashboard
                                                         </thead>
                                                         <tbody>
 
-                                                            @foreach($outOfStockList as $stock)
+                                                            {{-- @foreach($outOfStockList as $stock)
                                                                 <tr>
                                                                     <td>{{$stock->product_id}}</td>
                                                                     <td>{{$stock->product->name}}</td>
 
                                                                 </tr>
-                                                            @endforeach
+                                                            @endforeach --}}
 
                                                         </tbody>
                                                     </table>
