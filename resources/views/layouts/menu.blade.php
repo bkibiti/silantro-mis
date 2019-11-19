@@ -31,9 +31,7 @@
             @can('View Current Stock')
                 <li class=""><a href="{{ route('current-stock.index') }}" class="">Current Stock</a></li>
             @endcan
-            @can('View Price List')
-                <li class=""><a href="{{ route('price-list.index') }}" class="">Price List</a></li>
-            @endcan
+
             @can('View Stock Adjustment')
                 <li class=""><a href="{{ route('stock-adjustment.index') }}" class="">Adjustment History</a></li>
             @endcan

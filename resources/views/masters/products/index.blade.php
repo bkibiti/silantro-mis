@@ -115,7 +115,6 @@
 
                 $('#fixed-header1').DataTable({
                     bAutoWidth: true,
-
                 });
 
                 $('#edit').on('show.bs.modal', function (event) {
@@ -129,7 +128,6 @@
                     modal.find('.modal-body #quantity_per_unit_edit').val(button.data('quantity_per_unit'))
                     modal.find('.modal-body #min_quantinty_edit').val(button.data('min_quantinty'))
                     modal.find('.modal-body #reorder_level_edit').val(button.data('reorder_level'))
-
                 });
 
                 $('#delete').on('show.bs.modal', function (event) {
@@ -139,7 +137,6 @@
 
                     modal.find('.modal-body #message').text(message);
                     modal.find('.modal-body #id').val(button.data('id'));
-
                 });
 
 

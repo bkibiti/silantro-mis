@@ -1,0 +1,146 @@
+@extends("layouts.master")
+
+@section('content-title')
+
+    Goods Receiving
+
+@endsection
+
+@section('content-sub-title')
+    <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
+    <li class="breadcrumb-item"><a href="#">Purchase Management / Goods Receiving</a></li>
+@endsection
+@section("content")
+
+    <div class="col-sm-6">
+            <div class="card">
+                    <div class="card-body">
+                        <div id="product-table" class="table-responsive">
+                            <table id="fixed-header1" class="display table nowrap table-striped table-hover" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                    <tbody>
+                                        @foreach($products as $prod)
+                                        <tr>
+                                            <td>{{$prod->name}}</td>
+                                            <td>{{$prod->category->name}}</td>
+                                            <td>
+                                                <a href="#">
+                                                    <button class="btn btn-sm btn-rounded btn-info selectproduct"
+                                                            data-id="{{$prod->id}}"
+                                                            data-name="{{$prod->name}}"
+                                                            data-category_id="{{$prod->category->id}}"
+                                                            data-purchase_uom="{{$prod->purchase_uom}}"
+                                                            data-quantity_per_unit="{{$prod->quantity_per_unit}}"
+                                                            data-toggle="button">Select
+                                                    </button>
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    <div class="col-sm-6">
+          <div class="card">
+                <div class="card-body">
+                        <div class="panel-body">
+                                <form method="POST" action="{{ route('products.store') }}" >
+                                    @csrf
+
+                                    <div class="form-group row">
+                                        <label for="product_name" class="col-md-4 col-form-label text-md-right">Product</label>
+
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" id="name" name="name" maxlength="50" minlength="2"
+                                                placeholder="" required value="{{ old('name') }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                            <label for="category" class="col-md-4 col-form-label text-md-right">Purchase Unit</label>
+                                            <div class="col-md-8">
+                                                    <input type="text" class="form-control" id="purchase_uom">
+                                            </div>
+                                    </div>
+                                    <div class="form-group row">
+                                            <label for="category" class="col-md-4 col-form-label text-md-right">Quantity per Unit</label>
+                                            <div class="col-md-8">
+                                                    <input type="number" class="form-control" id="quantity_per_unit" >
+                                            </div>
+                                    </div>
+                                    <div class="form-group row">
+                                            <label for="category" class="col-md-4 col-form-label text-md-right">Supplier<font color="red">*</font></label>
+
+                                            <div class="col-md-8">
+                                                <select class="form-control select2"  class="form-control" id="supplier" name="supplier" required data-width="100%">
+                                                        @foreach($suppliers as $supp)
+                                                        <option value="" name="category">Select Supplier</option>
+                                                        <option value="{{ $supp->id }}" name="category">{{ $supp->name }}</option>
+
+                                                        @endforeach
+                                                </select>
+                                            </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                            <label for="category" class="col-md-4 col-form-label text-md-right">Quantity Purchased</label>
+                                            <div class="col-md-8">
+                                                    <input type="number" class="form-control" id="min_quantinty" name="min_quantinty" min="1"
+                                                        placeholder=""  value="{{ old('min_quantinty') }}">
+                                            </div>
+                                    </div>
+                                    <div class="form-group row">
+                                            <label for="category" class="col-md-4 col-form-label text-md-right">Purchase Price</label>
+                                            <div class="col-md-8">
+                                                    <input  class="form-control" id="min_quantinty" name="min_quantinty" min="1"
+                                                        placeholder=""  value="{{ old('min_quantinty') }}">
+                                            </div>
+                                    </div>
+
+
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                </div>
+          </div>
+    </div>
+
+@endsection
+@push("page_scripts")
+    @include('partials.notification')
+
+    <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
+    <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
+
+    <script>
+        $('#fixed-header1').DataTable({
+            bAutoWidth: true,
+
+        });
+        $('.selectproduct').click(function() {
+
+            $('#id').val($(this).data('id'));
+            $('#name').val($(this).data('name'))
+            $('#purchase_uom').val($(this).data('purchase_uom'))
+            $('#quantity_per_unit').val($(this).data('quantity_per_unit'))
+
+
+        });
+
+
+    </script>
+
+@endpush
