@@ -16,7 +16,7 @@
             <div class="card">
                     <div class="card-body">
                         <div id="product-table" class="table-responsive">
-                            <table id="fixed-header1" class="display table nowrap table-striped table-hover" style="width:100%">
+                            <table id="products" class="display table nowrap table-striped table-hover" style="width:100%">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
@@ -57,59 +57,61 @@
                                 <form method="POST" action="{{ route('goods-receiving.store') }}" >
                                     @csrf
                                     <input type="hidden" name="id" id="id">
+                                  
+                                    
+                                    <div class="form-group row">
+                                        <label for="category" class="col-md-4 col-form-label text-md-right">Supplier<font color="red">*</font></label>
 
+                                        <div class="col-md-8">
+                                            <select class="form-control select2"  class="form-control" name="supplier" required data-width="100%">
+                                                    <option value="">Select Supplier</option>
+
+                                                    @foreach($suppliers as $supp)
+                                                    <option value="{{ $supp->id }}">{{ $supp->name }}</option>
+                                                    @endforeach
+                                            </select>
+                                        </div>
+                                </div>
                                     <div class="form-group row">
                                         <label for="product_name" class="col-md-4 col-form-label text-md-right">Product</label>
 
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" id="name" name="name" maxlength="50" minlength="2"
-                                                placeholder="" required value="{{ old('name') }}">
+                                                placeholder="" required value="{{ old('name') }}" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                             <label for="category" class="col-md-4 col-form-label text-md-right">Purchase Unit</label>
                                             <div class="col-md-8">
-                                                    <input type="text" class="form-control" id="purchase_uom">
+                                                    <input type="text" class="form-control" id="purchase_uom" readonly>
                                             </div>
                                     </div>
                                     <div class="form-group row">
-                                            <label for="category" class="col-md-4 col-form-label text-md-right">Quantity per Unit</label>
+                                            <label for="category" class="col-md-4 col-form-label text-md-right" >Quantity per Unit</label>
                                             <div class="col-md-8">
-                                                    <input type="number" class="form-control" id="quantity_per_unit" >
+                                                    <input type="number" class="form-control" id="quantity_per_unit" name="quantity_per_unit" readonly>
                                             </div>
                                     </div>
-                                    <div class="form-group row">
-                                            <label for="category" class="col-md-4 col-form-label text-md-right">Supplier<font color="red">*</font></label>
-
-                                            <div class="col-md-8">
-                                                <select class="form-control select2"  class="form-control" id="supplier" name="supplier" required data-width="100%">
-                                                        @foreach($suppliers as $supp)
-                                                        <option value="" name="category">Select Supplier</option>
-                                                        <option value="{{ $supp->id }}" name="category">{{ $supp->name }}</option>
-
-                                                        @endforeach
-                                                </select>
-                                            </div>
-                                    </div>
+                                 
 
                                     <div class="form-group row">
-                                            <label for="category" class="col-md-4 col-form-label text-md-right">Quantity Purchased</label>
+                                            <label for="category" class="col-md-4 col-form-label text-md-right">Quantity Purchased<font color="red">*</font></label>
                                             <div class="col-md-8">
-                                                    <input type="number" class="form-control" id="min_quantinty" name="min_quantinty" min="1"
-                                                        placeholder=""  value="{{ old('min_quantinty') }}">
+                                                    <input type="number" class="form-control" id="quantity" name="quantity" min="1" required
+                                                        value="{{ old('quantity') }}">
                                             </div>
                                     </div>
                                     <div class="form-group row">
-                                            <label for="category" class="col-md-4 col-form-label text-md-right">Purchase Price</label>
+                                            <label for="category" class="col-md-4 col-form-label text-md-right">Purchase Unit Cost<font color="red">*</font></label>
                                             <div class="col-md-8">
-                                                    <input  class="form-control" id="min_quantinty" name="min_quantinty" min="1"
-                                                        placeholder=""  value="{{ old('min_quantinty') }}">
+                                                    <input  class="form-control" id="price" name="price" min="1" required
+                                                        value="{{ old('price') }}">
                                             </div>
                                     </div>
 
 
                                 <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        
 
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
@@ -127,10 +129,11 @@
     <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
 
     <script>
-        $('#fixed-header1').DataTable({
+        $('#products').DataTable({
             bAutoWidth: true,
-
+            lengthMenu: [5,10, 20]
         });
+
         $('.selectproduct').click(function() {
 
             $('#id').val($(this).data('id'));
@@ -141,6 +144,8 @@
 
         });
 
+
+      
 
     </script>
 
