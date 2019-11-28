@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
+use App\Stock;
 use App\Supplier;
 use Auth;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class GoodsReceivingController extends Controller
     public function index()
     {
         $suppliers = Supplier::all();
-        $products = Product::all();
+        $products = Stock::all();
 
         return View::make('purchases.goods_receiving', (compact( 'suppliers','products')));
     }

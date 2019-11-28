@@ -27,11 +27,7 @@ Settings
 <div class="card">
 <div class="card-body">
 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-<button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-secondary btn-sm"
-data-toggle="modal"
-data-target="#create">
-Add Setting
-</button>
+
 
 <div class="table-responsive">
 <table id="setting_table" class="display table nowrap table-striped table-hover"
@@ -72,7 +68,6 @@ style="width:100%">
 </div>
 </div>
 </div>
-@include('configurations.create')
 @include('configurations.edit')
 
 @endsection
