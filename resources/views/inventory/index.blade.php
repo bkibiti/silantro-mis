@@ -8,12 +8,12 @@
 @endsection
 
 @section('content-title')
-    Products
+    Stock
 @endsection
 
 @section('content-sub-title')
     <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
-    <li class="breadcrumb-item"><a href="#"> Masters / Products </a></li>
+    <li class="breadcrumb-item"><a href="#"> Inventory / Stock </a></li>
 @endsection
 
 @section("content")
@@ -27,14 +27,7 @@
                         <div class="col-md-9">
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
-                                <button style="float: right;margin-bottom: 2%;" type="button"
-                                        class="btn btn-secondary btn-sm"
-                                        data-toggle="modal"
-                                        data-target="#create">
-                                    Add Product
-                                </button>
-                            </div>
+                          
                         </div>
                     </div>
 
@@ -44,24 +37,38 @@
                                style="width:100%">
                             <thead>
                             <tr>
-                                <th>Id #</th>
                                 <th>Name</th>
                                 <th>Category</th>
-                                <th>Purchase Unit</th>
-                                <th>Qty in Unit</th>
-                                <th>Min Qty</th>
+                                <th>Qty In Stock</th>
+                                @if ($PriceCategory[0]->active =='Yes')
+                                    <th>Price {{$PriceCategory[0]->description}}</th>
+                                @endif
+                                @if ($PriceCategory[1]->active =='Yes')
+                                    <th>Price {{$PriceCategory[1]->description}}</th>
+                                @endif
+                                @if ($PriceCategory[2]->active =='Yes')
+                                    <th>Price {{$PriceCategory[2]->description}}</th>
+                                @endif
                                 <th>Actions</th>
                             </tr>
                             </thead>
                                 <tbody>
-                                    @foreach($products as $prod)
+                                    @foreach($Products as $prod)
                                     <tr>
-                                            <td>{{$prod->id}}</td>
                                             <td>{{$prod->name}}</td>
                                             <td>{{$prod->category->name}}</td>
-                                            <td>{{$prod->purchase_uom}}</td>
-                                            <td>{{$prod->quantity_per_unit}}</td>
-                                            <td>{{$prod->min_quantinty}}</td>
+                                            <td>{{$prod->quantity}}</td>
+                                           
+                                            @if ($PriceCategory[0]->active =='Yes')
+                                                <td>{{$prod->sale_price_1}}</td>
+                                            @endif
+                                            @if ($PriceCategory[1]->active =='Yes')
+                                                <td>{{$prod->sale_price_2}}</td>
+                                            @endif
+                                            @if ($PriceCategory[2]->active =='Yes')
+                                                <td>{{$prod->sale_price_3}}</td>
+                                            @endif
+
                                             <td>
                                                 <a href="#">
                                                     <button class="btn btn-sm btn-rounded btn-info"
@@ -77,16 +84,7 @@
                                                             data-toggle="modal" data-target="#edit">Edit
                                                     </button>
                                                 </a>
-                                                <a href="#">
-                                                    <button class="btn btn-sm btn-rounded btn-danger"
-                                                            data-id="{{$prod->id}}"
-                                                            data-name="{{$prod->name}}"
-                                                            type="button"
-                                                            data-toggle="modal"
-                                                            data-target="#delete">
-                                                        Delete
-                                                    </button>
-                                                </a>
+                                          
                                             </td>
                                     </tr>
                                     @endforeach
@@ -98,10 +96,6 @@
                 </div>
             </div>
         </div>
-
-        @include('masters.products.create')
-        @include('masters.products.edit')
-        @include('masters.products.delete')
 
         @endsection
 

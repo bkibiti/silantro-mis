@@ -54,8 +54,9 @@
           <div class="card">
                 <div class="card-body">
                         <div class="panel-body">
-                                <form method="POST" action="{{ route('products.store') }}" >
+                                <form method="POST" action="{{ route('goods-receiving.store') }}" >
                                     @csrf
+                                    <input type="hidden" name="id" id="id">
 
                                     <div class="form-group row">
                                         <label for="product_name" class="col-md-4 col-form-label text-md-right">Product</label>

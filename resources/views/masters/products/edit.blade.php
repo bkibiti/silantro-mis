@@ -37,6 +37,26 @@
                                     </div>
                             </div>
                             <div class="form-group row">
+                                    <label for="category" class="col-md-4 col-form-label text-md-right">Sold By<font color="red">*</font></label>
+
+                                    <div class="col-md-8">
+                                        <select class="form-control select2"  class="form-control" id="sold_by_edit" name="sold_by"  data-placeholder="Select One" required data-width="100%">
+                                                <option value="Each" name="category">Each</option>
+                                                <option value="Weight" name="category">Weight</option>
+                                        </select>
+                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                    <label for="category" class="col-md-4 col-form-label text-md-right">Available for Sale<font color="red">*</font></label>
+
+                                    <div class="col-md-8">
+                                        <select class="form-control select2"  class="form-control" id="for_sale_edit" name="for_sale"  required data-width="100%">
+                                                <option value="Yes" name="category">Yes</option>
+                                                <option value="No" name="category">No</option>
+                                        </select>
+                                    </div>
+                            </div>
+                            <div class="form-group row">
                                     <label for="category" class="col-md-4 col-form-label text-md-right">Purchase Unit</label>
                                     <div class="col-md-8">
                                             <input type="text" class="form-control" id="purchase_uom_edit" name="purchase_uom" maxlength="50" minlength="2"
@@ -51,19 +71,13 @@
                                     </div>
                             </div>
                             <div class="form-group row">
-                                    <label for="category" class="col-md-4 col-form-label text-md-right">Minimum Stock Quantity</label>
+                                    <label for="category" class="col-md-4 col-form-label text-md-right">Minimum Quantity</label>
                                     <div class="col-md-8">
                                             <input type="number" class="form-control" id="min_quantinty_edit" name="min_quantinty" min="1"
                                                 placeholder=""  value="{{ old('min_quantinty') }}">
                                     </div>
                             </div>
-                            <div class="form-group row">
-                                    <label for="category" class="col-md-4 col-form-label text-md-right">Re-Order Level</label>
-                                    <div class="col-md-8">
-                                            <input type="number" class="form-control" id="reorder_level_edit" name="reorder_level" min="1"
-                                                placeholder=""  value="{{ old('reorder_level') }}">
-                                    </div>
-                            </div>
+                         
 
 
                         <div class="modal-footer">

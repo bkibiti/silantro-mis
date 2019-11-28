@@ -30,6 +30,7 @@
                             <tr>
                                 <th>Category</th>
                                 <th>Description</th>
+                                <th>Active</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -38,11 +39,15 @@
                                 <tr>
                                     <td>{{$price->name}}</td>
                                     <td>{{$price->description}}</td>
+                                    <td>{{$price->active}}</td>
+
                                     <td>
                                         <a href="#">
                                             <button class="btn btn-sm btn-rounded btn-info" data-id="{{$price->id}}"
                                                     data-name="{{$price->name}}"
                                                     data-description="{{$price->description}}"
+                                                    data-active="{{$price->active}}"
+
                                                     type="button"
                                                     data-toggle="modal" data-target="#edit">Edit
                                             </button>
@@ -78,7 +83,8 @@
             modal.find('.modal-body #price_category_id').val(button.data('id'));
             modal.find('.modal-body #name').val(button.data('name'));
             modal.find('.modal-body #description').val(button.data('description'))
-
+            modal.find('.modal-body #active').val(button.data('active'))
+            
         });
 
 

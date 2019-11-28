@@ -13,9 +13,7 @@
         @can('View Sales History')
         <li class=""><a href="{{route('sale-histories.SalesHistory')}}" class="">Sales History</a></li>
         @endcan
-         @can('Sales Return')
-        <li class=""><a href="{{route('sale-returns.index')}}" class="">Sales Return</a></li>
-        @endcan
+      
 
     </ul>
 </li>
@@ -29,7 +27,7 @@
         </a>
         <ul class="pcoded-submenu">
             @can('View Current Stock')
-                <li class=""><a href="{{ route('current-stock.index') }}" class="">Current Stock</a></li>
+                <li class=""><a href="{{ route('current-stock.index') }}" class="">Stock</a></li>
             @endcan
 
             @can('View Stock Adjustment')
@@ -47,10 +45,7 @@
             @can('Stock Transfer')
                 <li class=""><a href="{{ route('stock-transfer-history') }}" class="">Stock Transfer</a></li>
             @endcan
-            @can('View Stock Transfer History')
-                <li class=""><a href="{{ route('stock-transfer-reprint.index') }}" class="">Transfer History</a></li>
-            @endcan
-
+           
         </ul>
     @endcan
 </li>

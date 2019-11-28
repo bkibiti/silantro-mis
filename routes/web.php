@@ -18,20 +18,6 @@ Route::middleware(["auth"])->group(function () {
         'index', 'store', 'update', 'destroy'
     ]);
 
-    Route::post('masters/products/store',
-        'ProductController@storeProduct')->name('store-products');
-
-    Route::post('masters/products/all',
-        'ProductController@allProducts')->name('all-products');
-
-    Route::get('masters/products/product-category-filter',
-        'ProductController@productCategoryFilter')->name('product-category-filter');
-
-    Route::get('masters/products/status-filter',
-        'ProductController@statusFilter')->name('status-filter');
-
-    Route::get('masters/products/status-activate',
-        'ProductController@statusActivate')->name('status-activate');
 
 
     //Categories routes
@@ -44,18 +30,13 @@ Route::middleware(["auth"])->group(function () {
         'index', 'store', 'destroy', 'update'
     ]);
 
-    //Customer routes
-    Route::resource('sales/customers', 'CustomerController')->only([
-        'index', 'store', 'destroy', 'update'
-    ]);
-
     //Adjustment reason routes
     Route::resource('masters/adjustment-reasons', 'AdjustmentReasonController')->only([
         'index', 'store', 'update', 'destroy'
     ]);
     //Price Categories routes
     Route::resource('masters/price-categories', 'PriceCategoryController')->only([
-        'index', 'store', 'update', 'destroy'
+        'index', 'update', 'destroy'
     ]);
 
     //Expense Categories routes
@@ -68,26 +49,6 @@ Route::middleware(["auth"])->group(function () {
         'index', 'store', 'update', 'destroy'
     ]);
 
-    //Purchase Order routes
-    Route::resource('purchases/purchase-order', 'OrderController')->only([
-        'index', 'store', 'update', 'destroy'
-    ]);
-    Route::get('purchases/purchase-order/select/filter-product', 'OrderController@filterSupplierProduct')->name('filter-product');
-    Route::get('purchases/purchase-order/select/filter-product-input', 'OrderController@filterSupplierProductInput')->name('filter-product-input');
-
-
-    //Purchase OrderList routes
-    Route::get('purchases/order-history', 'PurchaseOrderListController@index')->name('order-history.index');
-    Route::post('purchases/cancel-order', 'PurchaseOrderListController@destroy')->name('cancel-order.destroy');
-    Route::get('purchases/order-date', 'PurchaseOrderListController@getOrderHistory')->name('getOrderHistory');
-    Route::post('purchases/print-order', 'PurchaseOrderListController@printOrder')->name('printOrder');
-    Route::get('ipurchases/print-order/pdfgen/{order_no}', 'PurchaseOrderListController@reprintPurchaseOrder')->name('purchase-order-pdf-gen');
-
-    //Invoice management routes
-    Route::resource('purchases/invoice-management', 'InvoiceController')->only([
-        'index', 'store', 'update'
-    ]);
-    Route::get('purchases/invoice-received', 'InvoiceController@getInvoice')->name('getInvoice');
 
     //Material received routes
     Route::get('purchases/material-received', 'MaterialReceivedController@index')->name('material-received.index');
@@ -95,59 +56,29 @@ Route::middleware(["auth"])->group(function () {
 
     //GoodsReceiving Routes
     Route::get('purchases/goods-receiving', 'GoodsReceivingController@index')->name('goods-receiving.index');
-    Route::post('purchases/goods-receiving.order-receive', 'GoodsReceivingController@orderReceive')->name('goods-receiving.orderReceive');
-    Route::get('purchases/loading-item-price', 'GoodsReceivingController@getItemPrice')->name('receiving-price-category');
-    Route::get('purchases/loading-product-price', 'GoodsReceivingController@getItemPrice2')->name('product-price-category');
-    Route::post('purchases/goods-receiving.item-receive', 'GoodsReceivingController@itemReceive')->name('goods-receiving.itemReceive');
-    Route::get('purchases/supplier/select/filter-invoice', 'GoodsReceivingController@filterInvoice')->name('filter-invoice');
+    Route::post('purchases/goods-receiving', 'GoodsReceivingController@store')->name('goods-receiving.store');
 
     //Configurations Routes
     Route::get('/configurations', 'ConfigurationsController@index')->name('configurations.index');
     Route::post('/configurations', 'ConfigurationsController@store')->name('configurations.store');
     Route::post('/update-configurations', 'ConfigurationsController@update')->name('configurations.update');
 
-    //General settingroutes
-    Route::get('masters/general-settings', 'GeneralSettingController@index')->name('general-settings.index');
-    Route::put('masters/update-general-informations', 'GeneralSettingController@updateInfo')->name('general-settings.updateInfo');
-    Route::put('masters/update-general-settings', 'GeneralSettingController@updateSetting')->name('general-settings.updateSetting');
-    Route::put('masters/update-general-recepts', 'GeneralSettingController@updateReceipt')->name('general-settings.updateReceipt');
-
+ 
     //Cash Sales routes
     Route::get('sales/cash-sales', 'SaleController@cashSale')->name('cash-sales.cashSale');
-    Route::get('sales/credit-sales', 'SaleController@creditSale')->name('credit-sales.creditSale');
-    Route::get('sales/credit-customer-payments', 'SaleController@getCreditSale')->name('getCreditSale');
     Route::post('sales/cash-sales', 'SaleController@storeCashSale')->name('cash-sales.storeCashSale');
-    Route::get('sales/payments', 'SaleController@getPaymentsHistory')->name('payments.getPaymentsHistory');
-    Route::post('sales/credit-sales', 'SaleController@storeCreditSale')->name('credit-sales.storeCreditSale');
-    Route::get('sales/credits-tracking', 'SaleController@creditsTracking')->name('credits-tracking.creditsTracking');
-    Route::get('sales/credit-payments', 'SaleController@getCreditsCustomers')->name('credit-payments.getCreditsCustomers');
-    Route::post('sales/credit-payments', 'SaleController@CreditSalePayment')->name('credit-payments.creditSalePayment');
     Route::get('sales/sale-histories', 'SaleController@SalesHistory')->name('sale-histories.SalesHistory');
     Route::get('sales/sale-date', 'SaleController@getSalesHistory')->name('getSalesHistory');
     Route::post('sales/select-products', 'SaleController@selectProducts')->name('selectProducts');
     Route::get('sales/cash-sale/receipt', 'SaleController@getCashReceipt')->name('getCashReceipt');
     Route::get('sales/credit-sale/receipt', 'SaleController@getCreditReceipt')->name('getCreditReceipt');
 
-
-    //Sales Quotes routes
-    Route::get('sales/sales-quotes', 'SaleQuoteController@index')->name('sale-quotes.index');
-    Route::post('sales/sales-quotes', 'SaleQuoteController@store')->name('sale-quotes.store');
-
-    //Sales Returns routes
-    Route::get('sales/sales-returns', 'SaleReturnController@index')->name('sale-returns.index');
-    Route::get('/sales-returns', 'SaleReturnController@getSales')->name('getSales');
-    Route::get('/returns', 'SaleReturnController@getRetunedProducts')->name('getRetunedProducts');
-    Route::post('sales/sales-returns', 'SaleReturnController@store')->name('sale-returns.store');
-    Route::get('sales/returns-approval', 'SaleReturnController@getSalesReturn')->name('sale-returns-approval.getSalesReturn');
-
-
+ 
     /*Current Stock routes*/
     Route::resource('inventory-management/current-stock', 'CurrentStockController')->only([
         'index', 'update'
     ]);
-    Route::post('inventory-management/current-stock/in-stock',
-        'CurrentStockController@allInStock')->name('all-in-stock');
-
+  
     /*stock adjustment routes*/
     Route::resource('inventory-management/stock-adjustment', 'StockAdjustmentController')->only([
         'index', 'store', 'update', 'destroy'
@@ -181,24 +112,6 @@ Route::middleware(["auth"])->group(function () {
         'index', 'store', 'update', 'destroy'
     ]);
 
-    /*Re print transfer routes*/
-    Route::resource('inventory-management/stock-transfer-reprint', 'RePrintTransferController')->only(['index']);
-
-    /*Re print stock issue*/
-    Route::resource('inventory-management/stock-issue-reprint', 'RePrintIssueController')->only(['index']);
-
-    /*Stock issue routes*/
-    Route::resource('inventory-management/stock-issue', 'StockIssueController')->only([
-        'index', 'store', 'update', 'destroy'
-    ]);
-
-    Route::get('inventory-management/stock-issue-history', 'IssueReturnController@issueHistory')
-        ->name('stock-issue-history');
-
-    /*Stock issue return routes*/
-    Route::resource('inventory-management/stock-issue-return', 'IssueReturnController')->only([
-        'index', 'store'
-    ]);
 
     /*product ledger routes*/
     Route::resource('inventory-management/product-ledger', 'ProductLedgerController')->only([
@@ -233,11 +146,8 @@ Route::middleware(["auth"])->group(function () {
 
 
     /*filters route with ajax*/
-    Route::get('inventory-management/myitems', 'CurrentStockController@filter')->name('myitems');
 
     Route::get('price/price-history', 'PriceListController@priceHistory')->name('price-history');
-
-    Route::get('current-stock/stock-detail', 'CurrentStockController@currentStockDetail')->name('current-stock-detail');
 
     Route::get('current-stock/stock-price-category', 'PriceListController@priceCategory')->name('sale-price-category');
 
