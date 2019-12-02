@@ -27,7 +27,7 @@
         </a>
         <ul class="pcoded-submenu">
             @can('View Current Stock')
-                <li class=""><a href="{{ route('current-stock.index') }}" class="">Stock</a></li>
+                <li class=""><a href="{{ route('current-stock.index') }}" class="">Current Stock</a></li>
             @endcan
 
             @can('View Stock Adjustment')
@@ -56,7 +56,7 @@
     </a>
     <ul class="pcoded-submenu">
         <li class=""><a href="{{route('goods-receiving.index')}}" class="">Goods Receiving</a></li>
-        <li class=""><a href="{{route('material-received.index')}}" class="">Material Received</a></li>
+        <li class=""><a href="{{route('goods-receiving.history')}}" class="">Purchase History</a></li>
 
 
     </ul>

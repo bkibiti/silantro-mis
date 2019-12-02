@@ -49,14 +49,11 @@ Route::middleware(["auth"])->group(function () {
         'index', 'store', 'update', 'destroy'
     ]);
 
-
-    //Material received routes
-    Route::get('purchases/material-received', 'MaterialReceivedController@index')->name('material-received.index');
-    Route::get('purchases/materials', 'MaterialReceivedController@getMaterialsReceived')->name('getMaterialsReceived');
-
-    //GoodsReceiving Routes
+    //Purchase Routes
     Route::get('purchases/goods-receiving', 'GoodsReceivingController@index')->name('goods-receiving.index');
     Route::post('purchases/goods-receiving', 'GoodsReceivingController@store')->name('goods-receiving.store');
+    Route::get('purchases/history', 'GoodsReceivingController@history')->name('goods-receiving.history');
+
 
     //Configurations Routes
     Route::get('/configurations', 'ConfigurationsController@index')->name('configurations.index');
@@ -78,6 +75,8 @@ Route::middleware(["auth"])->group(function () {
     Route::resource('inventory-management/current-stock', 'CurrentStockController')->only([
         'index', 'update'
     ]);
+    Route::post('inventory-management/current-stock/set-price', 'CurrentStockController@setPrice')->name('stock.setprice');
+
   
     /*stock adjustment routes*/
     Route::resource('inventory-management/stock-adjustment', 'StockAdjustmentController')->only([

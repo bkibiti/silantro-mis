@@ -104,8 +104,8 @@
                                     <div class="form-group row">
                                             <label for="category" class="col-md-4 col-form-label text-md-right">Purchase Unit Cost<font color="red">*</font></label>
                                             <div class="col-md-8">
-                                                    <input  class="form-control" id="price" name="price" min="1" required
-                                                        value="{{ old('price') }}">
+                                                    <input  class="form-control" id="unit_cost" name="unit_cost" min="1" required
+                                                        value="{{ old('unit_cost') }}">
                                             </div>
                                     </div>
 
@@ -125,13 +125,10 @@
 @push("page_scripts")
     @include('partials.notification')
 
-    <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
-    <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
-
     <script>
         $('#products').DataTable({
             bAutoWidth: true,
-            lengthMenu: [5,10, 20]
+            lengthChange: false,
         });
 
         $('.selectproduct').click(function() {

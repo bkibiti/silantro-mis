@@ -8,12 +8,12 @@
 @endsection
 
 @section('content-title')
-    Stock
+    Current Stock
 @endsection
 
 @section('content-sub-title')
     <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
-    <li class="breadcrumb-item"><a href="#"> Inventory / Stock </a></li>
+    <li class="breadcrumb-item"><a href="#"> Inventory / Current Stock </a></li>
 @endsection
 
 @section("content")
@@ -74,14 +74,11 @@
                                                     <button class="btn btn-sm btn-rounded btn-info"
                                                             data-id="{{$prod->id}}"
                                                             data-name="{{$prod->name}}"
-                                                            data-category_id="{{$prod->category->id}}"
-                                                            data-for_sale="{{$prod->for_sale}}"
-                                                            data-sold_by="{{$prod->sold_by}}"
-                                                            data-purchase_uom="{{$prod->purchase_uom}}"
-                                                            data-quantity_per_unit="{{$prod->quantity_per_unit}}"
-                                                            data-min_quantinty="{{$prod->min_quantinty}}"
+                                                            data-sale_price_1="{{$prod->sale_price_1}}"
+                                                            data-sale_price_2="{{$prod->sale_price_2}}"
+                                                            data-sale_price_3="{{$prod->sale_price_3}}"
                                                             type="button"
-                                                            data-toggle="modal" data-target="#edit">Edit
+                                                            data-toggle="modal" data-target="#edit">Set Price
                                                     </button>
                                                 </a>
                                           
@@ -102,6 +99,7 @@
         @push("page_scripts")
 
             @include('partials.notification')
+            @include('inventory.set_price_modal')
 
 
             <script>
@@ -115,24 +113,13 @@
                     var modal = $(this);
 
                     modal.find('.modal-body #id').val(button.data('id'));
-                    modal.find('.modal-body #name_edit').val(button.data('name'))
-                    modal.find('.modal-body #category_id_edit').val(button.data('category_id'))
-                    modal.find('.modal-body #for_sale_edit').val(button.data('for_sale'))
-                    modal.find('.modal-body #sold_by_edit').val(button.data('sold_by'))
-                    modal.find('.modal-body #purchase_uom_edit').val(button.data('purchase_uom'))
-                    modal.find('.modal-body #quantity_per_unit_edit').val(button.data('quantity_per_unit'))
-                    modal.find('.modal-body #min_quantinty_edit').val(button.data('min_quantinty'))
-                    modal.find('.modal-body #reorder_level_edit').val(button.data('reorder_level'))
+                    modal.find('.modal-body #name').val(button.data('name'));
+                    modal.find('.modal-body #sale_price_1').val(button.data('sale_price_1'))
+                    modal.find('.modal-body #sale_price_2').val(button.data('sale_price_2'))
+                    modal.find('.modal-body #sale_price_3').val(button.data('sale_price_3'))
                 });
 
-                $('#delete').on('show.bs.modal', function (event) {
-                    var button = $(event.relatedTarget);
-                    var message = "Are you sure you want to delete '".concat(button.data('name'), "'?");
-                    var modal = $(this);
-
-                    modal.find('.modal-body #message').text(message);
-                    modal.find('.modal-body #id').val(button.data('id'));
-                });
+        
 
 
 
