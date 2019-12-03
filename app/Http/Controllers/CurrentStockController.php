@@ -31,6 +31,8 @@ class CurrentStockController extends Controller
 
     }
 
+    
+   
  
 
 }

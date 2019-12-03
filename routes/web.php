@@ -75,8 +75,6 @@ Route::middleware(["auth"])->group(function () {
     Route::resource('inventory-management/current-stock', 'CurrentStockController')->only([
         'index', 'update'
     ]);
-    Route::post('inventory-management/current-stock/set-price', 'CurrentStockController@setPrice')->name('stock.setprice');
-
   
     /*stock adjustment routes*/
     Route::resource('inventory-management/stock-adjustment', 'StockAdjustmentController')->only([
