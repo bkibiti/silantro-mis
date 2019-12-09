@@ -28,8 +28,8 @@
                                         <div class="col-md-8">
                                             <select class="form-control select2"  class="form-control" id="type" name="type"  required data-width="100%">
                                                 <option value="" name="category">Select adjustment type</option>
-                                                <option value="pos" name="category">Positive</option>
-                                                <option value="neg" name="category">Negative</option>
+                                                <option value="Positive" name="category">Positive</option>
+                                                <option value="Negative" name="category">Negative</option>
                                         </select>
                                         </div>
                                 </div>
@@ -43,7 +43,7 @@
                                 <div class="form-group row">
                                         <label for="category" class="col-md-4 col-form-label text-md-right">Quantity to Adjust <font color="red">*</font></label>
                                         <div class="col-md-8">
-                                                <input type="text" class="form-control" id="qnty" name="qnty"  minlength="1" required>
+                                                <input type="number" min="0" class="form-control" id="qnty" name="qnty" required>
                                         </div>
                                 </div>
                                 <div class="form-group row">
@@ -53,9 +53,6 @@
                                     </div>
                                     </div>
                                     
-                  
-                      
-                        
 
 
                         <div class="modal-footer">
