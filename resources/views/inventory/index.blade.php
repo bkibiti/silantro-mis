@@ -41,13 +41,13 @@
                                 <th>Category</th>
                                 <th>Qty In Stock</th>
                                 @if ($PriceCategory[0]->active =='Yes')
-                                    <th>Price {{$PriceCategory[0]->description}}</th>
+                                    <th> {{$PriceCategory[0]->description}}</th>
                                 @endif
                                 @if ($PriceCategory[1]->active =='Yes')
-                                    <th>Price {{$PriceCategory[1]->description}}</th>
+                                    <th> {{$PriceCategory[1]->description}}</th>
                                 @endif
                                 @if ($PriceCategory[2]->active =='Yes')
-                                    <th>Price {{$PriceCategory[2]->description}}</th>
+                                    <th> {{$PriceCategory[2]->description}}</th>
                                 @endif
                                 <th>Actions</th>
                             </tr>

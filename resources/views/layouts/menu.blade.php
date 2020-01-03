@@ -31,20 +31,13 @@
             @endcan
 
             @can('View Stock Adjustment')
-                <li class=""><a href="{{ route('stock-adjustment.index') }}" class="">Adjustment History</a></li>
+                <li class=""><a href="{{ route('adjustment-history') }}" class="">Adjustment History</a></li>
             @endcan
 
             @can('View Daily Stock Count')
-                <li class=""><a href="{{ route('daily-stock-count.index') }}" class="">Daily Stock Count</a></li>
+                <li class=""><a href="{{ route('daily-stock-count.index') }}" class="">Stock Count Sheet</a></li>
             @endcan
-            @can('View Inventory Count Sheet')
-                <li class=""><a href="{{ route('inventory-count-sheet-pdf-gen') }}" target="_blank" class="">Inventory
-                        Count
-                        Sheet</a></li>
-            @endcan
-            @can('Stock Transfer')
-                <li class=""><a href="{{ route('stock-transfer-history') }}" class="">Stock Transfer</a></li>
-            @endcan
+      
            
         </ul>
     @endcan

@@ -15,4 +15,11 @@ class StockAdjustment extends Model
         return $this->belongsTo('App\User', 'created_by');
     }
 
+    public function product()
+    {
+        return $this->belongsTo('App\Stock', 'stock_id');
+    }
+
+
+
 }

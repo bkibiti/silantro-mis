@@ -19,15 +19,7 @@
     </style>
 @endsection
 
-@section('content-title')
-Dashboard
 
-@endsection
-
-@section('content-sub-title')
-
-
-@endsection
 
 
 
@@ -37,12 +29,9 @@ Dashboard
 
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active"  data-toggle="pill" href="#pills-home" role="tab" aria-selected="true">Sales Summary</a>
+                <a class="nav-link active"  data-toggle="pill" href="#pills-home" role="tab" aria-selected="true">Dashboard</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#pills-stock" role="tab" aria-selected="false">Stock Summary</a>
-            </li>
-
+    
         </ul>
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -55,7 +44,7 @@ Dashboard
                                         <h6 class="mb-4">Average Daily Sales</h6>
                                         <div class="row d-flex align-items-center">
                                             <div class="col-9">
-                                            <h3 class="f-w-300 d-flex align-items-center m-b-0">Tshs {{ number_format($avgDailySales, 2) }}</h3>
+                                            {{-- <h3 class="f-w-300 d-flex align-items-center m-b-0">Tshs {{ number_format($avgDailySales, 2) }}</h3> --}}
                                             </div>
                                         </div>
 
@@ -72,13 +61,13 @@ Dashboard
                                         <div class="row d-flex align-items-center">
                                             <div class="col-9">
                                                 <h3 class="f-w-300 d-flex align-items-center  m-b-0">
-                                                    @if ($todaySales > $avgDailySales)
+                                                    {{-- @if ($todaySales > $avgDailySales)
                                                         <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>
                                                     @else
                                                         <i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>
-                                                    @endif
+                                                    @endif --}}
 
-                                                   Tshs {{ number_format($todaySales, 2) }}
+                                                   {{-- Tshs {{ number_format($todaySales, 2) }} --}}
 
                                                 </h3>
                                             </div>
@@ -97,7 +86,7 @@ Dashboard
                                         <h6 class="mb-4">Average Monthly Sales</h6>
                                         <div class="row d-flex align-items-center">
                                             <div class="col-9">
-                                                <h3 class="f-w-300 d-flex align-items-center  m-b-0">Tshs {{ number_format($avgDailySales * 30,2) }}</h3>
+                                                {{-- <h3 class="f-w-300 d-flex align-items-center  m-b-0">Tshs {{ number_format($avgDailySales * 30,2) }}</h3> --}}
                                             </div>
 
                                         </div>
@@ -109,9 +98,47 @@ Dashboard
 
                     </div>
                     {{-- row 1 end --}}
+                    <div class="row">
 
+                        <div class="col-xl-4 col-md-6">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="row align-items-center justify-content-center">
+                                            <div class="col">
+                                                <h3 class="text-c-red">{{$outOfStock}} Items</h3>
+                                                <h5>Out of Stock</h5>
+                                            </div>
 
-                     {{-- row 2 start --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="row align-items-center justify-content-center">
+                                            <div class="col">
+                                                <h3 class="text-c-green">{{$belowMin}} Items</h3>
+                                                <h5>Below Minimum Level</h5>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-12">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="row align-items-center justify-content-center">
+                                     
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+
+                     {{-- row 3 start --}}
                      <div class="row">
                         <div class="col-md-6 col-xl-6">
                             <div id='monthly_sales'></div>
@@ -130,123 +157,6 @@ Dashboard
             {{-- /Tab 1 --}}
 
 
-            {{-- Tab 2 --}}
-            <div class="tab-pane fade" id="pills-stock" role="tabpanel" aria-labelledby="pills-stock-tab">
-                        {{-- row starts --}}
-                        <div class="row">
-
-                                <div class="col-xl-4 col-md-6">
-                                        <div class="card">
-                                            <div class="card-block">
-                                                <div class="row align-items-center justify-content-center">
-                                                    <div class="col">
-                                                        <h3 class="text-c-red">{{$outOfStock}}</h3>
-                                                        <h5>Out of Stock</h5>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-md-6">
-                                        <div class="card">
-                                            <div class="card-block">
-                                                <div class="row align-items-center justify-content-center">
-                                                    <div class="col">
-                                                        <h3 class="text-c-green">{{$outOfStock}}</h3>
-                                                        <h5>Below Minimum Level</h5>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-md-12">
-                                        <div class="card">
-                                            <div class="card-block">
-                                                <div class="row align-items-center justify-content-center">
-                                                    <div class="col">
-                                                    <h3 class="text-c-red">{{$expired}}</h3>
-                                                        <h5>Expired</h5>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                        </div>
-                        {{-- row ends --}}
-
-                        <div class="row">
-                                <!-- [ Out of stock start -->
-                                <div class="col-xl-6 col-md-6">
-                                    <div class="card Recent-Users">
-                                        <div class="card-header">
-                                            <h5>Out of Stock Items</h5>
-
-                                        </div>
-                                        <div class="card-block px-0 py-3">
-                                            <div class="table-responsive">
-                                                <table id="stock_items" class="display table nowrap table-striped table-hover" style="width:100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Id</th>
-                                                            <th>Item</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                        @foreach($outOfStockList as $stock)
-                                                            <tr>
-                                                                {{-- <td>{{$stock->product_id}}</td>
-                                                                <td>{{$stock->product->name}}</td> --}}
-
-                                                            </tr>
-                                                        @endforeach
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- [ out of stock ] end -->
-                                    <!-- [ frequent items start -->
-                                    <div class="col-xl-6 col-md-6">
-                                        <div class="card Recent-Users">
-                                            <div class="card-header">
-                                                <h5> Fast Moving Items</h5>
-
-                                            </div>
-                                            <div class="card-block px-0 py-3">
-                                                <div class="table-responsive">
-                                                    <table id="fast_moving" class="display table nowrap table-striped table-hover" style="width:100%">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Id</th>
-                                                                <th>Item</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-
-                                                            {{-- @foreach($outOfStockList as $stock)
-                                                                <tr>
-                                                                    <td>{{$stock->product_id}}</td>
-                                                                    <td>{{$stock->product->name}}</td>
-
-                                                                </tr>
-                                                            @endforeach --}}
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- [ frequent items ] end -->
-                        </div>
-            </div>
-            {{-- /Tab 2 --}}
 
         </div>
     </div>
@@ -271,6 +181,9 @@ Dashboard
 <script src="{{asset("assets/plugins/amcharts4/themes/animated.js")}}"></script>
 
 
+{{-- //    chart.data = @json($totalDailySales); --}}
+{{-- //   chart.data = @json($totalMonthlySales); --}}
+{{-- // chart.data = @json($salesByCategory); --}}
 
 <script>
 
@@ -293,7 +206,6 @@ Dashboard
     var chart = am4core.create("daily_sales", am4charts.XYChart);
 
     // Add data
-    chart.data = @json($totalDailySales);
 
     // Set input format for the dates
     chart.dateFormatter.inputDateFormat = "dd-MM-yyyy";
@@ -371,7 +283,7 @@ Dashboard
         chart.scrollbarX = new am4core.Scrollbar();
 
         // Add data
-        chart.data = @json($totalMonthlySales);
+    
 
 
         //title
@@ -481,7 +393,6 @@ Dashboard
         hoverShadow.blur = 5;
 
 
-        chart.data = @json($salesByCategory);
 
         }); // end am4core.ready()
         </script>

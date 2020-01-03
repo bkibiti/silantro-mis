@@ -45,8 +45,11 @@ class StockAdjustmentController extends Controller
         return back();
     }
 
-    public function update(Request $request)
+    public function history()
     {
+        $adjustments = StockAdjustment::all();
+
+        return view('inventory.stock_adjustment_history', compact("adjustments"));
 
     }
 

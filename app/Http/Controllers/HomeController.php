@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\CurrentStock;
+use App\Stock;
 use App\SalesDetail;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Support\Renderable;
 
 class HomeController extends Controller
@@ -33,49 +33,45 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $outOfStock = CurrentStock::where('quantity', 0)->count();
+        $outOfStock = Stock::where('quantity', 0)->count();
 
-        $outOfStockList = CurrentStock::where('quantity', 0)->get();
+        $belowMin = Stock::whereRaw('quantity <= min_quantinty')->count();
 
-        $expired = CurrentStock::whereRaw('expiry_date <  date(now())')->count();
+        // $totalSales = SalesDetail::sum('amount');
 
-        $totalSales = SalesDetail::sum('amount');
+        // $days = DB::table('sale_details')
+        //     ->select(DB::raw('date(sold_at)'))
+        //     ->distinct()
+        //     ->get();
 
-        $days = DB::table('sale_details')
-            ->select(DB::raw('date(sold_at)'))
-            ->distinct()
-            ->get();
+        // if ($days->count() == 0) {
+        //     $avgDailySales = 0;
+        // } else {
+        //     $avgDailySales = $totalSales / $days->count();
+        // }
 
-        if ($days->count() == 0) {
-            $avgDailySales = 0;
-        } else {
-            $avgDailySales = $totalSales / $days->count();
-        }
+        // $todaySales = DB::table('sale_details')
+        //     ->whereRaw('date(sold_at) = date(now())')
+        //     ->sum('amount');
 
-        $todaySales = DB::table('sale_details')
-            ->whereRaw('date(sold_at) = date(now())')
-            ->sum('amount');
+        // $totalDailySales = DB::table('sale_details')
+        //     ->select(DB::raw('date(sold_at) date, sum(amount) value'))
+        //     ->groupBy(DB::raw('date(sold_at)'))
+        //     ->limit('60')
+        //     ->get();
 
-        $totalDailySales = DB::table('sale_details')
-            ->select(DB::raw('date(sold_at) date, sum(amount) value'))
-            ->groupBy(DB::raw('date(sold_at)'))
-            ->limit('60')
-            ->get();
+        // $totalMonthlySales = DB::table('sale_details')
+        //     ->select(DB::raw("DATE_FORMAT(sold_at, '%b %y') month,sum(amount) amount"))
+        //     ->groupBy(DB::raw("DATE_FORMAT(sold_at, '%Y%m')"))
+        //     ->get();
 
-        $totalMonthlySales = DB::table('sale_details')
-            ->select(DB::raw("DATE_FORMAT(sold_at, '%b %y') month,sum(amount) amount"))
-            ->groupBy(DB::raw("DATE_FORMAT(sold_at, '%Y%m')"))
-            ->get();
-
-        $salesByCategory = DB::table('sale_details')
-            ->select(DB::raw("category,sum(amount) amount"))
-            ->groupBy('category')
-            ->get();
+        // $salesByCategory = DB::table('sale_details')
+        //     ->select(DB::raw("category,sum(amount) amount"))
+        //     ->groupBy('category')
+        //     ->get();
 
 
-// dd($salesByCategory);
-        return view('home', compact('outOfStock', 'outOfStockList', 'expired', 'avgDailySales', 'todaySales', 'totalDailySales',
-            'totalMonthlySales', 'salesByCategory'));
+        return view('home', compact('outOfStock', 'belowMin'));
 
     }
 }

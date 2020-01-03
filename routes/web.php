@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@login')->name('login');
 
-
 Auth::routes(['register' => false]);
 
 
@@ -80,9 +79,7 @@ Route::middleware(["auth"])->group(function () {
     Route::resource('inventory-management/stock-adjustment', 'StockAdjustmentController')->only([
         'index', 'store', 'update', 'destroy'
     ]);
-
-    Route::post('inventory-management/stock-adjustment/all',
-        'StockAdjustmentController@allAdjustments')->name('all-adjustments');
+    Route::get('inventory/stock-adjustment-history','StockAdjustmentController@history')->name('adjustment-history');
 
 
     /*price list route*/
@@ -110,13 +107,10 @@ Route::middleware(["auth"])->group(function () {
     ]);
 
 
-    /*product ledger routes*/
-    Route::resource('inventory-management/product-ledger', 'ProductLedgerController')->only([
-        'index'
-    ]);
+
 
     /*daily stock count routes*/
-    Route::resource('inventory-management/daily-stock-count', 'DailyStockCountController')->only([
+    Route::resource('inventory-management/daily-stock-count', 'StockCountController')->only([
         'index'
     ]);
 
