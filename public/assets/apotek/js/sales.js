@@ -67,6 +67,7 @@ var details_table = $('#details_table').DataTable({
 		{ title: "Amount" }
 	]
 });
+
 var credit_payment_table = $('#credit_payment_table').DataTable({
 	searching: false,
 	bPaginate: false,
