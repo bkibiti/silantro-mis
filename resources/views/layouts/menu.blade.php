@@ -8,10 +8,12 @@
     </a>
     <ul class="pcoded-submenu">
         @can('Cash Sales')
-        <li class=""><a href="{{route('cash-sales.cashSale')}}" class="">Point of Sale</a></li>
+        <li class=""><a href="{{route('sales.index')}}" class="">Point of Sale</a></li>
         @endcan
+        <li class=""><a href="{{route('sales.pending-order')}}" class="">Pending Orders</a></li>
+
         @can('View Sales History')
-        <li class=""><a href="{{route('sale-histories.SalesHistory')}}" class="">Sales History</a></li>
+        <li class=""><a href="{{route('sales.history')}}" class="">Sale History</a></li>
         @endcan
       
 

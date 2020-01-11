@@ -61,13 +61,10 @@ Route::middleware(["auth"])->group(function () {
 
  
     //Cash Sales routes
-    Route::get('sales/cash-sales', 'SaleController@cashSale')->name('cash-sales.cashSale');
-    Route::post('sales/cash-sales', 'SaleController@storeCashSale')->name('cash-sales.storeCashSale');
-    Route::get('sales/sale-histories', 'SaleController@SalesHistory')->name('sale-histories.SalesHistory');
-    Route::get('sales/sale-date', 'SaleController@getSalesHistory')->name('getSalesHistory');
-    Route::post('sales/select-products', 'SaleController@selectProducts')->name('selectProducts');
-    Route::get('sales/cash-sale/receipt', 'SaleController@getCashReceipt')->name('getCashReceipt');
-    Route::get('sales/credit-sale/receipt', 'SaleController@getCreditReceipt')->name('getCreditReceipt');
+    Route::get('sales/cash-sales', 'SaleController@index')->name('sales.index');
+    Route::post('sales/cash-sales', 'SaleController@store')->name('sales.store');
+    Route::get('sales/sale-histories', 'SaleController@history')->name('sales.history');
+    Route::get('sales/pending-orders', 'SaleController@pendingOrders')->name('sales.pending-order');
 
  
     /*Current Stock routes*/

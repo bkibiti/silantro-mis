@@ -39,7 +39,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Category</th>
-                                <th>Qty In Stock</th>
+                                <th>QOH</th>
                                 @if ($PriceCategory[0]->active =='Yes')
                                     <th> {{$PriceCategory[0]->description}}</th>
                                 @endif

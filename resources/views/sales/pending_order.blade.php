@@ -1,37 +1,30 @@
 @extends("layouts.master")
 @section('content-title')
-    Sale Order
+    Pending Orders
 @endsection
 
 
 
 @section("content")
 
-    <div class="col-sm-5">
+    <div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
                
                     <div id="product-table" class="table-responsive">
                         <table id="products" class="display table nowrap table-striped table-hover" style="width:100%">
                             <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                          
                             </thead>
                                 <tbody>
-                                    @foreach($current_stock as $stock)
+                                    @foreach($order_nos as $odn)
                                     <tr>
-                                        <td>{{ $stock->name }}</td>
+                                        <td>{{ $odn->order_number }}</td>
                                         <td>
                                                 <a href="#">
-                                                        <button type="button" class="btn btn-sm btn-icon btn-rounded btn-success selectproduct"
-                                                                data-id="{{$stock->id}}"
-                                                                data-name="{{$stock->name}}"
-                                                                data-sale_price_1="{{$stock->sale_price_1}}"
-                                                                data-unit_cost="{{$stock->unit_cost}}"
-                                                                data-quantity="{{$stock->quantity}}"
-                                                                data-toggle="button"><i class="feather icon-plus"></i>
+                                                        <button type="button" class="btn btn-sm btn-success selectproduct"
+                                                                data-order_number="{{$odn->order_number}}"
+                                                                data-toggle="button">Details
                                                         </button>
                                                     </a>
                                         </td>
@@ -45,7 +38,7 @@
 
     </div>
 
-    <div class="col-sm-7">
+    <div class="col-sm-8">
         <form method="POST" action="{{ route('sales.store') }}" >
             @csrf
             <input type="hidden" name="sale_order" id="sale_order" required>
@@ -78,7 +71,7 @@
                     </div>
                     
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Issue Order</button>
                     </div>
 
                 </div>
@@ -96,11 +89,7 @@
     <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
 
     <script>
-            $('#products').DataTable({
-                bAutoWidth: true,
-                lengthChange: false,
-            });
-            
+         
             var order_table = $('#order').DataTable({
                 searching: false,
                 bPaginate: false,
