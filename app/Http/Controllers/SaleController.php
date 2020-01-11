@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Stock;
 use App\Category;
 use App\Sale;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
@@ -19,11 +20,18 @@ class SaleController extends Controller
     {
         $current_stock = Stock::where('quantity','>',0)->get();
         $categories = Category::orderBy('name')->get();
+        $users = User::orderBy('name')->get();
         
-        return view('sales.pos', compact('current_stock','categories'));
+        return view('sales.pos', compact('current_stock','categories','users'));
     }
 
     public function store(Request $request){
+
+        $request->validate([
+            'created_by' => 'required',
+            'sale_order' => 'required',
+        ]);
+
         $data = json_decode($request->sale_order,true);
         $receiptNo = $this->generateReceiptNo();
         $orderNo = $this->generateOrderNo();
@@ -40,11 +48,17 @@ class SaleController extends Controller
                 'quantity' => $data[$i][3],
                 'buying_price' => $data[$i][6],
                 'selling_price' => str_replace(',','',$data[$i][4]) ,
-                'created_by' => Auth::User()->id,
+                'created_by' => $request->created_by,
+                // 'created_by' => Auth::User()->id,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-                'status' => '0',
+                'status' => '1',
             ];
+
+            //deduct stock values from sales
+            $stock = Stock::find($data[$i][0]);
+            $stock->quantity = $stock->quantity - $data[$i][3];
+            $stock->save();
         }
 
         DB::table('sales')->insert($order_details);
@@ -52,6 +66,16 @@ class SaleController extends Controller
         session()->flash("alert-success", "Order placed successfully!");
         return back();
 
+    }
+    public function history()
+    {
+        $sales = Sale::get();
+
+        $total = 0;
+        foreach ($sales as $s) {
+            $total = $total + ($s->quantity * $s->selling_price);
+        }
+        return view('sales.history', compact('sales','total'));
     }
 
     public function pendingOrders(){

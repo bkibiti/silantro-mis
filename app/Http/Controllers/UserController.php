@@ -27,17 +27,19 @@ class UserController extends Controller
             'name' => 'required|string|max:50',
             'position' => 'nullable|string|max:50',
             'role' => 'required',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'string|email|max:255',
+            'username' => 'required|string|max:20|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
 
         $user = new User;
         $user->name = $request->name;
+        $user->username = $request->username;
         $user->position = $request->position;
         $user->email = $request->email;
         $user->mobile = $request->mobile;
-        $user->status = '-1';
+        $user->status = '1';
         $user->password = Hash::make($request->password);
         $user->save();
 

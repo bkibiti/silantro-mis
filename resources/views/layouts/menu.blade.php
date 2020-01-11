@@ -7,13 +7,13 @@
         <span class="pcoded-mtext">Sales</span>
     </a>
     <ul class="pcoded-submenu">
-        @can('Cash Sales')
+        @can('Point of Sales')
         <li class=""><a href="{{route('sales.index')}}" class="">Point of Sale</a></li>
         @endcan
-        <li class=""><a href="{{route('sales.pending-order')}}" class="">Pending Orders</a></li>
+        {{-- <li class=""><a href="{{route('sales.pending-order')}}" class="">Pending Orders</a></li> --}}
 
         @can('View Sales History')
-        <li class=""><a href="{{route('sales.history')}}" class="">Sale History</a></li>
+        <li class=""><a href="{{route('sales.history')}}" class="">Sales History</a></li>
         @endcan
       
 
@@ -32,11 +32,11 @@
                 <li class=""><a href="{{ route('current-stock.index') }}" class="">Current Stock</a></li>
             @endcan
 
-            @can('View Stock Adjustment')
+            @can('View Adjustment History')
                 <li class=""><a href="{{ route('adjustment-history') }}" class="">Adjustment History</a></li>
             @endcan
 
-            @can('View Daily Stock Count')
+            @can('View Stock Count Sheet')
                 <li class=""><a href="{{ route('daily-stock-count.index') }}" class="">Stock Count Sheet</a></li>
             @endcan
       
@@ -46,15 +46,23 @@
 </li>
 
 <li class="nav-item pcoded-hasmenu">
-    <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="fas fa-shopping-cart"></i></span>
-        <span class="pcoded-mtext">Purchases</span>
-    </a>
-    <ul class="pcoded-submenu">
-        <li class=""><a href="{{route('goods-receiving.index')}}" class="">Goods Receiving</a></li>
-        <li class=""><a href="{{route('goods-receiving.history')}}" class="">Purchase History</a></li>
+    @can('View Purchase Management')
+
+        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="fas fa-shopping-cart"></i></span>
+            <span class="pcoded-mtext">Purchases</span>
+        </a>
+        <ul class="pcoded-submenu">
+            @can('Receive Goods')
+                 <li class=""><a href="{{route('goods-receiving.index')}}" class="">Goods Receiving</a></li>
+            @endcan
+            @can('Purchase History')
+                <li class=""><a href="{{route('goods-receiving.history')}}" class="">Purchase History</a></li>
+            @endcan
 
 
-    </ul>
+        </ul>
+    @endcan
+
 </li>
 
 <li class="nav-item pcoded-hasmenu">
@@ -100,22 +108,43 @@
 </li>
 
 <li class="nav-item pcoded-hasmenu">
+    @can('View Masters')
+
     <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="fas fa-stream"></i></span>
         <span class="pcoded-mtext">Masters</span>
     </a>
     <ul class="pcoded-submenu">
-        <li class=""><a href="{{route('categories.index')}}" class="">Product Categories</a></li>
-        <li class=""><a href="{{route('products.index')}}" class="">Products</a></li>
-        <li class=""><a href="{{route('price-categories.index')}}" class="">Price Categories</a></li>
-        <li class=""><a href="{{route('expense-categories.index')}}" class="">Expense Categories</a></li>
+        @can('View Products Categories')
+            <li class=""><a href="{{route('categories.index')}}" class="">Product Categories</a></li>
+        @endcan
+        @can('View Products')
+            <li class=""><a href="{{route('products.index')}}" class="">Products</a></li>
+        @endcan 
+        @can('View Price Categories')
+            <li class=""><a href="{{route('price-categories.index')}}" class="">Price Categories</a></li>
+        @endcan 
+        @can('View Expense Categories')
+            <li class=""><a href="{{route('expense-categories.index')}}" class="">Expense Categories</a></li>
+        @endcan 
+
+        @can('View Adjustment Reasons')
         <li class=""><a href="{{route('adjustment-reasons.index')}}" class="">Adjustment Reasons</a></li>
-        <li class=""><a href="{{route('suppliers.index')}}" class="">Suppliers</a></li>
-        <li class=""><a href="{{route('stores.index')}}" class="">Stores</a></li>
+        @endcan 
+        @can('View Suppliers')
+             <li class=""><a href="{{route('suppliers.index')}}" class="">Suppliers</a></li>
+        @endcan 
+        @can('View Stores')
+            <li class=""><a href="{{route('stores.index')}}" class="">Stores</a></li>
+        @endcan
     </ul>
+    @endcan
 
 </li>
-<li class="nav-item"><a href="{{route('configurations.index')}}" class="nav-link"><span class="pcoded-micon"><i
-                class="feather icon-settings"></i></span><span class="pcoded-mtext">Settings</span></a>
+<li class="nav-item"><a href="{{route('configurations.index')}}" class="nav-link"><span class="pcoded-micon">
+    @can('721')
+        <i class="feather icon-settings"></i></span><span class="pcoded-mtext">Settings</span></a>
+    @endcan
+    
 </li>
 
 

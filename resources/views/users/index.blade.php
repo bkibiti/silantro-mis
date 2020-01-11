@@ -33,6 +33,7 @@
             <thead>
                 <tr>
                 <th>Name</th>
+                <th>Username</th>
                 <th>E-mail</th>
                 <th>Mobile</th>
                 <th>Role</th>
@@ -45,6 +46,7 @@
                 @foreach($users as $user)
                 <tr>
                 <td>{{$user->name}} </td>
+                <td>{{$user->username}} </td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->mobile}}</td>
                 <td>{{ implode(", ", $user->getRoleNames()->toArray()) }}</td>
@@ -67,7 +69,7 @@
 
                     <a href="#">
                         <button class="btn btn-warning btn-sm" data-name="{{$user->name}}"
-                            data-email="{{$user->email}}" data-id="{{$user->id}}"
+                            data-email="{{$user->email}}" data-id="{{$user->id}}" data-username="{{$user->username}}"
                             data-job="{{$user->position}}"  data-mobile="{{$user->mobile}}"
                             data-role="{{ implode(", ", $user->getRoleNames()->toArray()) }}"
                             type="button" data-toggle="modal" data-target="#editUser">Edit</button>
@@ -116,6 +118,7 @@
       $('#editUser').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         var name = button.data('name')
+        var username = button.data('username')
         var email=button.data('email')
         var mobile=button.data('mobile')
         var job=button.data('job')
@@ -125,6 +128,7 @@
 
 
         modal.find('.modal-body #name1').val(name);
+        modal.find('.modal-body #username1').val(username);
         modal.find('.modal-body #email1').val(email);
         modal.find('.modal-body #position1').val(job);
         modal.find('.modal-body #mobile1').val(mobile).change();

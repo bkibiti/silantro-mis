@@ -1,6 +1,6 @@
 @extends("layouts.master")
 @section('content-title')
-    Sale Order
+    Point of Sale
 @endsection
 
 
@@ -52,14 +52,24 @@
           
             <div class="card">
                 <div class="card-body">
+              
                     <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-md-right">Table Number</label>
+                        <div class="col-md-4">
+                            <select class="form-control select2"  class="form-control"  name="created_by"  data-placeholder="Select Staff" required data-width="100%">
+                                <option value="">Select Staff</option>
+                                
+                                @foreach($users as $u)
+                                    <option value="{{$u->id}}">{{$u->name}}</option>
+                                @endforeach
+                            </select>
+                  
+                    </div>
+                            <label class="col-md-2 col-form-label text-md-right">Table #</label>
                             <div class="col-md-2">
                                     <input type="text" class="form-control" name="table_number">
                             </div>
-                            <label  class="col-md-2 col-form-label text-md-right">Customer</label>
-                            <div class="col-md-5">
-                                    <input type="text" class="form-control" name="customer">
+                            <div class="col-md-4">
+                                    <input type="text" class="form-control" name="customer" placeholder="Enter customer name">
                             </div>
                     </div>
                     <div id="order-table" class="table-responsive">
@@ -99,6 +109,10 @@
             $('#products').DataTable({
                 bAutoWidth: true,
                 lengthChange: false,
+                scrollY:  "400px",
+                scrollCollapse: true,
+                paging: false,
+                bInfo: false,
             });
             
             var order_table = $('#order').DataTable({

@@ -44,7 +44,7 @@
                                         <h6 class="mb-4">Average Daily Sales</h6>
                                         <div class="row d-flex align-items-center">
                                             <div class="col-9">
-                                            {{-- <h3 class="f-w-300 d-flex align-items-center m-b-0">Tshs {{ number_format($avgDailySales, 2) }}</h3> --}}
+                                            <h3 class="f-w-300 d-flex align-items-center m-b-0">Tshs {{ number_format($avgDailySales, 2) }}</h3>
                                             </div>
                                         </div>
 
@@ -61,13 +61,13 @@
                                         <div class="row d-flex align-items-center">
                                             <div class="col-9">
                                                 <h3 class="f-w-300 d-flex align-items-center  m-b-0">
-                                                    {{-- @if ($todaySales > $avgDailySales)
+                                                    @if ($todaySales > $avgDailySales)
                                                         <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>
                                                     @else
                                                         <i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>
-                                                    @endif --}}
+                                                    @endif
 
-                                                   {{-- Tshs {{ number_format($todaySales, 2) }} --}}
+                                                   Tshs {{ number_format($todaySales, 2) }}
 
                                                 </h3>
                                             </div>
@@ -86,7 +86,7 @@
                                         <h6 class="mb-4">Average Monthly Sales</h6>
                                         <div class="row d-flex align-items-center">
                                             <div class="col-9">
-                                                {{-- <h3 class="f-w-300 d-flex align-items-center  m-b-0">Tshs {{ number_format($avgDailySales * 30,2) }}</h3> --}}
+                                                <h3 class="f-w-300 d-flex align-items-center  m-b-0">Tshs {{ number_format($avgDailySales * 30,2) }}</h3>
                                             </div>
 
                                         </div>
@@ -172,6 +172,7 @@
 
 @endsection
 
+    {{-- chart.data = @json($salesByCategory); --}}
 
 
 @push("page_scripts")
@@ -181,9 +182,6 @@
 <script src="{{asset("assets/plugins/amcharts4/themes/animated.js")}}"></script>
 
 
-{{-- //    chart.data = @json($totalDailySales); --}}
-{{-- //   chart.data = @json($totalMonthlySales); --}}
-{{-- // chart.data = @json($salesByCategory); --}}
 
 <script>
 
@@ -206,6 +204,7 @@
     var chart = am4core.create("daily_sales", am4charts.XYChart);
 
     // Add data
+    chart.data = @json($totalDailySales);
 
     // Set input format for the dates
     chart.dateFormatter.inputDateFormat = "dd-MM-yyyy";
@@ -283,7 +282,7 @@
         chart.scrollbarX = new am4core.Scrollbar();
 
         // Add data
-    
+        chart.data = @json($totalMonthlySales);
 
 
         //title
@@ -345,6 +344,7 @@
 
         // Create chart instance
         var chart = am4core.create("sales_by_category", am4charts.PieChart);
+       
 
         // Add and configure Series
         var pieSeries = chart.series.push(new am4charts.PieSeries());

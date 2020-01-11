@@ -129,6 +129,11 @@
         $('#products').DataTable({
             bAutoWidth: true,
             lengthChange: false,
+            scrollY:  "400px",
+            scrollCollapse: true,
+            paging: false,
+            bInfo: false,
+
         });
 
         $('.selectproduct').click(function() {

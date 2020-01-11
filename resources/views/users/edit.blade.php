@@ -24,14 +24,24 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }} <font color="red">*</font></label>
 
+                            <div class="col-md-8">
+                                <input id="username1" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username1" value="{{ old('username') }}" disabled>
+
+                                <span class="text-danger">
+                                     <strong id="username1-error"></strong>
+                                </span>
+                            </div>
+                        </div>
 
 
                         <div class="form-group row">
-                            <label for="email1" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }} <font color="red">*</font></label>
+                            <label for="email1" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }} </label>
 
                             <div class="col-md-8">
-                                <input id="email1" type="email" class="form-control" name="email1" value="{{ old('email1') }}" disabled>
+                                <input id="email1" type="email" class="form-control" name="email1" value="{{ old('email1') }}" >
 
                                 <span class="text-danger">
                                      <strong id="email-error1"></strong>

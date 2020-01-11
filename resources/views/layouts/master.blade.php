@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Silantro Management System</title>
+    <title>Silantro MIS</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -28,10 +28,11 @@
     <link rel="stylesheet" href="{{asset("assets/plugins/multi-select/css/multi-select.css")}}">
       <!-- tel-input css -->
     <link rel="stylesheet" href="{{asset("assets/plugins/intl-tel-input/css/intlTelInput.css")}}">
-    <!-- Datepicker css -->
+   <!-- Bootstrap Datepicker css -->
     <link href="{{asset("assets/plugins/bootstrap-datetimepicker/css/prettify.css")}}" rel="stylesheet">
     <link href="{{asset("assets/plugins/bootstrap-datetimepicker/css/bootstrap-datepicker3.min.css")}}" rel="stylesheet">
-    <link href="{{asset("assets/plugins/daterangepicker-master/css/daterangepicker.css")}}" rel="stylesheet">
+    <link href="{{asset("assets/plugins/bootstrap-datetimepicker/css/docs.css")}}" rel="stylesheet">
+  
 
     @yield("page_css")
 
@@ -68,7 +69,7 @@
                     {{-- <div class="b-bg"> --}}
                         {{-- <img src="{{asset('silantro.ico')}}"  alt="Silantro"> --}}
                     {{-- </div> --}}
-                    <span class="b-title">Silantro Lounge</span>
+                    <span class="b-title">Silantro MIS</span>
                 </a>
                 <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
             </div>
@@ -107,13 +108,13 @@
                     <div class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i></a>
                         <div class="dropdown-menu dropdown-menu-right notification">
-                            <div class="noti-head">
+                            {{-- <div class="noti-head">
                                 <h6 class="d-inline-block m-b-0">Notifications</h6>
                                 <div class="float-right">
                                     <a href="#!" class="m-r-10">mark as read</a>
                                     <a href="#!">clear all</a>
                                 </div>
-                            </div>
+                            </div> --}}
                             <ul class="noti-body">
 
 
@@ -240,9 +241,14 @@
 
 
     <!-- Required Js -->
+
     <script src="{{asset("assets/js/vendor-all.min.js")}}"></script>
     <script src="{{asset("assets/plugins/bootstrap/js/bootstrap.min.js")}}"></script>
     <script src="{{asset("assets/js/pcoded.min.js")}}"></script>
+
+    <script src="{{asset("assets/plugins/moment/js/moment.js")}}"></script>
+
+
     <!-- notification Js -->
     <script src="{{asset("assets/plugins/notification/js/bootstrap-growl.min.js")}}"></script>
 
@@ -266,11 +272,12 @@
     <script src="{{asset("assets/plugins/inputmask/js/autoNumeric.js")}}"></script>
       <!-- tel-input js -->
     <script src="{{asset("assets/plugins/intl-tel-input/js/intlTelInput.js")}}"></script>
-   <!-- moment js -->
-    <script src="{{asset("assets/plugins/moment/js/moment.js")}}"></script>
-      <!-- daterangepicker js -->
-    <script src="{{asset("assets/plugins/daterangepicker-master/js/daterangepicker.js")}}"></script>
 
+   
+    <!-- boostrap js -->
+    <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
+
+  
 
    {{-- custom java scripts for the page --}}
     @stack("page_scripts")
