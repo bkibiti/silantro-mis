@@ -23,18 +23,34 @@
         <div class="card">
             <div class="card-body">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                
+                <form id="expense_form" action="{{route('sales.history-search')}}" method="post">
+                        @csrf()
+
                   <div class="form-group row">
+                  
+                        <label for="product_name" class="col-md-1 col-form-label text-md-right">From:</label>
+                        <div class="col-md-2">
+                            <div id="date" style="border: 2px solid white; border-radius: 6px;">
+                                <input type="text" name="from_date" class="form-control" id="from_date" required>
+                            </div>
+                        </div>
+                        <label for="product_name" class="col-md-1 col-form-label text-md-right">To Date:</label>
+                        <div class="col-md-2">
+                            <div id="date" style="border: 2px solid white; border-radius: 6px;">
+                                <input type="text" name="to_date" class="form-control" id="to_date" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-success">Show</button>
+                        </div>
+                 </div>
 
-                    <label for="product_name" class="col-md-4 col-form-label text-md-right">Product</label>
+                </form>
 
-                    <div class="col-md-8">
-                      <div class='col-sm-6'>
-                        <input type='text' class="form-control" id='datetimepicker1' />
-                    </div>
-                    </div>
-                </div>
-
-
+<hr>
                     <div id="product-table" class="table-responsive">
                         <table id="fixed-header1" class="display table nowrap table-striped table-hover"
                                style="width:100%">
@@ -85,12 +101,9 @@
 @push("page_scripts")
 
 @include('partials.notification')
-
- <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker1').datepicker();
-            });
-        </script>          
+<script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
+<script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
+       
 
   <script>
 
@@ -98,6 +111,35 @@
           bAutoWidth: true,
       });
 
+   
+    $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#from_date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
+    $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#to_date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
 
 
 

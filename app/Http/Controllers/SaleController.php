@@ -78,6 +78,22 @@ class SaleController extends Controller
         return view('sales.history', compact('sales','total'));
     }
 
+    public function historySearch(Request $request)
+    {
+    //  dd($request->all());
+        $from = date('Y-m-d', strtotime($request->from_date));
+        $to = date('Y-m-d', strtotime($request->to_date . ' +1 day'));
+
+        $sales = Sale::whereBetween('created_at', [$from, $to])->get();
+
+        $total = 0;
+        foreach ($sales as $s) {
+            $total = $total + ($s->quantity * $s->selling_price);
+        }
+        return view('sales.history', compact('sales','total'));
+    }
+
+
     public function pendingOrders(){
         $orders = sale::where('status',0)->get();
         $order_nos = DB::table('sales')->distinct()->select('order_number')->get();

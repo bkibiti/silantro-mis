@@ -64,6 +64,7 @@ Route::middleware(["auth"])->group(function () {
     Route::get('sales/cash-sales', 'SaleController@index')->name('sales.index');
     Route::post('sales/cash-sales', 'SaleController@store')->name('sales.store');
     Route::get('sales/sale-histories', 'SaleController@history')->name('sales.history');
+    Route::post('sales/sale-histories', 'SaleController@historySearch')->name('sales.history-search');
     Route::get('sales/pending-orders', 'SaleController@pendingOrders')->name('sales.pending-order');
 
  

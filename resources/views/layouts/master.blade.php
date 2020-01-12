@@ -31,8 +31,10 @@
    <!-- Bootstrap Datepicker css -->
     <link href="{{asset("assets/plugins/bootstrap-datetimepicker/css/prettify.css")}}" rel="stylesheet">
     <link href="{{asset("assets/plugins/bootstrap-datetimepicker/css/bootstrap-datepicker3.min.css")}}" rel="stylesheet">
-    <link href="{{asset("assets/plugins/bootstrap-datetimepicker/css/docs.css")}}" rel="stylesheet">
-  
+      <!-- Datepicker css -->
+    <link href="{{asset("assets/plugins/bootstrap-datetimepicker/css/prettify.css")}}" rel="stylesheet">
+    <link href="{{asset("assets/plugins/bootstrap-datetimepicker/css/bootstrap-datepicker3.min.css")}}" rel="stylesheet">
+    <link href="{{asset("assets/plugins/daterangepicker-master/css/daterangepicker.css")}}" rel="stylesheet">
 
     @yield("page_css")
 
@@ -246,9 +248,7 @@
     <script src="{{asset("assets/plugins/bootstrap/js/bootstrap.min.js")}}"></script>
     <script src="{{asset("assets/js/pcoded.min.js")}}"></script>
 
-    <script src="{{asset("assets/plugins/moment/js/moment.js")}}"></script>
-
-
+  
     <!-- notification Js -->
     <script src="{{asset("assets/plugins/notification/js/bootstrap-growl.min.js")}}"></script>
 
@@ -273,10 +273,13 @@
       <!-- tel-input js -->
     <script src="{{asset("assets/plugins/intl-tel-input/js/intlTelInput.js")}}"></script>
 
-   
+    <script src="{{asset("assets/plugins/moment/js/moment.js")}}"></script>
     <!-- boostrap js -->
-    <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
+    <script src="{{asset("assets/plugins/daterangepicker-master/js/daterangepicker.js")}}"></script>
+    {{-- <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script> --}}
 
+    
+  
   
 
    {{-- custom java scripts for the page --}}
