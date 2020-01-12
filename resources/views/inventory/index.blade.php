@@ -40,6 +40,7 @@
                                 <th>Name</th>
                                 <th>Category</th>
                                 <th>QOH</th>
+                                <th>Purchase Price</th>
                                 @if ($PriceCategory[0]->active =='Yes')
                                     <th> {{$PriceCategory[0]->description}}</th>
                                 @endif
@@ -50,6 +51,7 @@
                                     <th> {{$PriceCategory[2]->description}}</th>
                                 @endif
                                 <th>Actions</th>
+
                             </tr>
                             </thead>
                                 <tbody>
@@ -58,6 +60,7 @@
                                             <td>{{$prod->name}}</td>
                                             <td>{{$prod->category->name}}</td>
                                             <td>{{$prod->quantity}}</td>
+                                            <td>{{number_format($prod->unit_cost,2) }}</td>
                                            
                                             @if ($PriceCategory[0]->active =='Yes')
                                                 <td>{{$prod->sale_price_1}}</td>
