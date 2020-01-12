@@ -7,7 +7,7 @@ Point of Sale
 
 @section("content")
 
-<div class="col-sm-4">
+<div class="col-sm-5">
     <div class="card">
         <div class="card-body">
 
@@ -44,7 +44,7 @@ Point of Sale
 
 </div>
 
-<div class="col-sm-8">
+<div class="col-sm-7">
     <form method="POST" action="{{ route('sales.store') }}">
         @csrf
         <input type="hidden" name="sale_order" id="sale_order" required>
