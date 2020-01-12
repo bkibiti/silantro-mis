@@ -1,116 +1,108 @@
 @extends("layouts.master")
 
 @section('page_css')
-    <style>
+<style>
 
 
-    </style>
+</style>
 @endsection
 
 @section('content-title')
-    Expense
+Expense
 @endsection
 
 @section('content-sub-title')
-    <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
-    <li class="breadcrumb-item"><a href="#"> Expense Management / Expense </a></li>
+<li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
+<li class="breadcrumb-item"><a href="#"> Expense Management / Expense </a></li>
 @endsection
 
 @section("content")
 
-    <style>
+<style>
+    .datepicker>.datepicker-days {
+        display: block;
+    }
 
-        .datepicker > .datepicker-days {
-            display: block;
-        }
+    ol.linenums {
+        margin: 0 0 0 -8px;
+    }
 
-        ol.linenums {
-            margin: 0 0 0 -8px;
-        }
+    .ms-container {
+        background: transparent url('../assets/plugins/multi-select/img/switch.png') no-repeat 50% 50%;
+        width: 100%;
+    }
 
-        .ms-container {
-            background: transparent url('../assets/plugins/multi-select/img/switch.png') no-repeat 50% 50%;
-            width: 100%;
-        }
+    .ms-selectable,
+    .ms-selection {
+        background: #fff;
+        color: #555555;
+        float: left;
+        width: 45%;
+    }
 
-        .ms-selectable, .ms-selection {
-            background: #fff;
-            color: #555555;
-            float: left;
-            width: 45%;
-        }
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: none;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+    }
 
-        #loading {
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            position: fixed;
-            display: none;
-            opacity: 0.7;
-            background-color: #fff;
-            z-index: 99;
-            text-align: center;
-        }
+    #loading-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 100;
+    }
 
-        #loading-image {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            z-index: 100;
-        }
+    input[type=button]:focus {
+        background-color: #748892;
+        border-color: #748892;
+        color: white;
+    }
+</style>
 
-        input[type=button]:focus {
-            background-color: #748892;
-            border-color: #748892;
-            color: white;
-        }
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row">
+                  
+                    <div class="col-md-4">
+                        {{-- <label >Expense Date</label> --}}
+                        <div class="form-group">
+                            <input type="text" name="date_of_expense" onchange="getExpenseDate()" class="form-control"
+                                id="expense_date" value="" />
 
-    </style>
-
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="issued_date">Expense Date</label>
-                                <input type="text" name="date_of_expense" onchange="getExpenseDate()"
-                                       class="form-control" id="expense_date" value=""/>
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group" hidden>
-
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                @can('Add Expenses')
-                                    <label for="issued_date" style="color: white">add expense</label>
-                                    <input type="button" name="issued_date"
-                                           value="Add Expense"
-                                           class="form-control btn btn-secondary" data-toggle="modal"
-                                           data-target="#create">
-                                @endcan
-                            </div>
                         </div>
                     </div>
-
-                    {{--ajax loading gif--}}
-                    <div id="loading">
-                        <image id="loading-image" src="{{asset('assets/images/spinner.gif')}}"></image>
+           
+                    <div class="col-md-6">
                     </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @can('Add Expenses')
+                            <input type="button" name="issued_date" value="Add Expense"
+                                class="form-control btn btn-primary" data-toggle="modal" data-target="#create">
+                            @endcan
+                        </div>
+                    </div>
+                </div>
+<hr>
+                {{--ajax loading gif--}}
+                <div id="loading">
+                    <image id="loading-image" src="{{asset('assets/images/spinner.gif')}}"></image>
+                </div>
 
-                    <div id="tbody-header" class="table-responsive" style="display: block">
-                        <table id="fixed-header" class="display table nowrap table-striped table-hover"
-                               style="width:100%">
+                <div id="tbody-header" class="table-responsive" style="display: block">
+                    <table id="fixed-header" class="display table nowrap table-striped table-hover" style="width:100%">
 
-                            <thead>
+                        <thead>
                             <tr>
                                 <th>Expense Date</th>
                                 <th>Expense Category</th>
@@ -118,54 +110,54 @@
                                 <th>Amount</th>
                                 <th>Payment Method</th>
                             </tr>
-                            </thead>
-                        </table>
-                    </div>
+                        </thead>
+                    </table>
+                </div>
 
-                    <div id="tbody-header-expense" class="table-responsive" style="display: none;">
-                        <table id="fixed-header-expense" class="display table nowrap table-striped table-hover"
-                               style="width:100%;">
+                <div id="tbody-header-expense" class="table-responsive" style="display: none;">
+                    <table id="fixed-header-expense" class="display table nowrap table-striped table-hover"
+                        style="width:100%;">
 
-                            <thead>
+                        <thead>
                             <tr>
                                 <th>Expense Date</th>
                                 <th>Expense Category</th>
                                 <th>Description</th>
                                 <th>Amount</th>
                                 <th>Payment Method</th>
-                                <th>User</th>
+                                <th>Recorded By</th>
                             </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <hr>
+                <hr>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <b style="font-size: 1.4em">Total Expense: </b>
-                            <span id="total_span" style="font-size: 1.4em"></span><span
-                                style="font-size: 1.4em"> .Tshs</span>
-                        </div>
+                <div class="row">
+            
+                    <div class="col-md-12">
+                        <h4>Total Expenses (Tshs): <span id="total_span"></span>
+                            </h4>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    @include("expense.create")
+@include("expense.create")
 
 @endsection
 
 @push("page_scripts")
-    <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
-    <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
-    @include('partials.notification')
+<script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
+<script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
+@include('partials.notification')
 
-    <script>
-        /*expense filter table results*/
+<script>
+    /*expense filter table results*/
         var table_expense_filter = $('#fixed-header-expense').DataTable({
             searching: true,
             bPaginate: true,
@@ -363,7 +355,7 @@
             }
         }
 
-    </script>
+</script>
 
 
 @endpush

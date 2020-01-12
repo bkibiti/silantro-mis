@@ -63,12 +63,11 @@
                         </table>
                         
                     </div>
-                 
+                 <hr>
                     <div class="row">
-                            <div class="col-md-2"> </div>
-
-                            <div class="col-md-10">
-                                <h5>Total Purchases: {{number_format($total,2)}}</h5>
+             
+                            <div class="col-md-12">
+                                <h4>Total Purchases (Tshs): {{number_format($total,2)}}</h4>
                             </div>
                     </div>
 

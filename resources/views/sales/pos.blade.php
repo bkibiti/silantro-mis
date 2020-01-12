@@ -1,112 +1,143 @@
 @extends("layouts.master")
 @section('content-title')
-    Point of Sale
+Point of Sale
 @endsection
 
 
 
 @section("content")
 
-    <div class="col-sm-5">
-            <div class="card">
-                <div class="card-body">
-               
-                    <div id="product-table" class="table-responsive">
-                        <table id="products" class="display table nowrap table-striped table-hover" style="width:100%">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                                <tbody>
-                                    @foreach($current_stock as $stock)
-                                    <tr>
-                                        <td>{{ $stock->name }}</td>
-                                        <td>
-                                                <a href="#">
-                                                        <button type="button" class="btn btn-sm btn-icon btn-rounded btn-success selectproduct"
-                                                                data-id="{{$stock->id}}"
-                                                                data-name="{{$stock->name}}"
-                                                                data-sale_price_1="{{$stock->sale_price_1}}"
-                                                                data-unit_cost="{{$stock->unit_cost}}"
-                                                                data-quantity="{{$stock->quantity}}"
-                                                                data-toggle="button"><i class="feather icon-plus"></i>
-                                                        </button>
-                                                    </a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                        </table>
-                    </div> 
+<div class="col-sm-4">
+    <div class="card">
+        <div class="card-body">
+
+            <div id="product-table" class="table-responsive">
+                <table id="products" class="display table nowrap table-striped table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($current_stock as $stock)
+                        <tr>
+                            <td>{{ $stock->name }}</td>
+                            <td>
+                                <a href="#">
+                                    <button type="button"
+                                        class="btn btn-sm btn-icon btn-rounded btn-success selectproduct"
+                                        data-id="{{$stock->id}}" data-name="{{$stock->name}}"
+                                        data-sale_price_1="{{$stock->sale_price_1}}"
+                                        data-unit_cost="{{$stock->unit_cost}}" data-quantity="{{$stock->quantity}}"
+                                        data-toggle="button"><i class="feather icon-plus"></i>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
-
     </div>
 
-    <div class="col-sm-7">
-        <form method="POST" action="{{ route('sales.store') }}" >
-            @csrf
-            <input type="hidden" name="sale_order" id="sale_order" required>
-          
-            <div class="card">
-                <div class="card-body">
-              
-                    <div class="form-group row">
-                        <div class="col-md-4">
-                            <select class="form-control select2"  class="form-control"  name="created_by"  data-placeholder="Select Staff" required data-width="100%">
-                                <option value="">Select Staff</option>
-                                
-                                @foreach($users as $u)
-                                    <option value="{{$u->id}}">{{$u->name}}</option>
-                                @endforeach
-                            </select>
-                  
-                    </div>
-                            <label class="col-md-2 col-form-label text-md-right">Table #</label>
-                            <div class="col-md-2">
-                                    <input type="text" class="form-control" name="table_number">
-                            </div>
-                            <div class="col-md-4">
-                                    <input type="text" class="form-control" name="customer" placeholder="Enter customer name">
-                            </div>
-                    </div>
-                    <div id="order-table" class="table-responsive">
-                        <table id="order" class="display table nowrap table-striped table-hover" style="width:100%">
-                        
-                        </table>
+</div>
 
-                        
+<div class="col-sm-8">
+    <form method="POST" action="{{ route('sales.store') }}">
+        @csrf
+        <input type="hidden" name="sale_order" id="sale_order" required>
+
+        <div class="card">
+            <div class="card-body">
+                @if (getSettings('enable_sale_date_select')=='YES')
+                <div class="form-group row">
+                    <label for="product_name" class="col-md-2 col-form-label text-md-left">Sales Date:</label>
+                    <div class="col-md-4">
+                        <div id="date" style="border: 2px solid white; border-radius: 6px;">
+                            <input type="text" name="sale_date" class="form-control" id="sale_date" required>
+                        </div>
                     </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-6"><h6> Total Order Amount </h6></div>
-                        <div  class="col-sm-4"><h6 id ="total">  </h6></div>
-                        
+                </div>
+                @else
+                    <input type="hidden" name="sale_date" value="NA">
+                @endif
+
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        <select class="form-control select2" class="form-control" name="created_by"
+                            data-placeholder="Select Staff" required data-width="100%">
+                            <option value="">Select Staff</option>
+
+                            @foreach($users as $u)
+                            <option value="{{$u->id}}">{{$u->name}}</option>
+                            @endforeach
+                        </select>
+
                     </div>
-                    
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                    <label class="col-md-2 col-form-label text-md-right">Table #</label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" name="table_number">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="customer" placeholder="Enter customer name">
+                    </div>
+                </div>
+                <div id="order-table" class="table-responsive">
+                    <table id="order" class="display table nowrap table-striped table-hover" style="width:100%">
+
+                    </table>
+
+
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-6">
+                        <h6> Total Order Amount </h6>
+                    </div>
+                    <div class="col-sm-4">
+                        <h6 id="total"> </h6>
                     </div>
 
                 </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+
             </div>
-        </form>
-    </div>
-    
+        </div>
+    </form>
+</div>
+
 
 @endsection
 
 @push("page_scripts")
-    @include('partials.notification')
+@include('partials.notification')
 
-    <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
-    <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
+<script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
+<script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
 
-    <script>
-            $('#products').DataTable({
+<script>
+    $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#sale_date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
+
+    $('#products').DataTable({
                 bAutoWidth: true,
                 lengthChange: false,
                 scrollY:  "400px",
@@ -243,5 +274,5 @@
 
          
     
-        </script>
+</script>
 @endpush

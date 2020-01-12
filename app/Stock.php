@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stock extends Model
 {
-    protected $table = 'inv_stock';
+    protected $table = 'stock';
 
     public function store()
     {

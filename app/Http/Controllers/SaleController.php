@@ -37,6 +37,13 @@ class SaleController extends Controller
         $orderNo = $this->generateOrderNo();
 
         $order_details = [];
+        $sale_date = '';
+
+        if($request->sale_date =='NA'){
+            $sale_date = Carbon::now();
+        }else{
+            $sale_date = date('Y-m-d', strtotime($request->sale_date));
+        }
 
         for($i= 0; $i < count($data); $i++){
             $order_details[] = [
@@ -49,8 +56,7 @@ class SaleController extends Controller
                 'buying_price' => $data[$i][6],
                 'selling_price' => str_replace(',','',$data[$i][4]) ,
                 'created_by' => $request->created_by,
-                // 'created_by' => Auth::User()->id,
-                'created_at' => Carbon::now(),
+                'created_at' => $sale_date,
                 'updated_at' => Carbon::now(),
                 'status' => '1',
             ];
@@ -80,12 +86,11 @@ class SaleController extends Controller
 
     public function historySearch(Request $request)
     {
-    //  dd($request->all());
         $from = date('Y-m-d', strtotime($request->from_date));
         $to = date('Y-m-d', strtotime($request->to_date . ' +1 day'));
 
         $sales = Sale::whereBetween('created_at', [$from, $to])->get();
-
+        
         $total = 0;
         foreach ($sales as $s) {
             $total = $total + ($s->quantity * $s->selling_price);
@@ -109,7 +114,7 @@ class SaleController extends Controller
         }else{
             $maxID = $maxID + 1;
         }
-        $no = "SON-". $maxID;
+        $no = "OSN". $maxID;
         return $no;
     }
     public function generateReceiptNo(){
@@ -119,7 +124,7 @@ class SaleController extends Controller
         }else{
             $maxID = $maxID + 1;
         }
-        $no = "SRN-". $maxID;
+        $no = "RSN". $maxID;
         return $no;
     }
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StockAdjustment extends Model
 {
-    protected $table = 'inv_stock_adjustments';
+    protected $table = 'stock_adjustments';
 
 
     public function user()

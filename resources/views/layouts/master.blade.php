@@ -71,6 +71,9 @@
                     {{-- <div class="b-bg"> --}}
                         {{-- <img src="{{asset('silantro.ico')}}"  alt="Silantro"> --}}
                     {{-- </div> --}}
+                    <div class="b-bg">
+                        <i class="fa fas fa-leaf"></i>
+                    </div>
                     <span class="b-title">Silantro MIS</span>
                 </a>
                 <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
@@ -92,9 +95,9 @@
             <a class="mobile-menu" id="mobile-collapse1" href="#!"><span></span></a>
             <a href="index.html" class="b-brand">
                    <div class="b-bg">
-                       <i class="feather icon-trending-up"></i>
+                       <i class="fa fas fa-leaf"></i>
                    </div>
-                   <span class="b-title">Silantro</span>
+                   <span class="b-title">Silantro MIS</span>
                </a>
         </div>
         <a class="mobile-menu" id="mobile-header" href="#!">
@@ -151,8 +154,8 @@
                             </form>
                             <ul class="pro-body">
                                 {{-- <li><a href="#!" class="dropdown-item"><i class="feather icon-settings"></i> Settings</a></li> --}}
-                                <li><a href="#!" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
-                                <li><a href="message.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
+                                {{-- <li><a href="#!" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li> --}}
+                                {{-- <li><a href="message.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li> --}}
                                 <li><a href="{{ route('logout') }}" class="dropdown-item"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">

@@ -8,7 +8,7 @@ use App\Product as product;
 
 class Category extends Model
 {
-    protected $table = 'inv_categories';
+    protected $table = 'product_categories';
     public $timestamps = false;
 
     public function category(){
@@ -16,9 +16,6 @@ class Category extends Model
 
     }
 
-    public function subCategory(){
-        return $this->hasMany(subCategory::class,'category_id','id');
-    }
 
 }
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class IncomingStock extends Model
 {
-    protected $table = 'inv_incoming_stock';
+    protected $table = 'incoming_stock';
 
 
     public function supplier()

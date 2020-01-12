@@ -2,10 +2,10 @@
 
 @section('page_css')
 <style>
- img {
-max-width: 100px;
-     max-height: 100px;
-}
+  img {
+    max-width: 100px;
+    max-height: 100px;
+  }
 </style>
 @endsection
 
@@ -20,74 +20,73 @@ Settings
 
 @section("content")
 <style type="text/css">
-    .iti { width: 100%; }
+  .iti {
+    width: 100%;
+  }
 </style>
 
 <div class="col-sm-12">
-<div class="card">
-<div class="card-body">
-<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  <div class="card">
+    <div class="card-body">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
 
-<div class="table-responsive">
-<table id="setting_table" class="display table nowrap table-striped table-hover"
-style="width:100%">
-<thead>
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Value</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-@foreach($configurations as $setting)
-<td>{{$setting->id}}</td>
-<td>{{$setting->display_name}}</td>
-@if($setting->id == 105)
-<td> <img src="/fileStore/logo/{{$setting->value}}"/></td>
-@elseif($setting->id == 120)
-<td>{{$setting->value.'%'}}</td>
-@else
-<td>{{$setting->value}}</td>
-@endif
-<td>
-<a href="#">
-<button class="btn btn-sm btn-rounded btn-primary" id="edit_btn">Edit
-</button>
-</a>
-</td>
-</tr>
-@endforeach
+        <div class="table-responsive">
+          <table id="setting_table" class="display table nowrap table-striped table-hover" style="width:100%">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Value</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                @foreach($configurations as $setting)
+                <td>{{$setting->id}}</td>
+                <td>{{$setting->display_name}}</td>
+                @if($setting->id == 105)
+                <td> <img src="/fileStore/logo/{{$setting->value}}" /></td>
+                @elseif($setting->id == 120)
+                <td>{{$setting->value.'%'}}</td>
+                @else
+                <td>{{$setting->value}}</td>
+                @endif
+                <td>
+                  <a href="#">
+                    <button class="btn btn-sm btn-rounded btn-primary" id="edit_btn">Edit
+                    </button>
+                  </a>
+                </td>
+              </tr>
+              @endforeach
 
 
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-@include('configurations.edit')
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  @include('configurations.edit')
 
-@endsection
+  @endsection
 
-@push("page_scripts")
-@include('partials.notification')
+  @push("page_scripts")
+  @include('partials.notification')
 
-    <!-- Input mask Js -->
-    <script src="{{asset("assets/plugins/inputmask/js/inputmask.min.js")}}"></script>
-    <script src="{{asset("assets/plugins/inputmask/js/jquery.inputmask.min.js")}}"></script>
-    <script src="{{asset("assets/plugins/inputmask/js/autoNumeric.js")}}"></script>
-    <!-- form-picker-custom Js -->
-    <script src="{{asset("assets/js/pages/form-masking-custom.js")}}"></script>
+  <!-- Input mask Js -->
+  <script src="{{asset("assets/plugins/inputmask/js/inputmask.min.js")}}"></script>
+  <script src="{{asset("assets/plugins/inputmask/js/jquery.inputmask.min.js")}}"></script>
+  <script src="{{asset("assets/plugins/inputmask/js/autoNumeric.js")}}"></script>
+  <!-- form-picker-custom Js -->
+  <script src="{{asset("assets/js/pages/form-masking-custom.js")}}"></script>
 
-<script>
-
-
+  <script>
     var setting_table = $('#setting_table').DataTable(
 {
-lengthMenu: [[5,10, 20, -1], ["Five","Ten",'Twenty', "All"]]
+lengthMenu: [[10, 20, -1], ["Ten",'Twenty', "All"]]
 } );
 
 $('#setting_table tbody').on( 'click', '#edit_btn', function () {
@@ -179,6 +178,7 @@ element.setAttribute("id","phone_number");
 element.setAttribute("name", "formdata");
 element.setAttribute("class", "form-control");
 document.getElementById("formInput").appendChild(element);
+
    var input = document.querySelector("#phone_number");
       var errorMsg = document.querySelector("#error-msg");
       var validMsg = document.querySelector("#valid-msg");
@@ -313,7 +313,7 @@ document.getElementById("formInput").appendChild(element);
 }
 
 });
-</script>
+  </script>
 
 
-@endpush
+  @endpush

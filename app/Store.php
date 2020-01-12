@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Store extends Model
 {
-    protected $table = 'inv_stores';
+    protected $table = 'stores';
     public $timestamps = false;
 }

@@ -10,7 +10,15 @@ function getRoles(){
         ->get();
 }
 
-function getSettings(){
-    return Setting::get();
+function getSettings($settingName){
+    $settings = Setting::get();
+
+    $value = 'NA';
+    foreach ($settings as $s) {
+        if($s->name == $settingName){
+            return $s->value;
+        }
+    }
+    return $value;
 }
 

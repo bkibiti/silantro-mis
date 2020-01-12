@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AccExpenseCategory extends Model
 {
-    protected $table = 'acc_expense_categories';
+    protected $table = 'expense_categories';
     public $timestamps = false;
 
 
