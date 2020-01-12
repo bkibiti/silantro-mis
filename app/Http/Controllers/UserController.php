@@ -95,6 +95,14 @@ class UserController extends Controller
 
     }
 
+    public function profile()
+    {
+        $users = User::find(Auth::user()->id);
+
+        return view('users.user_profile', compact("users"));
+    }
+
+
     public function getRoleID(Request $request)
     {
         $data = DB::table('roles')

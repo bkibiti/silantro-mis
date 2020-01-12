@@ -154,7 +154,7 @@
                             </form>
                             <ul class="pro-body">
                                 {{-- <li><a href="#!" class="dropdown-item"><i class="feather icon-settings"></i> Settings</a></li> --}}
-                                {{-- <li><a href="#!" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li> --}}
+                                <li><a href="{{ route('user-profile') }}" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
                                 {{-- <li><a href="message.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li> --}}
                                 <li><a href="{{ route('logout') }}" class="dropdown-item"
                                     onclick="event.preventDefault();

@@ -15,7 +15,7 @@
                 <h3 class="box-title">My Profile </h3>
             </div>
             <div class="box-body">
-                <form method="POST" action="{{route('updateProfile') }}" >
+                <form method="POST" action="{{route('update-profile') }}" >
                     @csrf
                     
       
@@ -69,18 +69,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-1"></div>
-                        <label for="organisation" class="col-md-3 col-form-label text-md-right">{{ __('Organisation') }}</label>
-                        
-                        <div class="col-md-7">
-                            <input id="organisation" type="text" class="form-control" name="organisation" value="{{$users->organisation }}">
-                            
-                            <span class="text-danger">
-                                <strong id="org-error"></strong>
-                            </span>
-                        </div>
-                    </div>
+              
 
                     <div class="form-group row">
                         <div class="col-md-1"></div>
@@ -90,35 +79,8 @@
                         </div>
                     </div>  
 
-                    <div class="form-group row">
-                        <div class="col-md-1"></div>
-                        <label for="state" class="col-md-3 col-form-label text-md-right">{{ __('State Permission') }}</label>
-                        <div class="col-md-7">
-                            @if (Auth::user()->state_id == 1 )
-                                <input  type="text" class="form-control"  value="All States" disabled>
-                            @else                            
-                           
-                                <input  type="text" class="form-control"  value="{{ auth()->user()->state->name }}" disabled>                                                
-                            
-                            
-                            @endif
-                        </div>
-                    </div> 
-                    <div class="form-group row">
-                        <div class="col-md-1"></div>
-                        <label for="state" class="col-md-3 col-form-label text-md-right">{{ __('LGA Permission') }}</label>
-                        <div class="col-md-7">
-                            {{-- @if (Auth::user()->lga_id == 1 )
-                            <input  type="text" class="form-control"  value="All LGAs" disabled>
-                            @else                            
-                            @foreach($lst_lgas as $lga)
-                            @if ($lga->id == Auth::user()->lga_id) --}}
-                            <input  type="text" class="form-control"  value="{{ implode(', ',auth()->user()->getDirectPermissions()->pluck('name')->toArray()) }}" disabled>                                                
-                            {{-- @endif
-                            @endforeach
-                            @endif --}}
-                        </div>
-                    </div> 
+        
+           
                     <div class="form-group row">
                         <div class="col-md-3"></div>
                         <div class="col-sm-8">
@@ -145,7 +107,7 @@
                 <h3 class="box-title">Change Password </h3>
             </div>
             <div class="box-body">
-                <form method="POST" action="{{ route('changePassword') }}">
+                <form method="POST" action="{{ route('change-password') }}">
                     @csrf
                     
                     <div class="form-group row">
