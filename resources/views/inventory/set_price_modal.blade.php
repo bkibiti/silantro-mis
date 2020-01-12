@@ -26,7 +26,7 @@
 
                             @if ($PriceCategory[0]->active =='Yes')
                                 <div class="form-group row">
-                                        <label for="category" class="col-md-4 col-form-label text-md-right">{{$PriceCategory[0]->description}} Price</label>
+                                        <label for="category" class="col-md-4 col-form-label text-md-right">{{$PriceCategory[0]->description}}</label>
                                         <div class="col-md-8">
                                                 <input type="text" class="form-control" id="sale_price_1" name="sale_price_1" maxlength="50" minlength="3"
                                                     value="{{ old('sale_price_1') }}" required>
