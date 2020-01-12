@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Sub_Category as subCategory;
 use App\Product as product;
 
 class Category extends Model
