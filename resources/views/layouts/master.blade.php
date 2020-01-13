@@ -64,7 +64,7 @@
 
 
     <!-- [ navigation menu ] start -->
-    <nav class="pcoded-navbar brand-red active-red menu-item-icon-style4 icon-colored">
+    <nav class="pcoded-navbar brand-red active-red menu-item-icon-style4 icon-colored navbar-collapsed">
         <div class="navbar-wrapper" >
             <div class="navbar-brand header-logo">
                 <a href="{{route('home')}}" class="b-brand">
