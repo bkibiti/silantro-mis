@@ -54,7 +54,7 @@
     </a>
     <ul class="pcoded-submenu">
         @can('Receive Goods')
-        <li class=""><a href="{{route('goods-receiving.index')}}" class="">Goods Receiving</a></li>
+        <li class=""><a href="{{route('goods-receiving.index')}}" class="">Purchase</a></li>
         @endcan
         @can('Purchase History')
         <li class=""><a href="{{route('goods-receiving.history')}}" class="">Purchase History</a></li>

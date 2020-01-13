@@ -2,13 +2,13 @@
 
 @section('content-title')
 
-    Goods Receiving
+    Purchase
 
 @endsection
 
 @section('content-sub-title')
     <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
-    <li class="breadcrumb-item"><a href="#">Purchase Management / Goods Receiving</a></li>
+    <li class="breadcrumb-item"><a href="#">Purchase Management / Purchase</a></li>
 @endsection
 @section("content")
 
