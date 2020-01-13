@@ -108,8 +108,8 @@ Route::middleware(["auth"])->group(function () {
     Route::post('users/update', 'UserController@update')->name("users.update");
     Route::put('users/delete', 'UserController@delete')->name("users.delete");
     Route::post('users/de-actiavate', 'UserController@deActivate')->name("users.deactivate");
-    Route::post('change-password', 'UserController@changePassword')->name('change-password');
-    Route::get('user-profile', 'UserController@profile')->name('user-profile');
+    Route::post('users/change-password', 'UserController@changePassword')->name('change-password');
+    Route::get('users/change-password', 'UserController@changePasswordForm')->name('change-pass-form');
     Route::post('user-profile/update', 'UserController@updateProfile')->name("update-profile");
     Route::get('users/search', 'UserController@search')->name("users.search");
     Route::post('users/user-role-id', 'UserController@getRoleID')->name('getRoleID');
