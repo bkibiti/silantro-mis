@@ -27,7 +27,7 @@ class DailySaleController extends Controller
         $request->validate([
             'other_expenses' => 'required|numeric',
             'other_income' => 'required|numeric',
-            'report_date' => 'required|unique:daily_report',
+            'report_date' => 'required',
             'submission_remarks' => 'required|min:3',
         ]);
     
@@ -41,15 +41,21 @@ class DailySaleController extends Controller
                 ->where('created_at', $report_date)
                 ->sum(DB::raw('quantity*selling_price'));
         $cash = $totalSales + $request->other_income - $totalExpenses - $request->other_expenses;
+
+        $exist = DailySale::where('report_date',$report_date)->get();
         
-        $report = DailySale::updateOrCreate(
-                    ['report_date' => $report_date,'status' => 'Pending'],
-                    ['sales' => $totalSales, 'expenses' => $totalExpenses, 'other_income'=> $request->other_income,
-                    'other_expenses' =>$request->other_expenses,'submission_remarks' => $request->submission_remarks,
-                    'cash_on_hand' => $cash ,'submitted_by' =>Auth::user()->id,'submitted_at' => Carbon::now(), 
-                    'status' => 'Pending']
-                );
-        // dd($totalExpenses);
+        if ($exist->count() == 0){
+            DailySale::Create(
+                ['report_date' => $report_date,'status' => 'Pending',
+                'sales' => $totalSales, 'expenses' => $totalExpenses, 'other_income'=> $request->other_income,
+                'other_expenses' =>$request->other_expenses,'submission_remarks' => $request->submission_remarks,
+                'cash_on_hand' => $cash ,'submitted_by' =>Auth::user()->id,'submitted_at' => Carbon::now(), 
+                'status' => 'Pending'] );
+        }else{
+            session()->flash("alert-danger", "The report for this date is already generated!");
+            return back();
+        }
+       
 
         session()->flash("alert-success", "Report created successfully!");
         return back();

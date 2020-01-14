@@ -57,7 +57,7 @@ Daily Sale Report
                                 <th>Other Income</th>
                                 <th>Expenses</th>
                                 <th>Other Expenses</th>
-                                <th>Cash on Hand</th>
+                                <th>Cash Deposited</th>
                                 {{-- <th>Submission Remarks</th>
                                 <th>Submitted By</th>
                                 <th>Submiited At</th>
