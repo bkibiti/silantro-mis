@@ -10,12 +10,12 @@
         @can('Point of Sales')
         <li class=""><a href="{{route('sales.index')}}" class="">Point of Sale</a></li>
         @endcan
-        {{-- <li class=""><a href="{{route('sales.pending-order')}}" class="">Pending Orders</a>
-</li> --}}
 
-@can('View Sales History')
-<li class=""><a href="{{route('sales.history')}}" class="">Sales History</a></li>
-@endcan
+        @can('View Sales History')
+        <li class=""><a href="{{route('sales.history')}}" class="">Sales History</a></li>
+        @endcan
+
+        <li class=""><a href="{{route('sales.daily-index')}}" class="">Daily Sale Report</a></li>
 
 
 </ul>

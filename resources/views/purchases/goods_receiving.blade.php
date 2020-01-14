@@ -142,12 +142,8 @@
             $('#name').val($(this).data('name'))
             $('#purchase_uom').val($(this).data('purchase_uom'))
             $('#quantity_per_unit').val($(this).data('quantity_per_unit'))
-
-
         });
 
-
-      
 
     </script>
 

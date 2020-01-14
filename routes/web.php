@@ -54,12 +54,14 @@ Route::middleware(["auth"])->group(function () {
     Route::post('/update-configurations', 'ConfigurationsController@update')->name('configurations.update');
 
  
-    //Cash Sales routes
+    //Sales routes
     Route::get('sales/cash-sales', 'SaleController@index')->name('sales.index');
     Route::post('sales/cash-sales', 'SaleController@store')->name('sales.store');
     Route::get('sales/sale-histories', 'SaleController@history')->name('sales.history');
     Route::post('sales/sale-histories', 'SaleController@historySearch')->name('sales.history-search');
     Route::get('sales/pending-orders', 'SaleController@pendingOrders')->name('sales.pending-order');
+    Route::get('sales/daily-report/index', 'DailySaleController@index')->name('sales.daily-index');
+    Route::post('sales/daily-report/generate', 'DailySaleController@generate')->name('sales.daily-generate');
 
  
     /*Inventory Routes*/
