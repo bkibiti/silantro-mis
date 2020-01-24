@@ -14,8 +14,9 @@
         @can('View Sales History')
         <li class=""><a href="{{route('sales.history')}}" class="">Sales History</a></li>
         @endcan
-
+        @can('View Daily Report')
         <li class=""><a href="{{route('sales.daily-index')}}" class="">Daily Sale Report</a></li>
+        @endcan
 
 
 </ul>
