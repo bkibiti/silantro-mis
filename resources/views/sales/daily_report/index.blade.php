@@ -56,7 +56,7 @@ Daily Sale Report
                                 <th>Sales</th>
                                 <th>Other Income</th>
                                 <th>Expenses</th>
-                                <th>Other Expenses</th>
+                                <th>Other Cash Out</th>
                                 <th>Cash on Hand</th>
                                 <th>Status</th>
                                 <th>Action</th>
