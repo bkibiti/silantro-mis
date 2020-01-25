@@ -172,7 +172,6 @@
 
 @endsection
 
-    {{-- chart.data = @json($salesByCategory); --}}
 
 
 @push("page_scripts")
@@ -215,19 +214,18 @@
 
     //title
     var title = chart.titles.create();
-    title.text = "Total Daily Sales";
+    title.text = "Daily Sales";
     title.fontSize = 16;
     title.marginBottom = 15;
 
     // Create series
-    var series = chart.series.push(new am4charts.LineSeries());
+    var series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.valueY = "value";
     series.dataFields.dateX = "date";
     series.tooltipText = "{value}"
     series.strokeWidth = 2;
     series.minBulletDistance = 5;
-    series.fillOpacity = 0.3;
-
+    series.fillOpacity = 0.8;
 
     // Drop-shaped tooltips
     series.tooltip.background.cornerRadius = 20;
@@ -258,13 +256,8 @@
     chart.scrollbarY.parent = chart.leftAxesContainer;
     chart.scrollbarY.toBack();
 
-    // Create a horizontal scrollbar with previe and place it underneath the date axis
-    chart.scrollbarX = new am4charts.XYChartScrollbar();
-    chart.scrollbarX.series.push(series);
-    chart.scrollbarX.parent = chart.bottomAxesContainer;
-
     chart.events.on("ready", function () {
-        dateAxis.zoom({start:0.79, end:1});
+        dateAxis.zoom({start:0.1, end:1});
     });
 
 </script>
@@ -334,67 +327,39 @@
         }); // end am4core.ready()
 </script>
 
-<!-- Sales by Category -->
+<!-- Sales by Users -->
+
 <script>
-        am4core.ready(function() {
+    am4core.ready(function() {
+    
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+    
+    // Create chart
+     var chart = am4core.create("sales_by_category", am4charts.PieChart);
+     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-        // Themes begin
-        am4core.useTheme(am4themes_animated);
-        // Themes end
-
-        // Create chart instance
-        var chart = am4core.create("sales_by_category", am4charts.PieChart);
-       
-
-        // Add and configure Series
-        var pieSeries = chart.series.push(new am4charts.PieSeries());
-        pieSeries.dataFields.value = "amount";
-        pieSeries.dataFields.category = "category";
-
-        // Let's cut a hole in our Pie chart the size of 30% the radius
-        chart.innerRadius = am4core.percent(30);
-
-        //title
-        var title = chart.titles.create();
-            title.text = "Total Sales By Product Category";
+        chart.data = @json($salesByUser);
+      //title
+      var title = chart.titles.create();
+            title.text = "Sales By User";
             title.fontSize = 16;
             title.marginBottom = 15;
 
-        // Put a thick white border around each Slice
-        pieSeries.slices.template.stroke = am4core.color("#fff");
-        pieSeries.slices.template.strokeWidth = 2;
-        pieSeries.slices.template.strokeOpacity = 1;
-        pieSeries.slices.template
-          // change the cursor on hover to make it apparent the object can be interacted with
-          .cursorOverStyle = [
-            {
-              "property": "cursor",
-              "value": "pointer"
-            }
-          ];
+    
+    var series = chart.series.push(new am4charts.PieSeries());
+    series.dataFields.value = "amount";
+    series.dataFields.radiusValue = "amount";
+    series.dataFields.category = "user";
+    series.slices.template.cornerRadius = 6;
+    series.colors.step = 3;
+    
+    series.hiddenState.properties.endAngle = 90;
+    
 
-        pieSeries.alignLabels = false;
-        pieSeries.labels.template.bent = true;
-        pieSeries.labels.template.radius = 3;
-        pieSeries.labels.template.padding(0,0,0,0);
-
-        pieSeries.ticks.template.disabled = true;
-
-        // Create a base filter effect (as if it's not there) for the hover to return to
-        var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
-        shadow.opacity = 0;
-
-        // Create hover state
-        var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
-
-        // Slightly shift the shadow and make it more prominent on hover
-        var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
-        hoverShadow.opacity = 0.7;
-        hoverShadow.blur = 5;
-
-
-
-        }); // end am4core.ready()
-        </script>
+    
+    }); // end am4core.ready()
+    </script>
 
 @endpush

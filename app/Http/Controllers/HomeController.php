@@ -67,13 +67,12 @@ class HomeController extends Controller
             ->limit('12')
             ->get();
 
-        // $salesByCategory = DB::table('sales')
-        //     ->select(DB::raw("category,sum(amount) amount"))
-        //     ->groupBy('category')
-        //     ->get();
+        $salesByUser = DB::select("SELECT users.name as user,sum(quantity*selling_price) as amount FROM 
+                    sales join users on sales.created_by=users.id
+                    where month(sales.created_at) = month(now())
+                    group by users.name");
 
-
-        return view('home', compact('outOfStock', 'belowMin','totalSales','todaySales','avgDailySales','totalDailySales','totalMonthlySales'));
+        return view('home', compact('outOfStock', 'belowMin','totalSales','todaySales','avgDailySales','totalDailySales','totalMonthlySales','salesByUser'));
 
     }
 }
