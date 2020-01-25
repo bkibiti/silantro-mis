@@ -87,10 +87,10 @@ class SaleController extends Controller
     public function historySearch(Request $request)
     {
         $from = date('Y-m-d', strtotime($request->from_date));
-        $to = date('Y-m-d', strtotime($request->to_date . ' +1 day'));
+        $to = date('Y-m-d', strtotime($request->to_date));
 
-        $sales = Sale::whereBetween('created_at', [$from, $to])->get();
-        
+        $sales = Sale::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")->get();
+
         $total = 0;
         foreach ($sales as $s) {
             $total = $total + ($s->quantity * $s->selling_price);

@@ -54,9 +54,9 @@ Daily Sale Report
                             <tr>
                                 <th>Date</th>
                                 <th>Sales</th>
-                                <th>Other Income</th>
+                                <th>Income</th>
                                 <th>Expenses</th>
-                                <th>Other Cash Out</th>
+                                <th>Purchases</th>
                                 <th>Cash on Hand</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -69,7 +69,7 @@ Daily Sale Report
                                 <td>{{number_format($s->sales,0)}}</td>
                                 <td>{{number_format($s->other_income,2)}}</td>
                                 <td>{{number_format($s->expenses,2)}}</td>
-                                <td>{{number_format($s->other_expenses,2)}}</td>
+                                <td>{{number_format($s->purchases,2)}}</td>
                                 <td>{{number_format($s->cash_on_hand,2)}}</td>
                                 <td>{{$s->status}}</td>
                                 <td>
@@ -86,7 +86,7 @@ Daily Sale Report
                                         @if ($s->status=="Pending" or $s->status=="Rejected")
                                             <a href="#">
                                                 <button class="btn btn-warning btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
-                                                    data-id="{{$s->id}}" data-other_expenses="{{$s->other_expenses}}"
+                                                    data-id="{{$s->id}}" 
                                                     data-other_income="{{$s->other_income}}"    data-report_date="{{$s->report_date}}"
                                                     type="button" data-toggle="modal" data-target="#edit">Edit</button>
                                             </a>
@@ -116,7 +116,7 @@ Daily Sale Report
                                 <td><h5>{{number_format($totals[0]->sales)}}</h5></td>
                                 <td><h5>{{number_format($totals[0]->income)}}</h5></td>
                                 <td><h5>{{number_format($totals[0]->expenses)}}</h5></td>
-                                <td><h5>{{number_format($totals[0]->other_exp)}}</h5></td>
+                                <td><h5>{{number_format($totals[0]->purchases)}}</h5></td>
                                 <td><h5>{{number_format($totals[0]->coh)}}</h5></td>
 
                             </tr>
@@ -151,7 +151,8 @@ Daily Sale Report
 <script>
     $('#fixed-header1').DataTable({
       bAutoWidth: true,
-  });
+      order: [[0, "desc"]]
+    });
 
 
     $(function () {
@@ -188,7 +189,6 @@ Daily Sale Report
         modal.find('.modal-body #report_date_2').val(button.data('report_date'));
         modal.find('.modal-body #report_date_edit').val(button.data('report_date'));
         modal.find('.modal-body #other_income_edit').val(button.data('other_income'));
-        modal.find('.modal-body #other_expenses_edit').val(button.data('other_expenses'));
         modal.find('.modal-body #submission_remarks_edit').val(button.data('submission_remarks'));
         modal.find('.modal-body #id').val(button.data('id'));
       });//end edit

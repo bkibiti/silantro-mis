@@ -46,6 +46,8 @@ Route::middleware(["auth"])->group(function () {
     Route::get('purchases/goods-receiving', 'GoodsReceivingController@index')->name('goods-receiving.index');
     Route::post('purchases/goods-receiving', 'GoodsReceivingController@store')->name('goods-receiving.store');
     Route::get('purchases/history', 'GoodsReceivingController@history')->name('goods-receiving.history');
+    Route::post('purchases/history/search', 'GoodsReceivingController@search')->name('goods-receiving.search');
+
 
 
     //Configurations Routes

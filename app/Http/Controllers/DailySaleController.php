@@ -19,7 +19,7 @@ class DailySaleController extends Controller
         $DailySale = DailySale::get();
         
         $totals = DB::table('daily_report')
-        ->select(DB::raw('sum(sales) as sales,sum(other_income) as income,sum(expenses) as expenses,sum(other_expenses) as other_exp,sum(cash_on_hand) as coh'))
+        ->select(DB::raw('sum(sales) as sales,sum(other_income) as income,sum(expenses) as expenses,sum(purchases) as purchases,sum(cash_on_hand) as coh'))
         ->whereRaw('month(report_date) = month(now())')
         ->groupBy(DB::raw('month(now())'))
         ->get();
@@ -31,7 +31,6 @@ class DailySaleController extends Controller
     public function generate(Request $request){
 
         $request->validate([
-            'other_expenses' => 'required|numeric',
             'other_income' => 'required|numeric',
             'report_date' => 'required',
             'submission_remarks' => 'required|min:3',
@@ -43,10 +42,15 @@ class DailySaleController extends Controller
                 ->where('created_at', $report_date)
                 ->sum('amount');
 
+        $Purchases = DB::table('incoming_stock')
+                ->where('created_at', $report_date)
+                ->sum(DB::raw('quantity*unit_cost'));
+
         $totalSales = DB::table('sales')
                 ->where('created_at', $report_date)
                 ->sum(DB::raw('quantity*selling_price'));
-        $cash = $totalSales + $request->other_income - $totalExpenses - $request->other_expenses;
+
+        $cash = $totalSales + $request->other_income - $totalExpenses - $Purchases;
 
         $exist = DailySale::where('report_date',$report_date)->get();
         
@@ -54,7 +58,7 @@ class DailySaleController extends Controller
             DailySale::Create(
                 ['report_date' => $report_date,'status' => 'Pending',
                 'sales' => $totalSales, 'expenses' => $totalExpenses, 'other_income'=> $request->other_income,
-                'other_expenses' =>$request->other_expenses,'submission_remarks' => $request->submission_remarks,
+                'purchases' =>$Purchases,'submission_remarks' => $request->submission_remarks,
                 'cash_on_hand' => $cash ,'submitted_by' =>Auth::user()->id,'submitted_at' => Carbon::now(), 
                 'status' => 'Pending'] );
         }else{
@@ -70,7 +74,6 @@ class DailySaleController extends Controller
     public function update(Request $request){
 
         $request->validate([
-            'other_expenses' => 'required|numeric',
             'other_income' => 'required|numeric',
             'submission_remarks' => 'required',
         ]);
@@ -80,16 +83,19 @@ class DailySaleController extends Controller
         $totalSales = DB::table('sales')
                 ->where('created_at', $report_date)
                 ->sum(DB::raw('quantity*selling_price'));
-
+        $Purchases = DB::table('incoming_stock')
+                ->whereRaw("date(created_at) = '".$report_date. "'")
+                ->sum(DB::raw('quantity*unit_cost'));
         $totalExpenses = DB::table('expenses')
                 ->where('created_at', $report_date)
                 ->sum('amount');
-        $cash = $totalSales + $request->other_income - $totalExpenses - $request->other_expenses;
+                
+        $cash = $totalSales + $request->other_income - $totalExpenses - $Purchases;
 
         
         $report = DailySale::findOrFail($request->id);
         $report->other_income = $request->other_income;
-        $report->other_expenses = $request->other_expenses;
+        $report->purchases = $Purchases;
         $report->sales = $totalSales;
         $report->expenses = $totalExpenses;
         $report->cash_on_hand = $cash;

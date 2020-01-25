@@ -21,6 +21,33 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
+
+                <form id="expense_form" action="{{route('goods-receiving.search')}}" method="post">
+                    @csrf()
+
+                    <div class="form-group row">
+
+                        <label for="product_name" class="col-md-1 col-form-label text-md-left">From:</label>
+                        <div class="col-md-2">
+                            <div id="date" style="border: 2px solid white; border-radius: 6px;">
+                                <input type="text" name="from_date" class="form-control" id="from_date" required>
+                            </div>
+                        </div>
+                        <label for="product_name" class="col-md-1 col-form-label text-md-right">To:</label>
+                        <div class="col-md-2">
+                            <div id="date" style="border: 2px solid white; border-radius: 6px;">
+                                <input type="text" name="to_date" class="form-control" id="to_date" required>
+                            </div>
+                        </div>
+                       
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-success">Filter</button>
+                        </div>
+                    </div>
+
+                </form>
+                <hr>
+
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="row">
                         <div class="col-md-9">
@@ -77,20 +104,49 @@
 
         @endsection
 
-        @push("page_scripts")
-
-            @include('partials.notification')
-
-
-            <script>
-
-                $('#fixed-header1').DataTable({
-                    bAutoWidth: true,
-                });
-
-     
+@push("page_scripts")
+@include('partials.notification')
 
 
-            </script>
+<script>
+
+    $('#fixed-header1').DataTable({
+        bAutoWidth: true,
+        order: [[0, "desc"]]
+    });
+
+    $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#from_date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
+
+    $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#to_date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
+
+
+
+</script>
 
     @endpush

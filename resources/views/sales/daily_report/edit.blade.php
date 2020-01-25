@@ -27,23 +27,17 @@
                             </div>
                      
                             <div class="form-group row">
-                                <label for="expense_amount" class="col-md-4 col-form-label text-md-right">{{ __('Other Income
+                                <label for="expense_amount" class="col-md-4 col-form-label text-md-right">{{ __('Income (Not Sales)
                                     ') }}<span style="color: red;">*</span></label>
                                 <div class="col-md-8">
                                     <input type="text" id="other_income_edit" class="form-control" name="other_income" required>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="expense_amount" class="col-md-4 col-form-label text-md-right">{{ __('Other Expenses
-                                    ') }}<span style="color: red;">*</span></label>
-                                <div class="col-md-8">
-                                    <input type="text" id="other_expenses_edit" class="form-control" name="other_expenses" required>
-                                </div>
-                            </div>
+                     
                  
                             <div class="form-group row">
                                 <label for="expense_description"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Submission Remarks') }}</label>
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Remarks') }}</label>
                                 <div class="col-md-8">
                                     <textarea class="form-control" id="submission_remarks_edit" name="submission_remarks" rows="3" required></textarea>
                                 </div>

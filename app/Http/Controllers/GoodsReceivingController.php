@@ -46,14 +46,26 @@ class GoodsReceivingController extends Controller
 
     public function history(){
         $now = Carbon::now();
-        // $purchases = IncomingStock::whereMonth('created_at', $now->month)->get();
         $purchases = IncomingStock::all();
 
         $total = 0;
         foreach ($purchases as $p) {
             $total = $total + ($p->quantity * $p->unit_cost);
         }
-        // dd($total);
+        return view('purchases.history', compact("purchases","total"));
+    }
+
+    public function search(Request $request)
+    {
+        $from = date('Y-m-d', strtotime($request->from_date));
+        $to = date('Y-m-d', strtotime($request->to_date));
+// dd($to);
+        $purchases = IncomingStock::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")->get();
+        
+        $total = 0;
+        foreach ($purchases as $p) {
+            $total = $total + ($p->quantity * $p->unit_cost);
+        }
         return view('purchases.history', compact("purchases","total"));
     }
 

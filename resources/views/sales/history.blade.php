@@ -29,22 +29,21 @@ Sales History
 
                     <div class="form-group row">
 
-                        <label for="product_name" class="col-md-1 col-form-label text-md-left">From :</label>
+                        <label for="product_name" class="col-md-1 col-form-label text-md-left">From:</label>
                         <div class="col-md-2">
                             <div id="date" style="border: 2px solid white; border-radius: 6px;">
                                 <input type="text" name="from_date" class="form-control" id="from_date" required>
-                            </div>
+                            </div> 
                         </div>
-                        <label for="product_name" class="col-md-1 col-form-label text-md-right">To Date:</label>
+                        <label for="product_name" class="col-md-1 col-form-label text-md-left">To:</label>
                         <div class="col-md-2">
                             <div id="date" style="border: 2px solid white; border-radius: 6px;">
                                 <input type="text" name="to_date" class="form-control" id="to_date" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                        </div>
+                       
                         <div class="col-md-2">
-                            <button type="submit" class="btn btn-success">Show</button>
+                            <button type="submit" class="btn btn-success">Filter</button>
                         </div>
                     </div>
 
@@ -106,6 +105,7 @@ Sales History
     <script>
         $('#fixed-header1').DataTable({
           bAutoWidth: true,
+          order: [[0, "desc"]]
       });
 
    
