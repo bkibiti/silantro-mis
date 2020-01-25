@@ -77,9 +77,6 @@ Daily Sale Report
                                         <button class="btn btn-success btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
                                             data-submitted_by="{{$s->submitter->name}}" data-submitted_at="{{$s->submitted_at}}"
                                             data-approver_remarks="{{$s->approver_remarks}}"   
-                                            @if ($s->status=="Approved" or $s->status=="Rejected")
-                                                data-approved_By="{{$s->approver->name}}"
-                                            @endif
                                             type="button" data-toggle="modal" data-target="#details">Details</button>
                                     </a>
                                     @can('Manage Daily Report')

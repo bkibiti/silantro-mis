@@ -22,14 +22,32 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="row">
-                        <div class="col-md-9">
-                        </div>
+                <form id="expense_form" action="{{route('current-stock-filter')}}" method="post">
+                    @csrf()
+
+                    <div class="form-group row">
+
+                        <label for="product_name" class="col-md-1 col-form-label text-md-left">Status:</label>
                         <div class="col-md-3">
-                          
+                            <select class="form-control select2"  class="form-control" name="status"  data-placeholder="Select Status" required data-width="100%">
+                                <option value="0" >All Items</option>
+                                <option value="1" >Out of Stock</option>
+                                <option value="2" >Below Minimum Level</option>
+                            </select>
+                        </div>
+                      
+                       
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-success">Filter</button>
                         </div>
                     </div>
+
+                </form>
+
+                <hr>
+
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                 
 
 
                     <div id="product-table" class="table-responsive">

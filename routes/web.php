@@ -74,10 +74,14 @@ Route::middleware(["auth"])->group(function () {
     Route::resource('inventory-management/current-stock', 'CurrentStockController')->only([
         'index', 'update'
     ]);
+    Route::post('inventory-management/current-stock/filter','CurrentStockController@filter')->name('current-stock-filter');
+
     Route::get('inventory/stock-adjustment-history','StockAdjustmentController@history')->name('adjustment-history');
     Route::resource('inventory-management/daily-stock-count', 'StockCountController')->only([
         'index'
     ]);
+
+
     /*stock adjustment routes*/
     Route::resource('inventory-management/stock-adjustment', 'StockAdjustmentController')->only([
         'index', 'store', 'update', 'destroy'

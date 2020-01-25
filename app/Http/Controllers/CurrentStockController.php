@@ -31,6 +31,24 @@ class CurrentStockController extends Controller
 
     }
 
+    public function filter(Request $request){
+        if ($request->status == '0'){
+            $Products = Stock::all();
+        }
+        if ($request->status == '1'){
+            $Products = Stock::where('quantity',0)->get();
+        }
+        if ($request->status == '2'){
+            $Products = Stock::whereRaw('quantity <= min_quantinty and quantity > 0')->get();
+        }
+      
+
+        $PriceCategory = PriceCategory::all();
+
+        return view('inventory.index', compact("Products","PriceCategory"));
+    }
+
+
     
    
  

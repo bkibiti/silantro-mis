@@ -20,8 +20,8 @@ class SaleController extends Controller
     {
         $current_stock = Stock::where('quantity','>',0)->get();
         $categories = Category::orderBy('name')->get();
-        $users = User::orderBy('name')->get();
-        
+        // $users = User::orderBy('name')->get();
+        $users = User::permission('POS Users')->get();
         return view('sales.pos', compact('current_stock','categories','users'));
     }
 

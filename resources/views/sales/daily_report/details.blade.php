@@ -33,13 +33,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label  class="col-md-4 col-form-label text-md-right">Approved By</label>
-                                <div class="col-md-8">
-                                    <div id="approved_by">                                     
-                                    </div>
-                                </div>
-                            </div>
+                          
                             <div class="form-group row">
                                 <label  class="col-md-4 col-form-label text-md-right">Approver Remarks</label>
                                 <div class="col-md-8">

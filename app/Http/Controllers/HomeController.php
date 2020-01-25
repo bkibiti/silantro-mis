@@ -36,7 +36,7 @@ class HomeController extends Controller
     {
         $outOfStock = Stock::where('quantity', 0)->count();
 
-        $belowMin = Stock::whereRaw('quantity <= min_quantinty')->count();
+        $belowMin = Stock::whereRaw('quantity <= min_quantinty and quantity > 0')->count();
 
         $totalSales = Sale::sum(DB::raw('quantity*selling_price'));
 
