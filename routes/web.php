@@ -36,6 +36,7 @@ Route::middleware(["auth"])->group(function () {
     Route::resource('masters/expense-categories', 'ExpenseCategoryController')->only([
         'index', 'store', 'update', 'destroy'
     ]);
+  
 
     //Store routes
     Route::resource('masters/stores', 'StoreController')->only([
@@ -96,10 +97,13 @@ Route::middleware(["auth"])->group(function () {
 
     /*expense routes*/
     Route::resource('expense-management/expense', 'ExpenseController')->only([
-        'index', 'store', 'update', 'destroy'
+        'index', 'store'
     ]);
     Route::get('expense-management/expense-date-filter', 'ExpenseController@filterExpenseDate')->name('expense-date-filter');
-
+    //staff losses and advance
+    Route::get('expense-management/advances', 'StaffAdvanceController@index')->name('advances.index');
+    Route::post('expense-management/advances', 'StaffAdvanceController@store')->name('advances.store');
+    Route::post('expense-management/advances-edit', 'StaffAdvanceController@update')->name('advances.update');
 
 
     /*Pdf generator routes*/

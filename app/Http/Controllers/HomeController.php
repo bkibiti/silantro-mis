@@ -71,8 +71,13 @@ class HomeController extends Controller
                     sales join users on sales.created_by=users.id
                     where month(sales.created_at) = month(now())
                     group by users.name");
+        $staffLoss = DB::select("SELECT users.name as user,sum(amount) as amount FROM 
+                    staff_advances join users on staff_advances.user_id=users.id
+                    where month(staff_advances.date) = month(now()) and type='loss'
+                    group by users.name");
 
-        return view('home', compact('outOfStock', 'belowMin','totalSales','todaySales','avgDailySales','totalDailySales','totalMonthlySales','salesByUser'));
+        return view('home', compact('outOfStock', 'belowMin','totalSales','todaySales','avgDailySales',
+                'totalDailySales','totalMonthlySales','salesByUser','staffLoss'));
 
     }
 }

@@ -7,11 +7,11 @@
             height: 500px;
         }
 
-        #monthly_sales {
+        #staff_loss {
             width: 100%;
             height: 400px;
         }
-        #sales_by_category {
+        #sales_by_user {
             width: 100%;
             height: 400px;
         }
@@ -141,10 +141,10 @@
                      {{-- row 3 start --}}
                      <div class="row">
                         <div class="col-md-6 col-xl-6">
-                            <div id='monthly_sales'></div>
+                            <div id='staff_loss'></div>
                         </div>
                         <div class="col-md-6 col-xl-6">
-                            <div id='sales_by_category'></div>
+                            <div id='sales_by_user'></div>
                         </div>
                     </div>
 
@@ -181,19 +181,8 @@
 <script src="{{asset("assets/plugins/amcharts4/themes/animated.js")}}"></script>
 
 
-
+{{-- daily sales chart  --}}
 <script>
-
-    $('#stock_items').DataTable( {
-        searching: true,
-        bPaginate: true,
-    });
-
-    $('#fast_moving').DataTable( {
-        searching: true,
-        bPaginate: true,
-    });
-
 
     // Themes begin
     am4core.useTheme(am4themes_animated);
@@ -262,30 +251,25 @@
 
 </script>
 
-<!-- Total MOnthly Sales chart -->
+<!-- Losses by user -->
 <script>
         am4core.ready(function() {
-
-        // Themes begin
         am4core.useTheme(am4themes_animated);
-        // Themes end
 
         // Create chart instance
-        var chart = am4core.create("monthly_sales", am4charts.XYChart);
-        chart.scrollbarX = new am4core.Scrollbar();
+        var chart = am4core.create("staff_loss", am4charts.XYChart);
 
         // Add data
-        chart.data = @json($totalMonthlySales);
-
+        chart.data = @json($staffLoss);
 
         //title
         var title = chart.titles.create();
-            title.text = "Total Sales By Month";
+            title.text = "Losses by Staff this Month";
             title.fontSize = 16;
             title.marginBottom = 15;
         // Create axes
         var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-        categoryAxis.dataFields.category = "month";
+        categoryAxis.dataFields.category = "user";
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.renderer.minGridDistance = 30;
         categoryAxis.renderer.labels.template.horizontalCenter = "right";
@@ -293,7 +277,6 @@
         categoryAxis.renderer.labels.template.rotation = 270;
         categoryAxis.tooltip.disabled = true;
         categoryAxis.renderer.minHeight = 110;
-
         var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
         valueAxis.renderer.minWidth = 50;
 
@@ -301,7 +284,7 @@
         var series = chart.series.push(new am4charts.ColumnSeries());
         series.sequencedInterpolation = true;
         series.dataFields.valueY = "amount";
-        series.dataFields.categoryX = "month";
+        series.dataFields.categoryX = "user";
         series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
         series.columns.template.strokeWidth = 0;
 
@@ -324,7 +307,10 @@
         // Cursor
         chart.cursor = new am4charts.XYCursor();
 
-        }); // end am4core.ready()
+
+
+
+        }); 
 </script>
 
 <!-- Sales by Users -->
@@ -337,7 +323,7 @@
     // Themes end
     
     // Create chart
-     var chart = am4core.create("sales_by_category", am4charts.PieChart);
+     var chart = am4core.create("sales_by_user", am4charts.PieChart);
      chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
         chart.data = @json($salesByUser);

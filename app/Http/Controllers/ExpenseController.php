@@ -36,15 +36,6 @@ class ExpenseController extends Controller
         return back();
     }
 
-    public function update(Request $request)
-    {
-
-    }
-
-    public function destroy(Request $request)
-    {
-
-    }
 
     public function filterExpenseDate(Request $request)
     {

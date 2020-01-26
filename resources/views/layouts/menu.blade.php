@@ -72,11 +72,14 @@
     <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="fas fa-dollar-sign"></i></span>
         <span class="pcoded-mtext">Expenses</span>
     </a>
-    @can('View Expenses')
     <ul class="pcoded-submenu">
+        @can('View Expenses')
         <li class=""><a href="{{route('expense.index')}}" class="">Expenses</a></li>
+        @endcan
+        @can('View Staff Loss')
+        <li class=""><a href="{{route('advances.index')}}" class="">Staff Losses</a></li>
+        @endcan
     </ul>
-    @endcan
     @endcan
 </li>
 
