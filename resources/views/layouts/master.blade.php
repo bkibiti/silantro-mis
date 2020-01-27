@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    <title>Silantro MIS</title>
+    <title>Silantro Bar & Lounge</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- Favicon icon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset("silantro.ico")}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset("silantro_sys.ico")}}">
     <!-- range slider -->
     <link rel="stylesheet" href="{{asset("/assets/plugins/range-slider/css/bootstrap-slider.min.css")}}">
     <link rel="stylesheet" href="{{asset("/assets/css/pages/rangeslider.css")}}">
@@ -68,13 +68,13 @@
         <div class="navbar-wrapper" >
             <div class="navbar-brand header-logo">
                 <a href="{{route('home')}}" class="b-brand">
-                    {{-- <div class="b-bg"> --}}
-                        {{-- <img src="{{asset('silantro.ico')}}"  alt="Silantro"> --}}
-                    {{-- </div> --}}
                     <div class="b-bg">
-                        <i class="fa fas fa-leaf"></i>
+                        <img src="{{asset('silantro_sys.ico')}}"  alt="Silantro">
                     </div>
-                    <span class="b-title">Silantro MIS</span>
+                    {{-- <div class="b-bg">
+                        <i class="fa fas fa-leaf"></i>
+                    </div> --}}
+                    <span class="b-title">Silantro Bar & Lounge</span>
                 </a>
                 <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
             </div>
