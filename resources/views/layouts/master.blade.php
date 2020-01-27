@@ -68,13 +68,13 @@
         <div class="navbar-wrapper" >
             <div class="navbar-brand header-logo">
                 <a href="{{route('home')}}" class="b-brand">
-                    <div class="b-bg">
-                        <img src="{{asset('silantro_sys.ico')}}"  alt="Silantro">
-                    </div>
                     {{-- <div class="b-bg">
-                        <i class="fa fas fa-leaf"></i>
+                        <img src="{{asset('silantro_sys.ico')}}"  alt="Silantro">
                     </div> --}}
-                    <span class="b-title">Silantro Bar & Lounge</span>
+                    <div class="b-bg">
+                        <i class="fas fa-glass-martini"></i>
+                    </div>
+                    <span class="b-title">Management System</span>
                 </a>
                 <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
             </div>
