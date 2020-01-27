@@ -74,7 +74,7 @@
                     <div class="b-bg">
                         <i class="fas fa-glass-martini"></i>
                     </div>
-                    <span class="b-title">Management System</span>
+                    <span class="b-title">Silantro Systems</span>
                 </a>
                 <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
             </div>
