@@ -25,9 +25,12 @@
 
 
     <div class="card-body">
-            <button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#register">
-                Add User
-            </button>
+        @can('Manage Users')
+        <button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#register">
+            Add User
+        </button>
+        @endcan
+          
         <div class="table-responsive">
             <table id="fixed-header" class="display table nowrap table-striped table-hover" style="width:100%">
             <thead>
@@ -39,7 +42,9 @@
                 <th>Role</th>
                 <th>Position</th>
                 <th>Status</th>
+                @can('Manage Users')
                 <th>Actions</th>
+                @endcan
                 </tr>
             </thead>
             <tbody>
@@ -64,31 +69,33 @@
 
                     @endif
                 </td>
-
-                <td style='white-space: nowrap'>
-
-                    <a href="#">
-                        <button class="btn btn-warning btn-sm" data-name="{{$user->name}}"
-                            data-email="{{$user->email}}" data-id="{{$user->id}}" data-username="{{$user->username}}"
-                            data-job="{{$user->position}}"  data-mobile="{{$user->mobile}}"
-                            data-role="{{ implode(", ", $user->getRoleNames()->toArray()) }}"
-                            type="button" data-toggle="modal" data-target="#editUser">Edit</button>
-                    </a>
-
-
-                        @if ($user->status == 1)
+                @can('Manage Users')
+                    <td style='white-space: nowrap'>
+                
                         <a href="#">
-                            <button class="btn btn-danger btn-sm"  type="button" data-toggle="modal" data-target="#disableUser" data-id="{{$user->id}}" data-status="{{$user->status}}" data-name="{{$user->name}}">De Activate</button>
+                            <button class="btn btn-warning btn-sm" data-name="{{$user->name}}"
+                                data-email="{{$user->email}}" data-id="{{$user->id}}" data-username="{{$user->username}}"
+                                data-job="{{$user->position}}"  data-mobile="{{$user->mobile}}"
+                                data-role="{{ implode(", ", $user->getRoleNames()->toArray()) }}"
+                                type="button" data-toggle="modal" data-target="#editUser">Edit</button>
                         </a>
-                        @endif
-                        @if ($user->status == 0)
-                        <a href="#">
-                        <button class="btn btn-success btn-sm"  type="button" data-toggle="modal" data-target="#disableUser" data-id="{{$user->id}}" data-status="{{$user->status}}" data-name="{{$user->name}}">Activate</button>
-                        </a>
-                        @endif
 
 
-                    </td>
+                            @if ($user->status == 1)
+                            <a href="#">
+                                <button class="btn btn-danger btn-sm"  type="button" data-toggle="modal" data-target="#disableUser" data-id="{{$user->id}}" data-status="{{$user->status}}" data-name="{{$user->name}}">De Activate</button>
+                            </a>
+                            @endif
+                            @if ($user->status == 0)
+                            <a href="#">
+                            <button class="btn btn-success btn-sm"  type="button" data-toggle="modal" data-target="#disableUser" data-id="{{$user->id}}" data-status="{{$user->status}}" data-name="{{$user->name}}">Activate</button>
+                            </a>
+                            @endif
+
+
+                        </td>
+                    @endcan
+                       
                 </tr>
                 @endforeach
 

@@ -103,13 +103,22 @@
 
 
 <li class="nav-item pcoded-hasmenu">
+    @can('View User Management')
+
     <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="fas fa-users"></i></span>
         <span class="pcoded-mtext">Users</span>
     </a>
     <ul class="pcoded-submenu">
-        <li class=""><a href="{{route('roles.index')}}" class="">Roles</a></li>
+        @can('View Roles')
+            <li class=""><a href="{{route('roles.index')}}" class="">Roles</a></li>
+        @endcan
+        @can('View Users')
         <li class=""><a href="{{route('users.index')}}" class="">Users</a></li>
+        @endcan
+
     </ul>
+    @endcan
+
 </li>
 
 <li class="nav-item pcoded-hasmenu">
