@@ -71,7 +71,7 @@ class RoleController extends Controller
 
         $role = Role::findOrfail($request->id);
         $role->name = $request->name;
-        $role->name = $request->description;
+        $role->description = $request->description;
 
         $role->save();
         $role->syncPermissions($request->permissions);
