@@ -67,6 +67,8 @@ Route::middleware(["auth"])->group(function () {
     Route::post('sales/daily-report/generate', 'DailySaleController@generate')->name('sales.daily-generate');
     Route::post('sales/daily-report/update', 'DailySaleController@update')->name('sales.daily-update');
     Route::post('sales/daily-report/review', 'DailySaleController@review')->name('sales.daily-review');
+    Route::post('sales/daily-report/search', 'DailySaleController@search')->name('sales.daily-search');
+
 
     //staff losses and advance
     Route::get('expense-management/staff-loss', 'StaffLossController@index')->name('losses.index');

@@ -16,8 +16,8 @@ class DailySaleController extends Controller
     
     public function index()
     {
-        $DailySale = DailySale::get();
-        
+        $DailySale = DailySale::whereRaw('month(report_date) = month(now())')->get();
+    
         $totals = DB::table('daily_report')
         ->select(DB::raw('sum(sales) as sales,sum(other_income) as income,sum(expenses) as expenses,sum(purchases) as purchases,sum(cash_on_hand) as coh'))
         ->whereRaw('month(report_date) = month(now())')
@@ -130,5 +130,22 @@ class DailySaleController extends Controller
         return back();
 
     }
+
+    public function search(Request $request)
+    {
+        $from = date('Y-m-d', strtotime($request->from_date));
+        $to = date('Y-m-d', strtotime($request->to_date));
+
+        $DailySale = DailySale::whereRaw("date(report_date) between '". $from . "' and '". $to ."'")->get();
+        
+        $totals = DB::table('daily_report')
+            ->select(DB::raw('sum(sales) as sales,sum(other_income) as income,sum(expenses) as expenses,sum(purchases) as purchases,sum(cash_on_hand) as coh'))
+            ->whereRaw("report_date between '". $from  ."' and '". $to ."'")
+            ->groupBy(DB::raw('month(now())'))
+            ->get();
+
+        return view('sales.daily_report.index', compact('DailySale','totals'));
+    }
+
 
 }

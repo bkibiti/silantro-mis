@@ -24,18 +24,27 @@ Daily Sale Report
     <div class="card">
         <div class="card-body">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <form id="expense_form" action="" method="post">
+                <form id="expense_form" action="{{route('sales.daily-search')}}" method="post">
                     @csrf()
 
                     <div class="form-group row">
-
-               
-                     
-                        <div class="col-md-10">
+                        <div class="col-md-2">
+                            <div style="border: 2px solid white; border-radius: 6px;">
+                                <input type="text" name="from_date" class="form-control" id="from_date" required>
+                            </div> 
                         </div>
-                        {{-- <div class="col-md-2">
-                            <button type="submit" class="btn btn-success">Show</button>
-                        </div> --}}
+                        <div class="col-md-2">
+                            <div style="border: 2px solid white; border-radius: 6px;">
+                                <input type="text" name="to_date" class="form-control" id="to_date" required>
+                            </div>
+                        </div>
+                       
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-success">Filter</button>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+               
                         <div class="col-md-2">
                             @can('Manage Daily Report')
                                 <input type="button" name="create_report" value="Add Report"
@@ -63,58 +72,64 @@ Daily Sale Report
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($DailySale as $s)
-                            <tr>
-                                <td>{{$s->report_date}}</td>
-                                <td>{{number_format($s->sales,0)}}</td>
-                                <td>{{number_format($s->other_income,2)}}</td>
-                                <td>{{number_format($s->expenses,2)}}</td>
-                                <td>{{number_format($s->purchases,2)}}</td>
-                                <td>{{number_format($s->cash_on_hand,2)}}</td>
-                                <td>{{$s->status}}</td>
-                                <td>
-                                    <a href="#">
-                                        <button class="btn btn-success btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
-                                            data-submitted_by="{{$s->submitter->name}}" data-submitted_at="{{$s->submitted_at}}"
-                                            data-approver_remarks="{{$s->approver_remarks}}"   
-                                            type="button" data-toggle="modal" data-target="#details">Details</button>
-                                    </a>
-                                    @can('Manage Daily Report')
-                                        @if ($s->status=="Pending" or $s->status=="Rejected")
-                                            <a href="#">
-                                                <button class="btn btn-warning btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
-                                                    data-id="{{$s->id}}" 
-                                                    data-other_income="{{$s->other_income}}"    data-report_date="{{$s->report_date}}"
-                                                    type="button" data-toggle="modal" data-target="#edit">Edit</button>
-                                            </a>
-                                        @endif
-                                    @endcan
+                            @if ($totals->count() > 0)
+                                
+                                @foreach($DailySale as $s)
+                                <tr>
+                                    <td>{{$s->report_date}}</td>
+                                    <td>{{number_format($s->sales,0)}}</td>
+                                    <td>{{number_format($s->other_income,2)}}</td>
+                                    <td>{{number_format($s->expenses,2)}}</td>
+                                    <td>{{number_format($s->purchases,2)}}</td>
+                                    <td>{{number_format($s->cash_on_hand,2)}}</td>
+                                    <td>{{$s->status}}</td>
+                                    <td>
+                                        <a href="#">
+                                            <button class="btn btn-success btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
+                                                data-submitted_by="{{$s->submitter->name}}" data-submitted_at="{{$s->submitted_at}}"
+                                                data-approver_remarks="{{$s->approver_remarks}}"   
+                                                type="button" data-toggle="modal" data-target="#details">Details</button>
+                                        </a>
+                                        @can('Manage Daily Report')
+                                            @if ($s->status=="Pending" or $s->status=="Rejected")
+                                                <a href="#">
+                                                    <button class="btn btn-warning btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
+                                                        data-id="{{$s->id}}" 
+                                                        data-other_income="{{$s->other_income}}"    data-report_date="{{$s->report_date}}"
+                                                        type="button" data-toggle="modal" data-target="#edit">Edit</button>
+                                                </a>
+                                            @endif
+                                        @endcan
 
-                                    @can('Approve Daily Report')
-                                        @if ($s->status=="Pending")
-                                            <a href="#">
-                                                <button class="btn btn-primary btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
-                                                    data-id="{{$s->id}}"  data-submitted_by="{{$s->submitter->name}}" data-submitted_at="{{$s->submitted_at}}"
-                                                    type="button" data-toggle="modal" data-target="#Review">Review</button>
-                                            </a>
-                                        @endif
-                                    @endcan
+                                        @can('Approve Daily Report')
+                                            @if ($s->status=="Pending")
+                                                <a href="#">
+                                                    <button class="btn btn-primary btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
+                                                        data-id="{{$s->id}}"  data-submitted_by="{{$s->submitter->name}}" data-submitted_at="{{$s->submitted_at}}"
+                                                        type="button" data-toggle="modal" data-target="#Review">Review</button>
+                                                </a>
+                                            @endif
+                                        @endcan
 
-                
-                                </td>
+                    
+                                    </td>
 
-                            </tr>
-                            @endforeach
+                                </tr>
+                                @endforeach
+                            @endif
 
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td><h5>Total</h5> </td>
-                                <td><h5>{{number_format($totals[0]->sales)}}</h5></td>
-                                <td><h5>{{number_format($totals[0]->income)}}</h5></td>
-                                <td><h5>{{number_format($totals[0]->expenses)}}</h5></td>
-                                <td><h5>{{number_format($totals[0]->purchases)}}</h5></td>
-                                <td><h5>{{number_format($totals[0]->coh)}}</h5></td>
+                                @if ($totals->count() > 0)
+
+                                    <td><h5>Total</h5> </td>
+                                    <td><h5>{{number_format($totals[0]->sales)}}</h5></td>
+                                    <td><h5>{{number_format($totals[0]->income)}}</h5></td>
+                                    <td><h5>{{number_format($totals[0]->expenses)}}</h5></td>
+                                    <td><h5>{{number_format($totals[0]->purchases)}}</h5></td>
+                                    <td><h5>{{number_format($totals[0]->coh)}}</h5></td>
+                                @endif
 
                             </tr>
                         </tfoot>
@@ -157,6 +172,36 @@ Daily Sale Report
     var end = moment();
 
     $('#report_date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
+
+    $(function () {
+    var start = moment();
+    var end = moment();
+
+    $('#from_date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
+
+    $(function () {
+    var start = moment();
+    var end = moment();
+
+    $('#to_date').daterangepicker({
             singleDatePicker: true,
             showDropdowns: true,
             maxDate: end,
