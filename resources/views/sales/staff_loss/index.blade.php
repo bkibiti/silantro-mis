@@ -13,7 +13,7 @@ Staff Losses
 
 @section('content-sub-title')
 <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
-<li class="breadcrumb-item"><a href="#"> Expense Management / Staff Losses </a></li>
+<li class="breadcrumb-item"><a href="#"> Sales / Staff Losses </a></li>
 @endsection
 
 @section("content")
@@ -23,26 +23,39 @@ Staff Losses
 <div class="col-sm-12">
     <div class="card">
         <div class="card-body">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <form id="expense_form" action="" method="post">
-                    @csrf()
 
-                    <div class="form-group row">
+                    <form id="expense_form" action="{{route('losses.search')}}" method="post">
+                        @csrf()
+    
+                        <div class="form-group row">
+    
+                            <div class="col-md-2">
+                                <div style="border: 2px solid white; border-radius: 6px;">
+                                    <input type="text" name="from_date" class="form-control" id="from_date" required>
+                                </div> 
+                            </div>
+                            <div class="col-md-2">
+                                <div style="border: 2px solid white; border-radius: 6px;">
+                                    <input type="text" name="to_date" class="form-control" id="to_date" required>
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-success">Filter</button>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
 
-               
-                     
-                        <div class="col-md-10">
+                            <div class="col-md-2">
+                                @can('Add Staff Loss')
+                                    <input type="button" name="create_report" value="Add Loss"
+                                        class="form-control btn btn-primary" data-toggle="modal" data-target="#create">
+                                @endcan
+                            </div>
                         </div>
-                  
-                        <div class="col-md-2">
-                            @can('Add Staff Loss')
-                                <input type="button" name="create_report" value="Add"
-                                    class="form-control btn btn-primary" data-toggle="modal" data-target="#create">
-                            @endcan
-                        </div>
-                    </div>
-
-                </form>
+    
+                    </form>
+              
 <hr>
              
                 <div class="table-responsive">
@@ -53,7 +66,7 @@ Staff Losses
                                 <th>Date</th>
                                 <th>Staff Name</th>
                                 <th>Amount</th>
-                                <th>Type</th>
+                                {{-- <th>Type</th> --}}
                                 <th>Remarks</th>
                                 @can('Edit Staff Loss')
                                 <th>Action</th>
@@ -61,12 +74,15 @@ Staff Losses
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($StaffAdvance as $s)
+                            @if ($StaffLOss->count() > 0)
+                                
+                           
+                            @foreach($StaffLOss as $s)
                             <tr>
                                 <td>{{$s->date}}</td>
                                 <td>{{$s->user->name}}</td>
                                 <td>{{number_format($s->amount,2)}}</td>
-                                <td>{{$s->type}}</td>
+                                {{-- <td>{{$s->type}}</td> --}}
                                 <td>{{ $s->remarks }}</td>
                             
                                     @can('Edit Staff Loss')
@@ -82,31 +98,52 @@ Staff Losses
 
                                     @endcan
 
-
+                        
                 
 
                             </tr>
                             @endforeach
 
+                            @endif
+
                         </tbody>
                 
                     </table>
-                    <div >
-                       
-                    </div>
+                
     
                 </div>
-                
+                <hr>
+                {{-- show staff summary --}}
+                @if ($total > 0)
+                    
+                    @foreach ($staffLossTotal as $s)
+                    <div class="form-group row">
+                        <div class="col-md-2"></div>
+
+                        <div class="col-md-2">
+                            {{ $s->user }}
+                        </div>
+                        <div class="col-md-2 text-right">
+                            {{number_format($s->amount,2)}}
+                        </div>
+                    </div>
+                    @endforeach
+                    <div class="form-group row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"> <h6> Total Losses</h6></div>
+                        <div class="col-md-2 text-right">
+                            <h6>{{number_format($total,2)}}</h6>
+                        </div>
+                    </div>
+                @endif
                 
       
-            </div>
         </div>
     </div>
 </div>
 
-@include("expense.staff_advance.create")
-@include("expense.staff_advance.edit")
-
+@include("sales.staff_loss.create")
+@include("sales.staff_loss.edit")
 
 
 @endsection
@@ -122,6 +159,35 @@ Staff Losses
       order: [[0, "desc"]]
     });
 
+
+    $(function () {
+    var start = moment();
+    var end = moment();
+
+    $('#from_date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
+    $(function () {
+    var start = moment();
+    var end = moment();
+
+    $('#to_date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
 
     $(function () {
     var start = moment();

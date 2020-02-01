@@ -68,6 +68,11 @@ Route::middleware(["auth"])->group(function () {
     Route::post('sales/daily-report/update', 'DailySaleController@update')->name('sales.daily-update');
     Route::post('sales/daily-report/review', 'DailySaleController@review')->name('sales.daily-review');
 
+    //staff losses and advance
+    Route::get('expense-management/staff-loss', 'StaffLossController@index')->name('losses.index');
+    Route::post('expense-management/staff-loss', 'StaffLossController@store')->name('losses.store');
+    Route::post('expense-management/staff-loss-edit', 'StaffLossController@update')->name('losses.update');
+    Route::post('expense-management/staff-loss-search', 'StaffLossController@search')->name('losses.search');
 
 
  
@@ -100,10 +105,7 @@ Route::middleware(["auth"])->group(function () {
         'index', 'store'
     ]);
     Route::get('expense-management/expense-date-filter', 'ExpenseController@filterExpenseDate')->name('expense-date-filter');
-    //staff losses and advance
-    Route::get('expense-management/advances', 'StaffAdvanceController@index')->name('advances.index');
-    Route::post('expense-management/advances', 'StaffAdvanceController@store')->name('advances.store');
-    Route::post('expense-management/advances-edit', 'StaffAdvanceController@update')->name('advances.update');
+  
 
 
     /*Pdf generator routes*/

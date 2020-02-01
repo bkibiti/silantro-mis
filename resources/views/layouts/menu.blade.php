@@ -17,6 +17,9 @@
         @can('View Daily Report')
         <li class=""><a href="{{route('sales.daily-index')}}" class="">Daily Sale Report</a></li>
         @endcan
+        @can('View Staff Loss')
+        <li class=""><a href="{{route('losses.index')}}" class="">Staff Losses</a></li>
+        @endcan
 
 
 </ul>
@@ -76,9 +79,7 @@
         @can('View Expenses')
         <li class=""><a href="{{route('expense.index')}}" class="">Expenses</a></li>
         @endcan
-        @can('View Staff Loss')
-        <li class=""><a href="{{route('advances.index')}}" class="">Staff Losses</a></li>
-        @endcan
+      
     </ul>
     @endcan
 </li>
