@@ -81,7 +81,7 @@ class StaffLossController extends Controller
 
         $staffLossTotal = DB::select("SELECT users.name as user,sum(amount) as amount FROM 
                     staff_advances join users on staff_advances.user_id=users.id
-                    where staff_advances.date between '". $from . "' and '" . $to . "' group by users.name");
+                    where staff_advances.date between '". $from . "' and '" . $to . "' and type='loss' group by users.name");
         $total = 0;
         foreach ($staffLossTotal as $s) {
             $total = $total + $s->amount;
