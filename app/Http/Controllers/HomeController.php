@@ -58,6 +58,7 @@ class HomeController extends Controller
         $totalDailySales = DB::table('sales')
             ->select(DB::raw('date(created_at) date, sum(quantity*selling_price) value'))
             ->groupBy(DB::raw('date(created_at)'))
+            ->orderBy('date','Desc')
             ->limit('30')
             ->get();
 
