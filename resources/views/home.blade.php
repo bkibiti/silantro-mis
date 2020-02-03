@@ -203,7 +203,7 @@
 
     //title
     var title = chart.titles.create();
-    title.text = "Daily Sales";
+    title.text = "Daily Sales Last 30 Days";
     title.fontSize = 16;
     title.marginBottom = 15;
 
@@ -329,7 +329,7 @@
         chart.data = @json($salesByUser);
       //title
       var title = chart.titles.create();
-            title.text = "Sales By User";
+            title.text = "Total Sales By Staff this Month";
             title.fontSize = 16;
             title.marginBottom = 15;
 
