@@ -84,7 +84,7 @@ Route::middleware(["auth"])->group(function () {
     ]);
     Route::post('inventory-management/current-stock/filter','CurrentStockController@filter')->name('current-stock-filter');
 
-    Route::get('inventory/stock-adjustment-history','StockAdjustmentController@history')->name('adjustment-history');
+  
     Route::resource('inventory-management/daily-stock-count', 'StockCountController')->only([
         'index'
     ]);
@@ -92,9 +92,10 @@ Route::middleware(["auth"])->group(function () {
 
     /*stock adjustment routes*/
     Route::resource('inventory-management/stock-adjustment', 'StockAdjustmentController')->only([
-        'index', 'store', 'update', 'destroy'
+        'index', 'store',
     ]);
-
+    Route::post('inventory/stock-adjustment/search','StockAdjustmentController@search')->name('adjustment.search');
+    
 
   
     /*outgoingstock routes*/
@@ -106,8 +107,8 @@ Route::middleware(["auth"])->group(function () {
     Route::resource('expense-management/expense', 'ExpenseController')->only([
         'index', 'store'
     ]);
-    Route::get('expense-management/expense-date-filter', 'ExpenseController@filterExpenseDate')->name('expense-date-filter');
-  
+    Route::post('expense-management/expense-search', 'ExpenseController@search')->name('expense.search');
+    Route::post('expense-management/expense-update', 'ExpenseController@update')->name('expense.update');
 
 
     /*Pdf generator routes*/

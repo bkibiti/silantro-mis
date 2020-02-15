@@ -79,7 +79,7 @@ Staff Losses
                            
                             @foreach($StaffLOss as $s)
                             <tr>
-                                <td>{{$s->date}}</td>
+                                <td>{{date_format(new DateTime($s->date),'d M Y')}}</td>
                                 <td>{{$s->user->name}}</td>
                                 <td>{{number_format($s->amount,2)}}</td>
                                 {{-- <td>{{$s->type}}</td> --}}

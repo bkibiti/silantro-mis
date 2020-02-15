@@ -9,7 +9,7 @@ class Expense extends Model
     protected $table = 'expenses';
     public $timestamps = false;
 
-    public function accExpenseCategory()
+    public function category()
     {
         return $this->belongsTo(AccExpenseCategory::class, 'expense_category_id');
     }

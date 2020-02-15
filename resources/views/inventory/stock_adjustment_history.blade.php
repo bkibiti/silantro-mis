@@ -22,21 +22,45 @@ Stock Adjustment History
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="row">
-                        <div class="col-md-9">
+                <form id="expense_form" action="{{route('adjustment.search')}}" method="post">
+                    @csrf()
+    
+                    <div class="form-group row">
+    
+                        <div class="col-md-2">
+                            <div style="border: 2px solid white; border-radius: 6px;">
+                                <input type="text" name="from_date" class="form-control" id="from_date" required>
+                            </div> 
                         </div>
-                        <div class="col-md-3">
-                          
+                        <div class="col-md-2">
+                            <div style="border: 2px solid white; border-radius: 6px;">
+                                <input type="text" name="to_date" class="form-control" id="to_date" required>
+                            </div>
+                        </div>
+               
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-success">Filter</button>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+    
+                        <div class="col-md-2">
+                           
                         </div>
                     </div>
+    
+                </form>
+        <hr>
 
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+    
 
                     <div id="product-table" class="table-responsive">
                         <table id="fixed-header1" class="display table nowrap table-striped table-hover"
                                style="width:100%">
                             <thead>
                             <tr>
+                                <th>Date</th>
                                 <th>Product</th>
                                 <th>Original Qty</th>
                                 <th>Adjusted Qty</th>
@@ -48,6 +72,7 @@ Stock Adjustment History
                                 <tbody>
                                     @foreach($adjustments as $adjust)
                                     <tr>
+                                            <td>{{date_format(new DateTime($adjust->created_at),'d M Y')}}</td>
                                             <td>{{$adjust->product->name}}</td>
                                             <td>{{$adjust->original_qty}}</td>
                                             <td>{{$adjust->adjusted_qty}}</td>
@@ -81,6 +106,38 @@ Stock Adjustment History
                 $('#fixed-header1').DataTable({
                     bAutoWidth: true,
                 });
+
+        $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#from_date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+        });
+
+        $(function () {
+            var start = moment();
+            var end = moment();
+
+            $('#to_date').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                maxDate: end,
+                autoUpdateInput: true,
+                locale: {
+                    format: 'DD-M-YYYY'
+                }
+            });
+        });
+
+
 
             </script>
 

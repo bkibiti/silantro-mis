@@ -10,10 +10,14 @@ use Illuminate\Support\Facades\DB;
 
 class StockAdjustmentController extends Controller
 {
+    public function index()
+    {
+        $adjustments = StockAdjustment::whereRaw('month(created_at) = month(now())')->get();
+        return view('inventory.stock_adjustment_history', compact("adjustments"));
 
+    }
     public function store(Request $request)
     {
-        // dd($request->all());
 
         $original_qty = $request->quantity;
         $adjusted_qty = $request->qnty;
@@ -45,18 +49,18 @@ class StockAdjustmentController extends Controller
         return back();
     }
 
-    public function history()
-    {
-        $adjustments = StockAdjustment::all();
+   
 
+    public function search(Request $request)
+    {
+        $from = date('Y-m-d', strtotime($request->from_date));
+        $to = date('Y-m-d', strtotime($request->to_date));
+
+        $adjustments = StockAdjustment::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")->get();
+     
         return view('inventory.stock_adjustment_history', compact("adjustments"));
-
     }
 
-    public function destroy(Request $request)
-    {
-
-    }
 
    
 }

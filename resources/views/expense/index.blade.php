@@ -70,84 +70,117 @@ Expense
 <div class="col-sm-12">
     <div class="card">
         <div class="card-body">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="row">
-                  
-                    <div class="col-md-4">
-                        {{-- <label >Expense Date</label> --}}
-                        <div class="form-group">
-                            <input type="text" name="date_of_expense" onchange="getExpenseDate()" class="form-control"
-                                id="expense_date" value="" />
+            <form id="expense_form" action="{{route('expense.search')}}" method="post">
+                @csrf()
 
-                        </div>
-                    </div>
-           
-                    <div class="col-md-6">
+                <div class="form-group row">
+
+                    <div class="col-md-2">
+                        <div style="border: 2px solid white; border-radius: 6px;">
+                            <input type="text" name="from_date" class="form-control" id="from_date" required>
+                        </div> 
                     </div>
                     <div class="col-md-2">
-                        <div class="form-group">
-                            @can('Add Expenses')
-                            <input type="button" name="issued_date" value="Add Expense"
-                                class="form-control btn btn-primary" data-toggle="modal" data-target="#create">
-                            @endcan
+                        <div style="border: 2px solid white; border-radius: 6px;">
+                            <input type="text" name="to_date" class="form-control" id="to_date" required>
                         </div>
                     </div>
-                </div>
-<hr>
-                {{--ajax loading gif--}}
-                <div id="loading">
-                    <image id="loading-image" src="{{asset('assets/images/spinner.gif')}}"></image>
-                </div>
+                    <div class="col-md-2">
+                        <div id="category" style="border: 2px solid white; border-radius: 6px;">
+                            <select name="expense_category" class="form-control">
+                                <option selected="true" value="0" >All Categories
+                                </option>
+                                @foreach($expense_category as $x)
+                                    <option value="{{$x->id}}">{{$x->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-success">Filter</button>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
 
-                <div id="tbody-header" class="table-responsive" style="display: block">
-                    <table id="fixed-header" class="display table nowrap table-striped table-hover" style="width:100%">
-
-                        <thead>
-                            <tr>
-                                <th>Expense Date</th>
-                                <th>Expense Category</th>
-                                <th>Description</th>
-                                <th>Amount</th>
-                                <th>Payment Method</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-
-                <div id="tbody-header-expense" class="table-responsive" style="display: none;">
-                    <table id="fixed-header-expense" class="display table nowrap table-striped table-hover"
-                        style="width:100%;">
-
-                        <thead>
-                            <tr>
-                                <th>Expense Date</th>
-                                <th>Expense Category</th>
-                                <th>Description</th>
-                                <th>Amount</th>
-                                <th>Payment Method</th>
-                                <th>Recorded By</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-
-                <hr>
-
-                <div class="row">
-            
-                    <div class="col-md-12">
-                        <h4>Total Expenses (Tshs): <span id="total_span"></span>
-                            </h4>
+                    <div class="col-md-2">
+                        @can('Add Expenses')
+                        <input type="button" name="issued_date" value="Add Expense"
+                            class="form-control btn btn-primary" data-toggle="modal" data-target="#create">
+                        @endcan
                     </div>
                 </div>
+
+            </form>
+    <hr>
+            <div class="table-responsive">
+                <table id="fixed-header1" class="display table nowrap table-striped table-hover" style="width:100%">
+
+                    <thead>
+                            <tr>
+                                <th>Expense Date</th>
+                                <th>Expense Category</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>User</th>
+                                <th>Action</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach($Expenses as $x)
+                        <tr>
+                            {{-- <td>{{$x->created_at}}</td> --}}
+                            <td>{{date_format(new DateTime($x->created_at),'d M Y')}}</td>
+                            <td>{{$x->category->name}}</td>
+                            <td>{{ $x->expense_description }}</td>
+                            <td>{{number_format($x->amount,2)}}</td>
+                            <td>{{$x->user->name}}</td>
+                                @can('Edit Staff Loss')
+                                <td>
+
+                                    <a href="#">
+                                        <button class="btn btn-warning btn-sm" data-expense_description="{{$x->expense_description}}"
+                                            data-id="{{$x->id}}"   data-date="{{$x->created_at}}"  
+                                            data-amount="{{$x->amount}}"    data-expense_category="{{$x->expense_category_id}}"
+                                            type="button" data-toggle="modal" data-target="#edit">Edit</button>
+                                    </a>
+                                </td>
+
+                                @endcan
+
+                    
+            
+
+                        </tr>
+                        @endforeach
+
+
+                    </tbody>
+            
+                </table>
+            
+
             </div>
+
+            <hr>
+            {{-- show staff summary --}}
+            @if ($total > 0)
+                
+                <div class="form-group row">
+                    <div class="col-md-2"> <h6> Total Expenses</h6></div>
+                    <div class="col-md-2">
+                        <h6>{{number_format($total,2)}}</h6>
+                    </div>
+                </div>
+            @endif
+  
         </div>
     </div>
 </div>
 
 @include("expense.create")
+@include("expense.edit")
+
 
 @endsection
 
@@ -157,94 +190,18 @@ Expense
 @include('partials.notification')
 
 <script>
-    /*expense filter table results*/
-        var table_expense_filter = $('#fixed-header-expense').DataTable({
-            searching: true,
-            bPaginate: true,
-            bInfo: true,
-            'columns': [
-                {'data': 'created_at'},
-                {'data': 'expense_Category'},
-                {'data': 'description'},
-                {
-                    'data': 'amount', render: function (amount) {
-                        return formatMoney(amount);
-                    }
-                },
-                {'data': 'payment_method'},
-                {'data': 'user'}
-            ]
 
-        });
+    $('#fixed-header1').DataTable({
+      bAutoWidth: true,
+      order: [[0, "desc"]]
+    });
 
-        $(function () {
 
-            var start = moment();
-            var end = moment();
+    $(function () {
+        var start = moment();
+        var end = moment();
 
-            function cb(start, end) {
-                $('#expense_date span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            }
-
-            $('#expense_date').daterangepicker({
-                startDate: moment().startOf('month'),
-                endDate: moment().endOf('month'),
-                maxDate: end,
-                autoUpdateInput: true,
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-                    'This Year': [moment().startOf('year'), moment()]
-                }
-            }, cb);
-
-            cb(start, end);
-
-        });
-
-        /*category select2 dropdown*/
-        $('#expense_category').select2({
-            dropdownParent: $('#create')
-        });
-
-        /*to date*/
-        $('#d_auto_7').datepicker({
-            todayHighlight: true,
-            format: 'yyyy-mm-dd',
-            changeYear: true
-        }).on('change', function () {
-            //filterExpenseDate();
-            $('.datepicker').hide();
-        }).attr('readonly', 'readonly');
-
-        /*from date*/
-        $('#d_auto_8').datepicker({
-            todayHighlight: true,
-            format: 'yyyy-mm-dd',
-            changeYear: true
-        }).on('change', function () {
-            //filterExpenseDate();
-            $('.datepicker').hide();
-        }).attr('readonly', 'readonly');
-
-        $('#d_auto_9').datepicker({
-            todayHighlight: true,
-            format: 'yyyy-mm-dd',
-            changeYear: true,
-            maxDate: '+0m +0w'
-        }).on('change', function () {
-            $('.datepicker').hide();
-        }).attr('readonly', 'readonly');
-
-        $(function () {
-            var start = moment();
-            var end = moment();
-
-            $('#d_auto_91').daterangepicker({
+        $('#from_date').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
                 maxDate: end,
@@ -253,107 +210,66 @@ Expense
                     format: 'DD-M-YYYY'
                 }
             });
-        });
+    });
 
-        /*get expense date*/
-        function getExpenseDate() {
-            var dates = document.querySelector('input[name=date_of_expense]').value;
-            dates = dates.split('-');
-            filterExpenseDate(dates);
-            // console.log(dates);
-        }
+    $(function () {
+        var start = moment();
+        var end = moment();
 
-        /*ajax request from, to dates */
-        function filterExpenseDate(dates) {
-
-            var ajaxurl = '{{route('expense-date-filter')}}';
-            $('#loading').show();
-            $.ajax({
-                url: ajaxurl,
-                type: "get",
-                dataType: "json",
-                data: {
-                    from_date: dates[0],
-                    to_date: dates[1]
-                },
-                success: function (data) {
-                    document.getElementById("tbody-header").style.display = 'none';
-                    document.getElementById("tbody-header-expense").style.display = 'block';
-                    document.getElementById("total_span").innerHTML = formatMoney(data[0][1]);
-
-                    bindDataFilter(data[0][0]);
-
-
-                },
-                complete: function () {
-                    $('#loading').hide();
+        $('#to_date').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                maxDate: end,
+                autoUpdateInput: true,
+                locale: {
+                    format: 'DD-M-YYYY'
                 }
             });
+    });
 
-        }
+    $(function () {
+    var start = moment();
+    var end = moment();
 
-        /*bind expense filter results*/
-        function bindDataFilter(data) {
-            table_expense_filter.clear();
-            table_expense_filter.rows.add(data);
-            table_expense_filter.draw();
-        }
-
-        /*validate form*/
-        $('#expense_form').on('submit', function () {
-
-            var date = document.getElementById('d_auto_91').value;
-            var payment_method = document.getElementById('payment_method');
-            var method_id = payment_method.options[payment_method.selectedIndex].value;
-            var expense_category = document.getElementById('expense_category');
-            var category_id = expense_category.options[expense_category.selectedIndex].value;
-
-            if (date === '') {
-                document.getElementById('date').style.borderColor = 'red';
-                return false;
-            } else if (Number(method_id) === Number(0)) {
-                document.getElementById('method').style.borderColor = 'red';
-                return false;
-            } else if (Number(category_id) === Number(0)) {
-                document.getElementById('category').style.borderColor = 'red';
-                return false;
+    $('#date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
             }
-
-            document.getElementById('method').style.borderColor = 'white';
-            document.getElementById('category').style.borderColor = 'white';
-            document.getElementById('date').style.borderColor = 'white';
         });
+    });
 
-        $('#expense').on('change', function () {
-            var amount = document.getElementById('expense').value;
-            document.getElementById('expense').value = formatMoney(amount);
-        });
+    $(function () {
+        var start = moment();
+        var end = moment();
 
-        function isNumberKey(evt, obj) {
+        $('#date2').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                maxDate: end,
+                autoUpdateInput: true,
+                locale: {
+                    format: 'DD-M-YYYY'
+                }
+            });
+    });
 
-            var charCode = (evt.which) ? evt.which : event.keyCode;
-            var value = obj.value;
-            var dotcontains = value.indexOf(".") !== -1;
-            if (dotcontains)
-                if (charCode === 46) return false;
-            if (charCode === 46) return true;
-            if (charCode > 31 && (charCode < 48 || charCode > 57))
-                return false;
-            return true;
-        }
 
-        /*format money*/
-        function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
-            try {
-                decimalCount = Math.abs(decimalCount);
-                decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
-                const negativeSign = amount < 0 ? "-" : "";
-                let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
-                let j = (i.length > 3) ? i.length % 3 : 0;
-                return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
-            } catch (e) {
-            }
-        }
+    $('#edit').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var modal = $(this)
+    
+        modal.find('.modal-body #date2').val(button.data('date'));
+        modal.find('.modal-body #expense_amount2').val(button.data('amount'));
+        modal.find('.modal-body #expense_category2').val(button.data('expense_category'));
+        modal.find('.modal-body #expense_description2').val(button.data('expense_description'));
+        modal.find('.modal-body #id').val(button.data('id'));
+      });//end edit
+
+
 
 </script>
 

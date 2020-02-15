@@ -38,7 +38,7 @@
         @endcan
 
         @can('View Adjustment History')
-        <li class=""><a href="{{ route('adjustment-history') }}" class="">Adjustment History</a></li>
+        <li class=""><a href="{{ route('stock-adjustment.index') }}" class="">Adjustment History</a></li>
         @endcan
 
         @can('View Stock Count Sheet')
