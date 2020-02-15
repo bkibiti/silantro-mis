@@ -122,7 +122,9 @@ Expense
                                 <th>Description</th>
                                 <th>Amount</th>
                                 <th>User</th>
+                                @can('Edit Expenses')
                                 <th>Action</th>
+                                @endcan
                             </tr>
                     </thead>
                     <tbody>
@@ -135,7 +137,7 @@ Expense
                             <td>{{ $x->expense_description }}</td>
                             <td>{{number_format($x->amount,2)}}</td>
                             <td>{{$x->user->name}}</td>
-                                @can('Edit Staff Loss')
+                                @can('Edit Expenses')
                                 <td>
 
                                     <a href="#">
