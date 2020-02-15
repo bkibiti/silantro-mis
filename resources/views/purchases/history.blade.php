@@ -27,13 +27,11 @@
 
                     <div class="form-group row">
 
-                        <label for="product_name" class="col-md-1 col-form-label text-md-left">From:</label>
                         <div class="col-md-2">
                             <div id="date" style="border: 2px solid white; border-radius: 6px;">
                                 <input type="text" name="from_date" class="form-control" id="from_date" required>
                             </div>
                         </div>
-                        <label for="product_name" class="col-md-1 col-form-label text-md-right">To:</label>
                         <div class="col-md-2">
                             <div id="date" style="border: 2px solid white; border-radius: 6px;">
                                 <input type="text" name="to_date" class="form-control" id="to_date" required>
