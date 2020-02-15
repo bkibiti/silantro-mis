@@ -68,6 +68,11 @@ Route::middleware(["auth"])->group(function () {
     Route::post('sales/daily-report/update', 'DailySaleController@update')->name('sales.daily-update');
     Route::post('sales/daily-report/review', 'DailySaleController@review')->name('sales.daily-review');
     Route::post('sales/daily-report/search', 'DailySaleController@search')->name('sales.daily-search');
+    //sale reports
+    Route::get('sales-reports/index', 'SaleReportController@index')->name('sales-reports.index');
+    Route::get('sales-reports/total-daily-sales', 'SaleReportController@getReport')->name('sales-reports.getreport');
+
+    
 
 
     //staff losses and advance
@@ -109,11 +114,6 @@ Route::middleware(["auth"])->group(function () {
     ]);
     Route::post('expense-management/expense-search', 'ExpenseController@search')->name('expense.search');
     Route::post('expense-management/expense-update', 'ExpenseController@update')->name('expense.update');
-
-
-    /*Pdf generator routes*/
-    Route::post('inventory-management/daily-stock-count/pdfgen', 'DailyStockCountController@generateDailyStockCountPDF')->name('daily-stock-count-pdf-gen');
-    Route::get('inventory-management/inventory-count-sheet/pdfgen', 'InventoryCountSheetController@generateInventoryCountSheetPDF')->name('inventory-count-sheet-pdf-gen');
 
     //user roles
     Route::get('user-roles', 'RoleController@index')->name('roles.index');

@@ -91,7 +91,7 @@
             class="pcoded-mtext">Reports</span></a>
     <ul class="pcoded-submenu">
         @can('View Sales Reports')
-        <li class=""><a href="" class="">Sales Reports</a></li>
+        <li class=""><a href="{{route('sales-reports.index')}}" class="">Sales Reports</a></li>
         @endcan
         @can('View Inventory Reports')
         <li class=""><a href="" class="">Inventory Reports</a></li>

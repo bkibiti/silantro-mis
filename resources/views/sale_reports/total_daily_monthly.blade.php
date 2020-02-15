@@ -8,16 +8,11 @@
 @endsection
 
 @section('content-title')
-Sales Reports
+Total Monthly Sales Reports
 @endsection
 
-@section('content-sub-title')
-<li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
-<li class="breadcrumb-item"><a href="#"> Reports/ Sales Reports </a></li>
-@endsection
 
 @section("content")
-
 
 <div class="col-sm-12">
     <div class="card">
@@ -25,8 +20,33 @@ Sales Reports
      
             @include('sale_reports.search')
 
-         <hr>
-     
+    <hr>
+            <div class="table-responsive">
+                <table id="fixed-header1" class="display table nowrap table-striped table-hover" style="width:100%">
+
+                    <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Total Sales</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($data as $d)
+                        <tr>
+                            <td>{{$d->month}}</td>
+                            <td>{{number_format($d->amount,2)}}</td>
+                        </tr>
+                        @endforeach
+                  
+
+                    </tbody>
+            
+                </table>
+            
+
+            </div>
+
+            <hr>
  
   
         </div>
