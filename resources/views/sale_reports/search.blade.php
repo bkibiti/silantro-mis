@@ -8,8 +8,8 @@
                     <option >Select Report</option>
                     <option value="1" >Total Daily Sales</option>
                     <option value="2" >Total Monthly Sales</option>
-                    <option value="3" >Total Monthly Sales</option>
-
+                    <option value="3" >Fast Moving Items</option>
+                    <option value="4" >Gross Profit</option>
 
                 </select>
             </div>

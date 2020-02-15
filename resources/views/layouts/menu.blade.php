@@ -84,21 +84,11 @@
     @endcan
 </li>
 
-<li data-username="Vertical Horizontal Box Layout RTL fixed static collapse menu color icon dark"
-    class="nav-item pcoded-hasmenu">
+<li class="nav-item">
     @can('View Reports')
-    <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="fas fa-file-pdf"></i></span><span
+    <a href="{{route('sales-reports.index')}}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-file-pdf"></i></span><span
             class="pcoded-mtext">Reports</span></a>
-    <ul class="pcoded-submenu">
-        @can('View Sales Reports')
-        <li class=""><a href="{{route('sales-reports.index')}}" class="">Sales Reports</a></li>
-        @endcan
-        @can('View Inventory Reports')
-        <li class=""><a href="" class="">Inventory Reports</a></li>
-        @endcan
-        <li class=""><a href="" class="">Purchase Reports</a>
-        </li>
-    </ul>
+
     @endcan
 </li>
 
