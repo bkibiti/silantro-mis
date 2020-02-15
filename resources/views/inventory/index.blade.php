@@ -27,8 +27,7 @@
 
                     <div class="form-group row">
 
-                        <label for="product_name" class="col-md-1 col-form-label text-md-left">Status:</label>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <select class="form-control select2"  class="form-control" name="status"  data-placeholder="Select Status" required data-width="100%">
                                 <option value="0" >All Items</option>
                                 <option value="1" >Out of Stock</option>
