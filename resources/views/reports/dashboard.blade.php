@@ -35,7 +35,69 @@
         </ul>
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-              
+                       {{-- row 1 start --}}
+                    {{-- <div class="row">
+                            <!-- [ Today sales section ] start -->
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h6 class="mb-4">Average Daily Sales</h6>
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-9">
+                                            <h3 class="f-w-300 d-flex align-items-center m-b-0">Tshs {{ number_format($avgDailySales, 2) }}</h3>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- [ Today sales section ] end -->
+
+                            <!-- [ This week sales section ] start -->
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h6 class="mb-4">Today Sales</h6>
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-9">
+                                                <h3 class="f-w-300 d-flex align-items-center  m-b-0">
+                                                    @if ($todaySales > $avgDailySales)
+                                                        <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>
+                                                    @else
+                                                        <i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>
+                                                    @endif
+
+                                                   Tshs {{ number_format($todaySales, 2) }}
+
+                                                </h3>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- [ This week  sales section ] end -->
+
+                            <!-- [ This month sales section ] start -->
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h6 class="mb-4">Average Monthly Sales</h6>
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-9">
+                                                <h3 class="f-w-300 d-flex align-items-center  m-b-0">Tshs {{ number_format($avgDailySales * 30,2) }}</h3>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- [ this month  sales section ] end -->
+
+                    </div> --}}
+                    {{-- row 1 end --}}
                     <div class="row">
 
                         <div class="col-xl-6 col-md-6">
