@@ -69,8 +69,8 @@ Route::middleware(["auth"])->group(function () {
     Route::post('sales/daily-report/review', 'DailySaleController@review')->name('sales.daily-review');
     Route::post('sales/daily-report/search', 'DailySaleController@search')->name('sales.daily-search');
     //sale reports
-    Route::get('sales-reports/index', 'SaleReportController@index')->name('sales-reports.index');
-    Route::get('sales-reports/total-daily-sales', 'SaleReportController@getReport')->name('sales-reports.getreport');
+    Route::get('reports/index', 'ReportController@index')->name('reports.index');
+    Route::get('reports/total-daily-sales', 'ReportController@getReport')->name('reports.getreport');
 
     
 

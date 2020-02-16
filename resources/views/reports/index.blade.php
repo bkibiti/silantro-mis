@@ -1,0 +1,87 @@
+@extends("layouts.master")
+
+@section('page_css')
+<style>
+
+
+</style>
+@endsection
+
+@section('content-title')
+Sales Reports
+@endsection
+
+@section('content-sub-title')
+<li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
+<li class="breadcrumb-item"><a href="#"> Reports/ Sales Reports </a></li>
+@endsection
+
+@section("content")
+
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-body">
+     
+            @include('reports.search')
+
+         <hr>
+     
+ 
+  
+        </div>
+    </div>
+</div>
+
+
+@endsection
+
+@push("page_scripts")
+<script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
+<script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
+@include('partials.notification')
+
+<script>
+
+    $('#fixed-header1').DataTable({
+      bAutoWidth: true,
+      order: [[0, "desc"]]
+    });
+
+
+    $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#from_date').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                maxDate: end,
+                autoUpdateInput: true,
+                locale: {
+                    format: 'DD-M-YYYY'
+                }
+            });
+    });
+
+    $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#to_date').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                maxDate: end,
+                autoUpdateInput: true,
+                locale: {
+                    format: 'DD-M-YYYY'
+                }
+            });
+    });
+
+
+
+</script>
+
+
+@endpush

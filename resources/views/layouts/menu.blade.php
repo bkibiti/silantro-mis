@@ -86,7 +86,7 @@
 
 <li class="nav-item">
     @can('View Reports')
-    <a href="{{route('sales-reports.index')}}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-file-pdf"></i></span><span
+    <a href="{{route('reports.index')}}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-file-pdf"></i></span><span
             class="pcoded-mtext">Reports</span></a>
 
     @endcan

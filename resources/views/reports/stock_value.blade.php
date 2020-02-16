@@ -8,39 +8,46 @@
 @endsection
 
 @section('content-title')
-Total Daily Sales Reports
+Current Stock Value
 @endsection
 
 
 @section("content")
 
-
 <div class="col-sm-12">
     <div class="card">
         <div class="card-body">
-     
-            @include('sale_reports.search')
 
+            @include('reports.search')
     <hr>
             <div class="table-responsive">
                 <table id="fixed-header1" class="display table nowrap table-striped table-hover" style="width:100%">
-
                     <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Total Sales</th>
-                            </tr>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity on Hand</th>
+                            <th>Value by Purchase Price</th>
+                            <th>Value by Selling Price</th>
+                        </tr>
                     </thead>
                     <tbody>
                         @foreach($data as $d)
-                        <tr>
-                            <td>{{date_format(new DateTime($d->date),'d M Y')}}</td>
-                            <td>{{number_format($d->amount,2)}}</td>
-                        </tr>
+                            <tr>
+                                <td>{{$d->name}}</td>
+                                <td>{{$d->quantity}}</td>
+                                <td>{{number_format($d->purchase_value,2)}}</td>
+                                <td>{{number_format($d->sale_value,2)}}</td>
+                            </tr>
                         @endforeach
-                  
-
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><h6>Total Stock Value</h6> </td>
+                            <td></td>
+                            <td><h6>{{number_format($total[0]->total_purchase_value,2)}}</h6></td>
+                            <td><h6>{{number_format($total[0]->total_sale_value,2)}}</h6></td>
+                        </tr>
+                    </tfoot>
             
                 </table>
             
@@ -66,7 +73,6 @@ Total Daily Sales Reports
 
     $('#fixed-header1').DataTable({
       bAutoWidth: true,
-      order: [[0, "desc"]]
     });
 
 

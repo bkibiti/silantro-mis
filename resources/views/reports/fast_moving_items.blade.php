@@ -8,25 +8,41 @@
 @endsection
 
 @section('content-title')
-Sales Reports
+Fast Moving Items Reports
 @endsection
 
-@section('content-sub-title')
-<li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
-<li class="breadcrumb-item"><a href="#"> Reports/ Sales Reports </a></li>
-@endsection
 
 @section("content")
-
 
 <div class="col-sm-12">
     <div class="card">
         <div class="card-body">
-     
-            @include('sale_reports.search')
 
-         <hr>
-     
+            @include('reports.search')
+    <hr>
+            <div class="table-responsive">
+                <table id="fixed-header1" class="display table nowrap table-striped table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Sold Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($data as $d)
+                            <tr>
+                                <td>{{$d->name}}</td>
+                                <td>{{$d->qty}}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+            
+                </table>
+            
+
+            </div>
+
+            <hr>
  
   
         </div>
@@ -45,7 +61,7 @@ Sales Reports
 
     $('#fixed-header1').DataTable({
       bAutoWidth: true,
-      order: [[0, "desc"]]
+      order: [[1, "desc"]]
     });
 
 

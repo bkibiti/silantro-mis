@@ -8,17 +8,18 @@
 @endsection
 
 @section('content-title')
-Total Monthly Sales Reports
+Total Daily Sales Reports
 @endsection
 
 
 @section("content")
 
+
 <div class="col-sm-12">
     <div class="card">
         <div class="card-body">
      
-            @include('sale_reports.search')
+            @include('reports.search')
 
     <hr>
             <div class="table-responsive">
@@ -26,14 +27,14 @@ Total Monthly Sales Reports
 
                     <thead>
                             <tr>
-                                <th>Month</th>
+                                <th>Date</th>
                                 <th>Total Sales</th>
                             </tr>
                     </thead>
                     <tbody>
                         @foreach($data as $d)
                         <tr>
-                            <td>{{$d->month}}</td>
+                            <td>{{date_format(new DateTime($d->date),'d M Y')}}</td>
                             <td>{{number_format($d->amount,2)}}</td>
                         </tr>
                         @endforeach
@@ -45,8 +46,6 @@ Total Monthly Sales Reports
             
 
             </div>
-
-            <hr>
  
   
         </div>
