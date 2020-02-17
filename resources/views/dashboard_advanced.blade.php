@@ -11,7 +11,7 @@
             width: 100%;
             height: 400px;
         }
-        #sales_by_user {
+        #sales_by_month {
             width: 100%;
             height: 400px;
         }
@@ -35,81 +35,76 @@
         </ul>
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                       {{-- row 1 start --}}
-                    <div class="row">
-                            <!-- [ Today sales section ] start -->
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card">
-                                    <div class="card-block">
-                                        <h6 class="mb-4">Average Daily Sales</h6>
-                                        <div class="row d-flex align-items-center">
-                                            <div class="col-9">
-                                            <h3 class="f-w-300 d-flex align-items-center m-b-0">Tshs {{ number_format($avgDailySales, 2) }}</h3>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                 <!-- start row 1-->    
+                <div class="row">
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card Online-Order">
+                                <div class="card-block">
+                                    <h5>Purchases</h5>
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">This Month<span class="float-right f-18 text-c-yellow">{{ number_format($purchaseThisMonth[0]->Amount, 2) }}</span></h6>
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between">Last Month<span class="float-right f-18 text-c-yellow">{{ number_format($purchaseLastMonth[0]->Amount, 2) }}</span></h6>
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">Average Daily Purchaces<span class="float-right f-18 text-c-yellow">{{ number_format($avgDailyPurchases, 2) }}</span></h6>
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between">Average Monthly Purchases<span class="float-right f-18 text-c-yellow">{{ number_format($avgDailyPurchases * 30,2) }}</span></h6>
                                 </div>
                             </div>
-                            <!-- [ Today sales section ] end -->
-
-                            <!-- [ This week sales section ] start -->
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card">
-                                    <div class="card-block">
-                                        <h6 class="mb-4">Today Sales</h6>
-                                        <div class="row d-flex align-items-center">
-                                            <div class="col-9">
-                                                <h3 class="f-w-300 d-flex align-items-center  m-b-0">
-                                                    @if ($todaySales > $avgDailySales)
-                                                        <i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>
-                                                    @else
-                                                        <i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>
-                                                    @endif
-
-                                                   Tshs {{ number_format($todaySales, 2) }}
-
-                                                </h3>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card Online-Order">
+                                <div class="card-block">
+                                    <h5>Sales</h5>
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">This Month<span class="float-right f-18 text-c-purple">{{ number_format($salesThisMonth[0]->Amount, 2) }}</span></h6>
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between">Last Month<span class="float-right f-18 text-c-purple">{{ number_format($salesLastMonth[0]->Amount,2) }}</span></h6>
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">Average Daily Sales<span class="float-right f-18 text-c-purple">{{ number_format($avgDailySales, 2) }}</span></h6>
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between">Average Monthly Sales<span class="float-right f-18 text-c-purple">{{ number_format($avgDailySales * 30,2) }}</span></h6>
                                 </div>
                             </div>
-                            <!-- [ This week  sales section ] end -->
-
-                            <!-- [ This month sales section ] start -->
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card">
-                                    <div class="card-block">
-                                        <h6 class="mb-4">Average Monthly Sales</h6>
-                                        <div class="row d-flex align-items-center">
-                                            <div class="col-9">
-                                                <h3 class="f-w-300 d-flex align-items-center  m-b-0">Tshs {{ number_format($avgDailySales * 30,2) }}</h3>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
+                        </div>
+                        <div class="col-md-12 col-xl-4">
+                            <div class="card Online-Order">
+                                <div class="card-block">
+                                    <h5>Expenses</h5>
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">This Month<span class="float-right f-18 text-c-blue">{{ number_format($expensesThisMonth[0]->Amount, 2) }}</span></h6>
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between">Last Month<span class="float-right f-18 text-c-blue">{{ number_format($expensesLastMonth[0]->Amount, 2) }}</span></h6>
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">Average Daily Expenses<span class="float-right f-18 text-c-blue">{{ number_format($avgDailyExpenses, 2) }}</span></h6>
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between">Average Monthly Expenses<span class="float-right f-18 text-c-blue">{{ number_format($avgDailyExpenses * 30,2) }}</span></h6>
                                 </div>
                             </div>
-                            <!-- [ this month  sales section ] end -->
+                        </div>
+                    </div> 
+                     <!-- end row 1 -->
 
+               <!-- start row 2-->    
+               <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <div class="card Online-Order">
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-md-4 col-xl-4">
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between ">Gross Profit This Month<span class="float-right f-18 text-c-green">{{ number_format($proftThisMonth[0]->Amount, 2) }}</span></h6>
+                                </div>
+                                <div class="col-md-4 col-xl-4">
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between ">Gross Profit Last Month<span class="float-right f-18 text-c-green">{{ number_format($profitLastMonth[0]->Amount, 2) }}</span></h6>
+                                </div>
+                                <div class="col-md-4 col-xl-4">
+                                    <h6 class="text-muted d-flex align-items-center justify-content-between ">Average Daily Gross Profit<span class="float-right f-18 text-c-green">{{ number_format($avgDailyProfit, 2) }}</span></h6>
+                                </div>
+                            </div>
+                          
+                        </div>
                     </div>
-                    {{-- row 1 end --}}
-                    <div class="row">
-
-                         
                 </div>
+             
+            </div> 
+             <!-- end row 12 -->
 
                      {{-- row 3 start --}}
                      <div class="row">
                         <div class="col-md-6 col-xl-6">
                             <div id='sale_by_day'></div>
                         </div>
+                      
                         <div class="col-md-6 col-xl-6">
-                            <div id='sales_by_user'></div>
+                            <div id='sales_by_month'></div>
                         </div>
                     </div>
 
@@ -138,6 +133,7 @@
 <script src="{{asset("assets/plugins/amcharts4/core.js")}}"></script>
 <script src="{{asset("assets/plugins/amcharts4/charts.js")}}"></script>
 <script src="{{asset("assets/plugins/amcharts4/themes/animated.js")}}"></script>
+<script src="{{asset("assets/plugins/amcharts4/themes/dataviz.js")}}"></script>
 
 
 {{-- daily sales chart  --}}
@@ -236,6 +232,30 @@
     }); // end
 </script>
 
+<!-- Sales by Month -->
+<script>
+    am4core.ready(function() {
+    
+    // Themes begin
+    am4core.useTheme(am4themes_dataviz);
+    
+    var chart = am4core.create("sales_by_month", am4charts.PieChart3D);
+    chart.hiddenState.properties.opacity = 0; 
+    
+     //title
+    var title = chart.titles.create();
+        title.text = "Sales by Month";
+        title.fontSize = 16;
+        title.marginBottom = 15;
+    
+    chart.data = @json($saleByMonth)
+  
+    var series = chart.series.push(new am4charts.PieSeries3D());
+    series.dataFields.value = "Amount";
+    series.dataFields.category = "Month";
+    
+    }); // end
+</script>
 
 
 @endpush
