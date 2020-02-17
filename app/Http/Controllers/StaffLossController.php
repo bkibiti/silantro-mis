@@ -86,6 +86,7 @@ class StaffLossController extends Controller
         foreach ($staffLossTotal as $s) {
             $total = $total + $s->amount;
         }
+        $request->flash();
         return view('sales.staff_loss.index', compact('StaffLOss','users','staffLossTotal','total'));
     }
 

@@ -57,7 +57,8 @@ class StockAdjustmentController extends Controller
         $to = date('Y-m-d', strtotime($request->to_date));
 
         $adjustments = StockAdjustment::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")->get();
-     
+
+        $request->flash();
         return view('inventory.stock_adjustment_history', compact("adjustments"));
     }
 

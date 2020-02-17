@@ -29,9 +29,9 @@
 
                         <div class="col-md-2">
                             <select class="form-control select2"  class="form-control" name="status"  data-placeholder="Select Status" required data-width="100%">
-                                <option value="0" >All Items</option>
-                                <option value="1" >Out of Stock</option>
-                                <option value="2" >Below Minimum Level</option>
+                                <option value="0" {{ (old('status')==0 ? "selected":"") }} >All Items</option>
+                                <option value="1" {{ (old('status')==1 ? "selected":"") }} >Out of Stock</option>
+                                <option value="2" {{ (old('status')==2 ? "selected":"") }} >Below Minimum Level</option>
                             </select>
                         </div>
                       

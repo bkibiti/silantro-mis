@@ -52,21 +52,33 @@ class GoodsReceivingController extends Controller
         foreach ($purchases as $p) {
             $total = $total + ($p->quantity * $p->unit_cost);
         }
-        return view('purchases.history', compact("purchases","total"));
+
+        $suppliers = Supplier::all();
+
+        return view('purchases.history', compact("purchases","total",'suppliers'));
     }
 
     public function search(Request $request)
     {
         $from = date('Y-m-d', strtotime($request->from_date));
         $to = date('Y-m-d', strtotime($request->to_date));
-// dd($to);
-        $purchases = IncomingStock::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")->get();
+
+        if($request->supplier == 0){
+            $purchases = IncomingStock::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")->get();
+        }else{
+            $purchases = IncomingStock::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")
+                        ->where('supplier_id',$request->supplier)->get();
+        }
         
         $total = 0;
         foreach ($purchases as $p) {
             $total = $total + ($p->quantity * $p->unit_cost);
         }
-        return view('purchases.history', compact("purchases","total"));
+
+        $suppliers = Supplier::all();
+        $request->flash();
+
+        return view('purchases.history', compact('purchases','total','suppliers'));
     }
 
 

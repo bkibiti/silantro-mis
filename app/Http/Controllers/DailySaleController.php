@@ -144,6 +144,8 @@ class DailySaleController extends Controller
             ->groupBy(DB::raw('month(now())'))
             ->get();
 
+        $request->flash();
+
         return view('sales.daily_report.index', compact('DailySale','totals'));
     }
 

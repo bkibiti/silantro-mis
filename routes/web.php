@@ -10,6 +10,8 @@ Auth::routes(['register' => false]);
 Route::middleware(["auth"])->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/advanced-dashboard', 'HomeController@dashboard')->name('dashboard');
+
 
 
     //Products routes

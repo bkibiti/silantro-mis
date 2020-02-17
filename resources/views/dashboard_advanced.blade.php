@@ -7,7 +7,7 @@
             height: 500px;
         }
 
-        #staff_loss {
+        #sale_by_day {
             width: 100%;
             height: 400px;
         }
@@ -29,14 +29,14 @@
 
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active"  data-toggle="pill" href="#pills-home" role="tab" aria-selected="true">Dashboard</a>
+                <a class="nav-link active"  data-toggle="pill" href="#pills-home" role="tab" aria-selected="true">Advanced Dashboard</a>
             </li>
     
         </ul>
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                        {{-- row 1 start --}}
-                    {{-- <div class="row">
+                    <div class="row">
                             <!-- [ Today sales section ] start -->
                             <div class="col-md-6 col-xl-4">
                                 <div class="card">
@@ -96,43 +96,17 @@
                             </div>
                             <!-- [ this month  sales section ] end -->
 
-                    </div> --}}
+                    </div>
                     {{-- row 1 end --}}
                     <div class="row">
 
-                        <div class="col-xl-6 col-md-6">
-                                <div class="card">
-                                    <div class="card-block">
-                                        <div class="row align-items-center justify-content-center">
-                                            <div class="col">
-                                                <h3 class="text-c-red">{{$outOfStock}} Items</h3>
-                                                <h5>Out of Stock</h5>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-md-6">
-                                <div class="card">
-                                    <div class="card-block">
-                                        <div class="row align-items-center justify-content-center">
-                                            <div class="col">
-                                                <h3 class="text-c-green">{{$belowMin}} Items</h3>
-                                                <h5>Below Minimum Level</h5>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                          
                 </div>
 
                      {{-- row 3 start --}}
                      <div class="row">
                         <div class="col-md-6 col-xl-6">
-                            <div id='staff_loss'></div>
+                            <div id='sale_by_day'></div>
                         </div>
                         <div class="col-md-6 col-xl-6">
                             <div id='sales_by_user'></div>
@@ -236,101 +210,32 @@
 
 </script>
 
-<!-- Losses by user -->
-<script>
-        am4core.ready(function() {
-        am4core.useTheme(am4themes_animated);
 
-        // Create chart instance
-        var chart = am4core.create("staff_loss", am4charts.XYChart);
-
-        // Add data
-        chart.data = @json($staffLoss);
-
-        //title
-        var title = chart.titles.create();
-            title.text = "Losses by Staff this Month";
-            title.fontSize = 16;
-            title.marginBottom = 15;
-        // Create axes
-        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-        categoryAxis.dataFields.category = "user";
-        categoryAxis.renderer.grid.template.location = 0;
-        categoryAxis.renderer.minGridDistance = 30;
-        categoryAxis.renderer.labels.template.horizontalCenter = "right";
-        categoryAxis.renderer.labels.template.verticalCenter = "middle";
-        categoryAxis.renderer.labels.template.rotation = 270;
-        categoryAxis.tooltip.disabled = true;
-        categoryAxis.renderer.minHeight = 110;
-        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-        valueAxis.renderer.minWidth = 50;
-
-        // Create series
-        var series = chart.series.push(new am4charts.ColumnSeries());
-        series.sequencedInterpolation = true;
-        series.dataFields.valueY = "amount";
-        series.dataFields.categoryX = "user";
-        series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
-        series.columns.template.strokeWidth = 0;
-
-        series.tooltip.pointerOrientation = "vertical";
-
-        series.columns.template.column.cornerRadiusTopLeft = 10;
-        series.columns.template.column.cornerRadiusTopRight = 10;
-        series.columns.template.column.fillOpacity = 0.8;
-
-        // on hover, make corner radiuses bigger
-        var hoverState = series.columns.template.column.states.create("hover");
-        hoverState.properties.cornerRadiusTopLeft = 0;
-        hoverState.properties.cornerRadiusTopRight = 0;
-        hoverState.properties.fillOpacity = 1;
-
-        series.columns.template.adapter.add("fill", function(fill, target) {
-        return chart.colors.getIndex(target.dataItem.index);
-        });
-
-        // Cursor
-        chart.cursor = new am4charts.XYCursor();
-
-
-
-
-        }); 
-</script>
-
-<!-- Sales by Users -->
-
+<!-- Sales by Day of a week -->
 <script>
     am4core.ready(function() {
     
     // Themes begin
     am4core.useTheme(am4themes_animated);
-    // Themes end
     
-    // Create chart
-     var chart = am4core.create("sales_by_user", am4charts.PieChart);
-     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+    var chart = am4core.create("sale_by_day", am4charts.PieChart3D);
+    chart.hiddenState.properties.opacity = 0; 
+    
+     //title
+    var title = chart.titles.create();
+        title.text = "Sales by Day of a Week";
+        title.fontSize = 16;
+        title.marginBottom = 15;
+    
+    chart.data = @json($saleByDay)
+  
+    var series = chart.series.push(new am4charts.PieSeries3D());
+    series.dataFields.value = "Amount";
+    series.dataFields.category = "DayName";
+    
+    }); // end
+</script>
 
-        chart.data = @json($salesByUser);
-      //title
-      var title = chart.titles.create();
-            title.text = "Total Sales By Staff this Month";
-            title.fontSize = 16;
-            title.marginBottom = 15;
 
-    
-    var series = chart.series.push(new am4charts.PieSeries());
-    series.dataFields.value = "amount";
-    series.dataFields.radiusValue = "amount";
-    series.dataFields.category = "user";
-    series.slices.template.cornerRadius = 6;
-    series.colors.step = 3;
-    
-    series.hiddenState.properties.endAngle = 90;
-    
-
-    
-    }); // end am4core.ready()
-    </script>
 
 @endpush

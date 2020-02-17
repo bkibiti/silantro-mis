@@ -77,21 +77,21 @@ Expense
 
                     <div class="col-md-2">
                         <div style="border: 2px solid white; border-radius: 6px;">
-                            <input type="text" name="from_date" class="form-control" id="from_date" required>
+                            <input type="text" name="from_date" class="form-control" id="from_date" value="{{ old('from_date') }}" required>
                         </div> 
                     </div>
                     <div class="col-md-2">
                         <div style="border: 2px solid white; border-radius: 6px;">
-                            <input type="text" name="to_date" class="form-control" id="to_date" required>
+                            <input type="text" name="to_date" class="form-control" id="to_date" value="{{ old('to_date') }}" required>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div id="category" style="border: 2px solid white; border-radius: 6px;">
                             <select name="expense_category" class="form-control">
-                                <option selected="true" value="0" >All Categories
+                                <option value="0" {{ (old('expense_category')==0 ? "selected":"") }} >All Categories
                                 </option>
                                 @foreach($expense_category as $x)
-                                    <option value="{{$x->id}}">{{$x->name}}</option>
+                                    <option value="{{$x->id}}" {{ (old('expense_category')==$x->id ? "selected":"") }}>{{$x->name}}</option>
                                 @endforeach
                             </select>
                         </div>

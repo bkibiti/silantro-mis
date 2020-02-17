@@ -31,12 +31,12 @@ Staff Losses
     
                             <div class="col-md-2">
                                 <div style="border: 2px solid white; border-radius: 6px;">
-                                    <input type="text" name="from_date" class="form-control" id="from_date" required>
+                                    <input type="text" name="from_date" class="form-control" id="from_date" value="{{ old('from_date') }}" required>
                                 </div> 
                             </div>
                             <div class="col-md-2">
                                 <div style="border: 2px solid white; border-radius: 6px;">
-                                    <input type="text" name="to_date" class="form-control" id="to_date" required>
+                                    <input type="text" name="to_date" class="form-control" id="to_date" value="{{ old('to_date') }}" required>
                                 </div>
                             </div>
                            

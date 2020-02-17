@@ -41,9 +41,9 @@ class CurrentStockController extends Controller
         if ($request->status == '2'){
             $Products = Stock::whereRaw('quantity <= min_quantinty and quantity > 0')->get();
         }
-      
 
         $PriceCategory = PriceCategory::all();
+        $request->flash();
 
         return view('inventory.index', compact("Products","PriceCategory"));
     }

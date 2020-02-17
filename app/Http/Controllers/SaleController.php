@@ -81,6 +81,8 @@ class SaleController extends Controller
         foreach ($sales as $s) {
             $total = $total + ($s->quantity * $s->selling_price);
         }
+
+        $request->flash();
         return view('sales.history', compact('sales','total'));
     }
 
@@ -95,6 +97,8 @@ class SaleController extends Controller
         foreach ($sales as $s) {
             $total = $total + ($s->quantity * $s->selling_price);
         }
+
+        $request->flash();
         return view('sales.history', compact('sales','total'));
     }
 

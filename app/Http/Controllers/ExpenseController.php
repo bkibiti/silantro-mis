@@ -84,6 +84,7 @@ class ExpenseController extends Controller
         foreach ($Expenses as $x) {
             $total = $total + $x->amount;
         }
+        $request->flash();
         return view('expense.index', compact('expense_category','Expenses','total'));
     }
 

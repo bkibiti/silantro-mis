@@ -26,15 +26,24 @@
                     @csrf()
 
                     <div class="form-group row">
+                        <div class="col-md-4">
+                            <select class="form-control select2"  class="form-control" name="supplier" data-width="100%">
+                                    <option value="0" {{ (old('supplier')==0 ? "selected":"") }}>All Suppliers</option>
+
+                                    @foreach($suppliers as $supp)
+                                    <option value="{{ $supp->id }}" {{ (old('supplier')==$supp->id ? "selected":"") }}>{{ $supp->name }}</option>
+                                    @endforeach
+                            </select>
+                        </div>
 
                         <div class="col-md-2">
                             <div id="date" style="border: 2px solid white; border-radius: 6px;">
-                                <input type="text" name="from_date" class="form-control" id="from_date" required>
+                                <input type="text" name="from_date" class="form-control" id="from_date" value="{{ old('from_date') }}" required>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div id="date" style="border: 2px solid white; border-radius: 6px;">
-                                <input type="text" name="to_date" class="form-control" id="to_date" required>
+                                <input type="text" name="to_date" class="form-control" id="to_date" value="{{ old('to_date') }}" required>
                             </div>
                         </div>
                        

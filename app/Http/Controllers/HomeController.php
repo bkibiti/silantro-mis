@@ -81,4 +81,47 @@ class HomeController extends Controller
                 'totalDailySales','totalMonthlySales','salesByUser','staffLoss'));
 
     }
+
+    public function dashboard()
+    {
+
+        $totalSales = Sale::sum(DB::raw('quantity*selling_price'));
+
+        $days = DB::table('sales')
+            ->select(DB::raw('date(created_at)'))
+            ->distinct()
+            ->get();
+
+        if ($days->count() == 0) {
+            $avgDailySales = 0;
+        } else {
+            $avgDailySales = $totalSales / $days->count();
+        }
+
+        $todaySales = DB::table('sales')
+            ->whereRaw('date(created_at) = date(now())')
+            ->sum(DB::raw('quantity*selling_price'));
+
+        $totalDailySales = DB::table('sales')
+            ->select(DB::raw('date(created_at) date, sum(quantity*selling_price) value'))
+            ->groupBy(DB::raw('date(created_at)'))
+            ->orderBy('date','Desc')
+            ->limit('30')
+            ->get();
+
+        $totalMonthlySales = DB::table('sales')
+            ->select(DB::raw("DATE_FORMAT(created_at, '%b %y') month,sum(quantity*selling_price) amount"))
+            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y%m')"))
+            ->limit('12')
+            ->get();
+        $saleByDay = DB::table('sales')
+            ->select(DB::raw('DAYNAME(created_at) DayName,SUM(selling_price*quantity) Amount'))
+            ->groupBy(DB::raw('DAYNAME(created_at)'))
+            ->get();
+
+
+        return view('dashboard_advanced', compact('totalSales','todaySales','avgDailySales',
+                'totalDailySales','totalMonthlySales','saleByDay'));
+
+    }
 }
