@@ -82,7 +82,6 @@ class SaleController extends Controller
             $total = $total + ($s->quantity * $s->selling_price);
         }
 
-        $request->flash();
         return view('sales.history', compact('sales','total'));
     }
 
