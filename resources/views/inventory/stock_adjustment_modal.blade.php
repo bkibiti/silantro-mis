@@ -34,9 +34,9 @@
                                         </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="category" class="col-md-4 col-form-label text-md-right">Quantity in Stock</label>
+                                    <label for="category" class="col-md-4 col-form-label text-md-right">Quantity on Hand</label>
                                     <div class="col-md-8">
-                                            <input type="text" class="form-control" id="quantity" name="quantity">
+                                            <input type="text" class="form-control" id="quantity" name="quantity" readonly>
                                     </div>
                             </div>
                   

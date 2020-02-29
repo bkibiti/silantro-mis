@@ -39,6 +39,7 @@ class GoodsReceivingController extends Controller
         $stock->quantity = $stock->quantity + $totalQty;
         $stock->unit_cost = $salableUnitPrice;
         $stock->save();
+        $request->flash();
 
         session()->flash("alert-success", "Purchase saved successfully!");
         return back();
@@ -79,6 +80,24 @@ class GoodsReceivingController extends Controller
         $request->flash();
 
         return view('purchases.history', compact('purchases','total','suppliers'));
+    }
+
+    public function itemHistory(Request $request)
+    {
+         $history = IncomingStock::where('product_id', $request->prod_id)
+        ->orderBy('id','desc')
+        ->limit('7')
+        ->get();
+
+        $data = [];
+        $prevPrice = [];
+        foreach ($history as $h) {
+            $data['date'] = date_format($h->created_at,'d M Y');
+            $data['cost'] = $h->unit_cost;
+            $data['supplier'] = $h->supplier->name;
+            $prevPrice[]= $data;
+        }
+        return $history;
     }
 
 

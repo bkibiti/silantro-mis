@@ -50,6 +50,8 @@ Route::middleware(["auth"])->group(function () {
     Route::post('purchases/goods-receiving', 'GoodsReceivingController@store')->name('goods-receiving.store');
     Route::get('purchases/history', 'GoodsReceivingController@history')->name('goods-receiving.history');
     Route::post('purchases/history/search', 'GoodsReceivingController@search')->name('goods-receiving.search');
+    Route::post('purchases/previous-purchases', 'GoodsReceivingController@itemHistory')->name('goods-receiving.item-history');
+
 
 
 
