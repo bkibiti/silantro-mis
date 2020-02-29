@@ -97,15 +97,13 @@
                                     <div class="form-group row">
                                             <label for="category" class="col-md-4 col-form-label text-md-right">Units Purchased<font color="red">*</font></label>
                                             <div class="col-md-8">
-                                                    <input type="number" class="form-control" id="quantity" name="quantity" min="1" required
-                                                        value="{{ old('quantity') }}">
+                                                    <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
                                             </div>
                                     </div>
                                     <div class="form-group row">
                                             <label for="category" class="col-md-4 col-form-label text-md-right">Unit Price<font color="red">*</font></label>
                                             <div class="col-md-8">
-                                                    <input  class="form-control" id="unit_cost" name="unit_cost" min="1" required
-                                                        value="{{ old('unit_cost') }}">
+                                                    <input  class="form-control" id="unit_cost" name="unit_cost" min="1" required>
                                             </div>
                                     </div>
 
