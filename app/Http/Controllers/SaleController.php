@@ -69,7 +69,7 @@ class SaleController extends Controller
 
         DB::table('sales')->insert($order_details);
 
-        session()->flash("alert-success", "Order placed successfully!");
+        session()->flash("alert-success", "Sale recorded successfully!");
         return back();
 
     }

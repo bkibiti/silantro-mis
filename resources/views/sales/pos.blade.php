@@ -32,6 +32,14 @@ Point of Sale
                                         data-unit_cost="{{$stock->unit_cost}}" data-quantity="{{$stock->quantity}}"
                                         data-toggle="button"><i class="feather icon-plus"></i>
                                     </button>
+                                    <button type="button"
+                                        class="btn btn-sm btn-icon btn-rounded btn-primary selectProducts"
+                                        data-id="{{$stock->id}}" data-name="{{$stock->name}}"
+                                        data-sale_price_1="{{$stock->sale_price_1}}"
+                                        data-unit_cost="{{$stock->unit_cost}}" data-quantity="{{$stock->quantity}}"
+                                        data-toggle="modal" data-target="#addItems">1+
+                                    </button>
+                                
                                 </a>
                             </td>
                         </tr>
@@ -117,6 +125,7 @@ Point of Sale
 
 @push("page_scripts")
 @include('partials.notification')
+@include('sales.pos_add_item')
 
 <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
 <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
@@ -138,104 +147,160 @@ Point of Sale
     });
 
     $('#products').DataTable({
-                bAutoWidth: true,
-                lengthChange: false,
-                scrollY:  "400px",
-                scrollCollapse: true,
-                paging: false,
-                bInfo: false,
-            });
+        bAutoWidth: true,
+        lengthChange: false,
+        scrollY:  "400px",
+        scrollCollapse: true,
+        paging: false,
+        bInfo: false,
+    });
+    
+    var order_table = $('#order').DataTable({
+        searching: false,
+        bPaginate: false,
+        ordering: false,
+        bInfo: false,
+        columns: [
+            { title: "Id" },
+            { title: "QOH" },
+            { title: "Item" },
+            { title: "Quantity" },
+            { title: "Price" },
+            { title: "Sub Total" },
+            { title: "unit_cost"},
+            { title: "Action", defaultContent:  '<button type="button" id="edit_btn" class="btn btn-icon btn-rounded btn-sm btn-primary"><i class="feather icon-edit"></i></button><button type="button" id="delete_btn" class="btn btn-icon btn-rounded btn-sm btn-danger"><i class="feather icon-trash-2"></i></button>'},
             
-            var order_table = $('#order').DataTable({
-                searching: false,
-                bPaginate: false,
-                ordering: false,
-                bInfo: false,
-                columns: [
-                    { title: "Id" },
-                    { title: "QOH" },
-                    { title: "Item" },
-                    { title: "Quantity" },
-                    { title: "Price" },
-                    { title: "Sub Total" },
-                    { title: "unit_cost"},
-                    { title: "Action", defaultContent:  '<button type="button" id="edit_btn" class="btn btn-icon btn-rounded btn-sm btn-primary"><i class="feather icon-edit"></i></button><button type="button" id="delete_btn" class="btn btn-icon btn-rounded btn-sm btn-danger"><i class="feather icon-trash-2"></i></button>'},
-                   
-                ]
-            });
-            order_table.columns([0,1,6]).visible(false); //hide id,qoh,buying price
+        ]
+    });
 
-            var order_list = []; //hold data displayed in datatable
+    order_table.columns([0,1,6]).visible(false); //hide id,qoh,buying price
+
+    var order_list = []; //hold data displayed in datatable
 
 
-            $('.selectproduct').click(function() {
-                var data = [];
-                if(! rowExist($(this).data('id'),order_list)){
+    $('.selectproduct').click(function() {
+        var data = [];
+        if(! rowExist($(this).data('id'),order_list)){
 
-                        data.push($(this).data('id'));
-                        data.push($(this).data('quantity'));
-                        data.push($(this).data('name'));
-                        data.push(1);
-                        data.push(formatMoney($(this).data('sale_price_1')));
-                        data.push(formatMoney($(this).data('sale_price_1')));
-                        data.push($(this).data('unit_cost'));
+                data.push($(this).data('id'));
+                data.push($(this).data('quantity'));
+                data.push($(this).data('name'));
+                data.push(1);
+                data.push(formatMoney($(this).data('sale_price_1')));
+                data.push(formatMoney($(this).data('sale_price_1')));
+                data.push($(this).data('unit_cost'));
 
-                        order_list.push(data);
-                        
-                        order_table.clear();
-                        order_table.rows.add(order_list).draw();
-                        $('#total').text(formatMoney(totalOrder(order_list)));
-                        $('#sale_order').val(JSON.stringify(order_list));
-                }
-               
-            });
-     
-            $('#order tbody').on('click', '#edit_btn', function () {
-                var row_data = order_table.row($(this).parents('tr')).data();
-                var index = order_table.row($(this).parents('tr')).index();
-                quantity = row_data[3];
-                row_data[3] = "<input type='number' min='1' class='form-control' id='edit_quantity' required  onkeypress='return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57'>";
-                order_list[index] = row_data;
+                order_list.push(data);
+                
                 order_table.clear();
-                order_table.rows.add(order_list);
-                order_table.draw();
-                document.getElementById("edit_quantity").value = quantity;
-            });
-
-            $('#order tbody').on('change', '#edit_quantity', function () {
-                var row_data = order_table.row($(this).parents('tr')).data();
-                var index = order_table.row($(this).parents('tr')).index();
-                row_data[3] = Number((document.getElementById("edit_quantity").value));
-
-                if (row_data[3] < 1) { row_data[3] = 1 }
+                order_table.rows.add(order_list).draw();
+                $('#total').text(formatMoney(totalOrder(order_list)));
+                $('#sale_order').val(JSON.stringify(order_list));
+        }
         
-                if (row_data[3] > row_data[1]) { //OrderQty > QOH
-                    row_data[3] = row_data[1];
-                    row_data[5] = formatMoney(row_data[3] * parseFloat(row_data[4].replace(/\,/g, '')));
-                }
-                else {
-                    row_data[5] = formatMoney(row_data[3] * parseFloat(row_data[4].replace(/\,/g, '')));
-                }
+    });
+     
+        $('#order tbody').on('click', '#edit_btn', function () {
+            var row_data = order_table.row($(this).parents('tr')).data();
+            var index = order_table.row($(this).parents('tr')).index();
+            quantity = row_data[3];
+            row_data[3] = "<input type='number' min='1' class='form-control' id='edit_quantity' required  onkeypress='return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57'>";
+            order_list[index] = row_data;
+            order_table.clear();
+            order_table.rows.add(order_list);
+            order_table.draw();
+            document.getElementById("edit_quantity").value = quantity;
+        });
 
-                order_list[index] = row_data;
-                order_table.clear();
-                order_table.rows.add(order_list);
-                order_table.draw();
-                $('#total').text(formatMoney(totalOrder(order_list)));
-                $('#sale_order').val(JSON.stringify(order_list));
-               
-            });
+        $('#order tbody').on('change', '#edit_quantity', function () {
+            var row_data = order_table.row($(this).parents('tr')).data();
+            var index = order_table.row($(this).parents('tr')).index();
+            row_data[3] = Number((document.getElementById("edit_quantity").value));
+
+            if (row_data[3] < 1) { row_data[3] = 1 }
+    
+            if (row_data[3] > row_data[1]) { //OrderQty > QOH
+                row_data[3] = row_data[1];
+                row_data[5] = formatMoney(row_data[3] * parseFloat(row_data[4].replace(/\,/g, '')));
+            }
+            else {
+                row_data[5] = formatMoney(row_data[3] * parseFloat(row_data[4].replace(/\,/g, '')));
+            }
+
+            order_list[index] = row_data;
+            order_table.clear();
+            order_table.rows.add(order_list);
+            order_table.draw();
+            $('#total').text(formatMoney(totalOrder(order_list)));
+            $('#sale_order').val(JSON.stringify(order_list));
             
-            $('#order tbody').on('click', '#delete_btn', function () {
-	            var index = order_table.row($(this).parents('tr')).index();
-                order_list.splice(index, 1);
+        });
+        
+        $('#order tbody').on('click', '#delete_btn', function () {
+            var index = order_table.row($(this).parents('tr')).index();
+            order_list.splice(index, 1);
+            order_table.clear();
+            order_table.rows.add(order_list);
+            order_table.draw();
+            $('#total').text(formatMoney(totalOrder(order_list)));
+            $('#sale_order').val(JSON.stringify(order_list));
+
+        });
+
+        //add items to order
+        $('#addItems').on('show.bs.modal', function (event) {
+            setTimeout(function (){
+                $('#sold_quantity').focus();
+            }, 500);
+
+            var button = $(event.relatedTarget);
+            var modal = $(this);
+
+            modal.find('.modal-body #id').val(button.data('id'));
+            modal.find('.modal-body #name').val(button.data('name'));
+            modal.find('.modal-body #quantity').val(button.data('quantity'));
+            modal.find('.modal-body #sale_price_1').val(button.data('sale_price_1'));
+            modal.find('.modal-body #unit_cost').val(button.data('unit_cost'));
+
+        });
+
+        $( '#addItemForm' ).submit(function( event ) {
+            event.preventDefault();
+
+            var values = {};
+            $.each($(this).serializeArray(), function(i, field) {
+                values[field.name] = field.value;
+            });
+
+            //add item to order table
+            var data = [];
+            if(! rowExist(values.id,order_list)){
+                var qty;
+                if (values.sold_quantity > values.quantity) { //OrderQty > QOH
+                    qty = values.quantity;
+                }else{
+                    qty = values.sold_quantity;
+                }
+                data.push(parseInt(values.id));
+                data.push(parseInt(values.quantity));
+                data.push(values.name);
+                data.push(parseInt(qty));
+                data.push(formatMoney(values.sale_price_1));
+                data.push(formatMoney(values.sale_price_1 * qty));
+                data.push(parseFloat(values.unit_cost));
+
+                order_list.push(data);
+                
                 order_table.clear();
-                order_table.rows.add(order_list);
-                order_table.draw();
+                order_table.rows.add(order_list).draw();
                 $('#total').text(formatMoney(totalOrder(order_list)));
                 $('#sale_order').val(JSON.stringify(order_list));
+            }
 
-            });
+            $('#addItems').modal('hide');
+                        
+        });
+  
 
             //check if items is already added on the table
             function rowExist(value2Check,Array2D) {
