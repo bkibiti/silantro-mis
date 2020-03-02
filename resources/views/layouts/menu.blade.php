@@ -50,6 +50,7 @@
         @can('View Stock Count Sheet')
         <li class=""><a href="{{ route('daily-stock-count.index') }}" class="">Stock Count Sheet</a></li>
         @endcan
+        <li class=""><a href="{{ route('monthly-closing-stock.index') }}" class="">Monthly Closing Stock</a></li>
 
 
     </ul>

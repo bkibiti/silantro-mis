@@ -93,10 +93,13 @@ Route::middleware(["auth"])->group(function () {
     ]);
     Route::post('inventory-management/current-stock/filter','CurrentStockController@filter')->name('current-stock-filter');
 
-  
-    Route::resource('inventory-management/daily-stock-count', 'StockCountController')->only([
-        'index'
-    ]);
+    Route::get('inventory-management/daily-stock-count', 'StockCountController@index')->name('daily-stock-count.index');
+    Route::get('inventory-management/monthly-closing-stock', 'StockCountController@closingIndex')->name('monthly-closing-stock.index');
+    Route::post('inventory-management/monthly-closing-stock', 'StockCountController@closingStockStore')->name('monthly-closing-stock.store');
+    Route::get('inventory-management/monthly-closing-stock/filter', 'StockCountController@closingStockFilter')->name('monthly-closing-stock.filter');
+
+
+
 
 
     /*stock adjustment routes*/
