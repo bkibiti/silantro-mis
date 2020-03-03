@@ -261,6 +261,7 @@ Point of Sale
             modal.find('.modal-body #quantity').val(button.data('quantity'));
             modal.find('.modal-body #sale_price_1').val(button.data('sale_price_1'));
             modal.find('.modal-body #unit_cost').val(button.data('unit_cost'));
+            modal.find('.modal-body #sold_quantity').val("");
 
         });
 
