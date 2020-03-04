@@ -102,15 +102,15 @@
                                  
 
                                     <div class="form-group row">
-                                            <label for="category" class="col-md-4 col-form-label text-md-right">Units Purchased<font color="red">*</font></label>
+                                            <label for="category" class="col-md-4 col-form-label text-md-right"># of Units<font color="red">*</font></label>
                                             <div class="col-md-8">
-                                                    <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
+                                                    <input type="number" class="form-control" id="quantity" name="quantity" min="1" required placeholder="No. of units purchased">
                                             </div>
                                     </div>
                                     <div class="form-group row">
                                             <label for="category" class="col-md-4 col-form-label text-md-right">Unit Price<font color="red">*</font></label>
                                             <div class="col-md-8">
-                                                    <input  class="form-control" id="unit_cost" name="unit_cost" min="1" required>
+                                                    <input  class="form-control" id="unit_cost" name="unit_cost" min="1" required placeholder="Price of a single unit">
                                             </div>
                                     </div>
 
