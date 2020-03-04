@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Silantro Bar & Lounge</title>
+    <title>Silantro Systems</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -74,7 +74,7 @@
                     <div class="b-bg">
                         <i class="fas fa-glass-martini"></i>
                     </div>
-                    <span class="b-title">Silantro Systems</span>
+                    <span class="b-title">Silantro B & L</span>
                 </a>
                 <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
             </div>
@@ -97,7 +97,7 @@
                    <div class="b-bg">
                        <i class="fa fas fa-leaf"></i>
                    </div>
-                   <span class="b-title">Silantro MIS</span>
+                   <span class="b-title">Silantro B & L</span>
                </a>
         </div>
         <a class="mobile-menu" id="mobile-header" href="#!">
