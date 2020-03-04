@@ -75,7 +75,7 @@ class SaleController extends Controller
     }
     public function history()
     {
-        $sales = Sale::whereRaw('month(created_at) = month(now())')->get();
+        $sales = Sale::whereRaw('month(created_at) = month(now()) and year(created_at)=year(now())')->get();
 
         $total = 0;
         foreach ($sales as $s) {

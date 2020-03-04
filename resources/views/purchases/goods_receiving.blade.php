@@ -58,7 +58,14 @@
                                     @csrf
                                     <input type="hidden" name="id" id="id">
                                   
-                                    
+                                    <div class="form-group row">
+                                        <label for="product_name" class="col-md-4 col-form-label text-md-right">Date<font color="red">*</font></label>
+                                        <div class="col-md-8">
+                                            <div id="date" style="border: 2px solid white; border-radius: 6px;">
+                                                <input type="text" name="purchase_date" class="form-control" id="purchase_date" required>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <label for="category" class="col-md-4 col-form-label text-md-right">Supplier<font color="red">*</font></label>
 
@@ -165,6 +172,21 @@
             bInfo: false,
 
         });
+        $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#purchase_date').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                maxDate: end,
+                autoUpdateInput: true,
+                locale: {
+                    format: 'DD-M-YYYY'
+                }
+            });
+        });
+        
 
         $('.selectproduct').click(function() {
             $('#id').val($(this).data('id'));

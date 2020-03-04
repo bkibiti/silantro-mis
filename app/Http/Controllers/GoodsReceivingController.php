@@ -23,7 +23,12 @@ class GoodsReceivingController extends Controller
 
 
     public function store(Request $request){
-    
+        if($request->purchase_date =='NA'){
+            $purchase_date = Carbon::now();
+        }else{
+            $purchase_date = date('Y-m-d', strtotime($request->purchase_date));
+        }
+
         $totalQty = $request->quantity * $request->quantity_per_unit;
         $salableUnitPrice = $request->unit_cost / $request->quantity_per_unit;
 
@@ -33,6 +38,8 @@ class GoodsReceivingController extends Controller
         $incoming->supplier_id = $request->supplier;
         $incoming->unit_cost = $request->unit_cost;
         $incoming->created_by = Auth::User()->id;
+        $incoming->created_at = $purchase_date;
+        $incoming->updated_at = Carbon::now();
         $incoming->save();
 
         $stock = Stock::find($request->id);
@@ -47,7 +54,7 @@ class GoodsReceivingController extends Controller
 
     public function history(){
         $now = Carbon::now();
-        $purchases = IncomingStock::all();
+        $purchases = IncomingStock::whereRaw('month(created_at) = month(now()) and year(created_at)=year(now())')->get();
 
         $total = 0;
         foreach ($purchases as $p) {

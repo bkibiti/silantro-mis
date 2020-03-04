@@ -14,7 +14,7 @@ class ExpenseController extends Controller
     public function index()
     {
         $expense_category = AccExpenseCategory::all();
-        $Expenses = Expense::whereRaw('month(created_at) = month(now())')->get();
+        $Expenses = Expense::whereRaw('month(created_at) = month(now()) and year(created_at)=year(now())')->get();
         
         $total = 0;
         foreach ($Expenses as $x) {
