@@ -23,8 +23,8 @@ class ReportController extends Controller
             case 1:
                 $data = $this->TotalDailySales($from, $to);
                 $request->flash();
-                // $pdf = PDF::loadView('reports.total_daily_sales_pdf', compact('data'));
-                // return $pdf->stream();
+                $pdf = PDF::loadView('reports.total_daily_sales_pdf', compact('data'));
+                return $pdf->stream();
                 return view('reports.total_daily_sales', compact('data'));
                 break;
             case 2:
