@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::orderBy('name')->get();
+        $users = User::where('status',1)->orderBy('name')->get();
 
         return view('users.index', compact("users"));
     }
@@ -81,7 +81,8 @@ class UserController extends Controller
             $user->save();
 
             session()->flash("alert-success", "User de-activated successfully!");
-            return redirect()->back();
+            // return redirect()->back();
+            return redirect()->route('users.index');
         }
         if ($request->status == 0) {
             $user = new User;
@@ -90,7 +91,9 @@ class UserController extends Controller
             $user->save();
 
             session()->flash("alert-success", "User activated successfully!");
-            return redirect()->back();
+            // return redirect()->back();
+            return redirect()->route('users.index');
+
         }
 
     }
@@ -139,6 +142,24 @@ class UserController extends Controller
 
         return $data[0]->id;
     }
+
+    public function search(Request $request){
+        if ($request->status == '0'){
+            $users = User::all();
+        }
+        if ($request->status == '1'){
+            $users = User::where('status',1)->get();
+        }
+        if ($request->status == '2'){
+            $users = User::where('status',0)->get();
+        }
+
+        $request->flash();
+
+        return view('users.index', compact("users"));
+
+    }
+
 
 
 }

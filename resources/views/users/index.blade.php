@@ -25,11 +25,38 @@
 
 
     <div class="card-body">
-        @can('Manage Users')
-        <button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#register">
-            Add User
-        </button>
-        @endcan
+        <form id="expense_form" action="{{route('users.search')}}" method="post">
+            @csrf()
+
+            <div class="form-group row">
+
+                <div class="col-md-2">
+                    <select class="form-control select2"  class="form-control" name="status"  data-placeholder="Select Status" required data-width="100%">
+                        <option value="0" {{ (old('status')==0 ? "selected":"") }} >All Users</option>
+                        <option value="1" {{ (old('status')==1 ? "selected":"") }} >Active Users</option>
+                        <option value="2" {{ (old('status')==2 ? "selected":"") }} >In Active Users</option>
+                    </select>
+                </div>
+              
+               
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success">Filter</button>
+                </div>
+
+                <div class="col-md-6"></div>
+                <div class="col-md-2">
+                    @can('Manage Users')
+                    <button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#register">
+                        Add User
+                    </button>
+                    @endcan
+                </div>
+            </div>
+
+        </form>
+
+        <hr>
+      
           
         <div class="table-responsive">
             <table id="fixed-header" class="display table nowrap table-striped table-hover" style="width:100%">
@@ -65,8 +92,6 @@
                     @endif
                     @if ($user->status == 0)
                         <h6 class="m-0 text-c-red">De-activated</h6>
-
-
                     @endif
                 </td>
                 @can('Manage Users')

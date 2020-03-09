@@ -139,7 +139,7 @@ Route::middleware(["auth"])->group(function () {
     Route::post('users/change-password', 'UserController@changePassword')->name('change-password');
     Route::get('users/change-password', 'UserController@changePasswordForm')->name('change-pass-form');
     Route::post('user-profile/update', 'UserController@updateProfile')->name("update-profile");
-    Route::get('users/search', 'UserController@search')->name("users.search");
+    Route::post('users/search', 'UserController@search')->name("users.search");
     Route::post('users/user-role-id', 'UserController@getRoleID')->name('getRoleID');
 
 });
