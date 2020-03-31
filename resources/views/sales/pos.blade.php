@@ -37,7 +37,7 @@ Point of Sale
                                         data-id="{{$stock->id}}" data-name="{{$stock->name}}"
                                         data-sale_price_1="{{$stock->sale_price_1}}"
                                         data-unit_cost="{{$stock->unit_cost}}" data-quantity="{{$stock->quantity}}"
-                                        data-toggle="modal" data-target="#addItems">1+
+                                        data-toggle="modal" data-target="#addItemsModal">1+
                                     </button>
                                 
                                 </a>
@@ -64,7 +64,7 @@ Point of Sale
                     <label for="product_name" class="col-md-2 col-form-label text-md-left">Sales Date:</label>
                     <div class="col-md-4">
                         <div id="date" style="border: 2px solid white; border-radius: 6px;">
-                            <input type="text" name="sale_date" class="form-control" id="sale_date" required>
+                            <input type="text" name="sale_date" class="form-control" id="sale_date" value="{{ old('sale_date') }}" required>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ Point of Sale
                             <option value="">Select Staff</option>
 
                             @foreach($users as $u)
-                            <option value="{{$u->id}}">{{$u->name}}</option>
+                            <option value="{{$u->id}}" {{ (old('created_by')==$u->id ? "selected":"") }}>{{$u->name}}</option>
                             @endforeach
                         </select>
 
@@ -160,6 +160,8 @@ Point of Sale
         bPaginate: false,
         ordering: false,
         bInfo: false,
+        scrollY:  "300px",
+        scrollCollapse: true,
         columns: [
             { title: "Id" },
             { title: "QOH" },
@@ -248,7 +250,7 @@ Point of Sale
         });
 
         //add items to order
-        $('#addItems').on('show.bs.modal', function (event) {
+        $('#addItemsModal').on('show.bs.modal', function (event) {
             setTimeout(function (){
                 $('#sold_quantity').focus();
             }, 500);
@@ -260,6 +262,7 @@ Point of Sale
             modal.find('.modal-body #name').val(button.data('name'));
             modal.find('.modal-body #quantity').val(button.data('quantity'));
             modal.find('.modal-body #sale_price_1').val(button.data('sale_price_1'));
+            modal.find('.modal-body #sale_price').val(button.data('sale_price_1'));
             modal.find('.modal-body #unit_cost').val(button.data('unit_cost'));
             modal.find('.modal-body #sold_quantity').val("");
 
@@ -277,7 +280,7 @@ Point of Sale
             var data = [];
             if(! rowExist(values.id,order_list)){
                 var qty;
-                if (values.sold_quantity > values.quantity) { //OrderQty > QOH
+                if (parseInt(values.sold_quantity) > parseInt(values.quantity)) { //OrderQty > QOH
                     qty = values.quantity;
                 }else{
                     qty = values.sold_quantity;
@@ -286,8 +289,8 @@ Point of Sale
                 data.push(parseInt(values.quantity));
                 data.push(values.name);
                 data.push(parseInt(qty));
-                data.push(formatMoney(values.sale_price_1));
-                data.push(formatMoney(values.sale_price_1 * qty));
+                data.push(formatMoney(values.sale_price));
+                data.push(formatMoney(values.sale_price * qty));
                 data.push(parseFloat(values.unit_cost));
 
                 order_list.push(data);
@@ -298,7 +301,7 @@ Point of Sale
                 $('#sale_order').val(JSON.stringify(order_list));
             }
 
-            $('#addItems').modal('hide');
+            $('#addItemsModal').modal('hide');
                         
         });
   

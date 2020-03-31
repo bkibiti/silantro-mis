@@ -1,4 +1,4 @@
-<div class="modal fade" id="addItems" tabindex="-1" role="dialog">
+<div class="modal fade" id="addItemsModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -24,7 +24,15 @@
                                     <div class="col-md-8">
                                             <input type="number" class="form-control" id="sold_quantity" name="sold_quantity" required autofocus>
                                     </div>
+                                  
                             </div>
+                            <div class="form-group row">
+                         
+                                <label for="category" class="col-md-4 col-form-label text-md-right">Price</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="sale_price" name="sale_price" required>
+                                </div>
+                        </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -20,7 +20,7 @@
                                 <thead>
                                 <tr>
                                     <th>Name</th>
-                                    {{-- <th>Category</th> --}}
+                                    <th>QOH</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -28,7 +28,7 @@
                                         @foreach($products as $prod)
                                         <tr>
                                             <td>{{$prod->name}}</td>
-                                            {{-- <td>{{$prod->category->name}}</td> --}}
+                                            <td>{{$prod->quantity}}</td>
                                             <td>
                                                 <a href="#">
                                                     <button class="btn btn-sm btn-rounded btn-info selectproduct"
@@ -62,7 +62,7 @@
                                         <label for="product_name" class="col-md-4 col-form-label text-md-right">Date<font color="red">*</font></label>
                                         <div class="col-md-8">
                                             <div id="date" style="border: 2px solid white; border-radius: 6px;">
-                                                <input type="text" name="purchase_date" class="form-control" id="purchase_date" required>
+                                                <input type="text" name="purchase_date" class="form-control" id="purchase_date" value="{{ old('purchase_date') }}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -84,7 +84,7 @@
 
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" id="name" name="name" maxlength="50" minlength="2"
-                                                placeholder="" required value="{{ old('name') }}" readonly>
+                                                placeholder="" required readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
