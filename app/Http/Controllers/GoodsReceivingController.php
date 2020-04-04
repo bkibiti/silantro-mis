@@ -29,6 +29,7 @@ class GoodsReceivingController extends Controller
             $purchase_date = date('Y-m-d', strtotime($request->purchase_date));
         }
 
+
         $totalQty = $request->quantity * $request->quantity_per_unit;
         $salableUnitPrice = $request->unit_cost / $request->quantity_per_unit;
 

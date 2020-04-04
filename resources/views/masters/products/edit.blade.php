@@ -41,8 +41,9 @@
 
                                     <div class="col-md-8">
                                         <select class="form-control select2"  class="form-control" id="sold_by_edit" name="sold_by"  data-placeholder="Select One" required data-width="100%">
-                                                <option value="Each" name="category">Each</option>
-                                                <option value="Weight" name="category">Weight</option>
+                                            <option value="Bottle" name="category">Bottle</option>
+                                            <option value="Shots" name="category">Shots</option>
+                                            <option value="Weight" name="category">Weight</option>
                                         </select>
                                     </div>
                             </div>
