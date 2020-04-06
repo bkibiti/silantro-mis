@@ -21,12 +21,13 @@ class CurrentStockController extends Controller
     public function update(Request $request){
        
         $product = Stock::find($request->id);
+        $product->unit_cost = $request->unit_cost;
         $product->sale_price_1 = $request->sale_price_1;
         $product->sale_price_2 = $request->sale_price_2;
         $product->sale_price_3 = $request->sale_price_3;
         $product->save();
      
-        session()->flash("alert-success", "Selling Price Updated successfully!");
+        session()->flash("alert-success", "Price Updated successfully!");
         return back();
 
     }

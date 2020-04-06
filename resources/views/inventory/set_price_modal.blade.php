@@ -23,6 +23,13 @@
                                             <input type="text" class="form-control" id="name" readonly>
                                     </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="category" class="col-md-4 col-form-label text-md-right">Unit Cost</label>
+                                <div class="col-md-8">
+                                        <input type="text" class="form-control" id="unit_cost" name="unit_cost" maxlength="50" minlength="3"
+                                            value="{{ old('unit_cost') }}" required>
+                                </div>
+                            </div>
 
                             @if ($PriceCategory[0]->active =='Yes')
                                 <div class="form-group row">

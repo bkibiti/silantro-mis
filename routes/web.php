@@ -68,6 +68,7 @@ Route::middleware(["auth"])->group(function () {
     Route::post('sales/sale-histories', 'SaleController@historySearch')->name('sales.history-search');
     Route::get('sales/pending-orders', 'SaleController@pendingOrders')->name('sales.pending-order');
     Route::get('sales/daily-report/index', 'DailySaleController@index')->name('sales.daily-index');
+    Route::post('sales/update-sales', 'SaleController@update')->name('sales.update');
     Route::post('sales/daily-report/generate', 'DailySaleController@generate')->name('sales.daily-generate');
     Route::post('sales/daily-report/update', 'DailySaleController@update')->name('sales.daily-update');
     Route::post('sales/daily-report/review', 'DailySaleController@review')->name('sales.daily-review');

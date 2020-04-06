@@ -97,6 +97,7 @@
                                                             data-sale_price_1="{{$prod->sale_price_1}}"
                                                             data-sale_price_2="{{$prod->sale_price_2}}"
                                                             data-sale_price_3="{{$prod->sale_price_3}}"
+                                                            data-unit_cost="{{$prod->unit_cost}}"
                                                             type="button"
                                                             data-toggle="modal" data-target="#edit">Set Price
                                                     </button>
@@ -145,6 +146,7 @@
 
                     modal.find('.modal-body #id').val(button.data('id'));
                     modal.find('.modal-body #name').val(button.data('name'));
+                    modal.find('.modal-body #unit_cost').val(button.data('unit_cost'))
                     modal.find('.modal-body #sale_price_1').val(button.data('sale_price_1'))
                     modal.find('.modal-body #sale_price_2').val(button.data('sale_price_2'))
                     modal.find('.modal-body #sale_price_3').val(button.data('sale_price_3'))

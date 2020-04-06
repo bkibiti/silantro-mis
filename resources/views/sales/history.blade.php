@@ -59,6 +59,7 @@ Sales History
                                 <th>Unit Cost</th>
                                 <th>Total Cost</th>
                                 <th>User</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,7 +72,21 @@ Sales History
                                 <td>{{number_format($s->selling_price,2)}}</td>
                                 <td>{{number_format(($s->selling_price * $s->quantity), 2)}}</td>
                                 <td>{{$s->user->name}}</td>
-
+                                <td>
+                                    <a href="#">
+                                        <button class="btn btn-sm btn-rounded btn-info"
+                                                data-id="{{$s->id}}"
+                                                data-name="{{$s->product->name}}"
+                                                data-created_at="{{$s->created_at}}"
+                                                data-quantity="{{$s->quantity}}"
+                                                data-selling_price="{{$s->selling_price}}"
+                                                data-buying_price="{{$s->buying_price}}"
+                                                type="button"
+                                                data-toggle="modal" data-target="#edit">Edit
+                                        </button>
+                                    </a>
+                              
+                                </td>
                             </tr>
                             @endforeach
 
@@ -95,7 +110,9 @@ Sales History
 
     @push("page_scripts")
 
+    @include('sales.edit_sale_modal')
     @include('partials.notification')
+
     <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
     <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
 
@@ -121,6 +138,7 @@ Sales History
             }
         });
     });
+
     $(function () {
         var start = moment();
         var end = moment();
@@ -136,7 +154,33 @@ Sales History
         });
     });
 
+    $(function () {
+        var start = moment();
+        var end = moment();
 
+        $('#saledate').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                maxDate: end,
+                autoUpdateInput: true,
+                locale: {
+                    format: 'DD-M-YYYY'
+                }
+            });
+    });
+
+
+    $('#edit').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+
+        modal.find('.modal-body #id').val(button.data('id'));
+        modal.find('.modal-body #saledate').val(button.data('created_at'));
+        modal.find('.modal-body #name').val(button.data('name'));
+        modal.find('.modal-body #selling_price').val(button.data('selling_price'))
+        modal.find('.modal-body #quantity').val(button.data('quantity'))
+        modal.find('.modal-body #buying_price').val(button.data('buying_price'))
+    });
 
     </script>
     @endpush

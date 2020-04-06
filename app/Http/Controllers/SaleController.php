@@ -75,6 +75,34 @@ class SaleController extends Controller
         return back();
 
     }
+
+    public function update(Request $request){
+
+        $request->validate([
+            'created_at' => 'required',
+            'selling_price' => 'required',
+            'quantity' => 'required',
+            'buying_price' => 'required',
+            'remarks' => 'required',
+        ]);
+
+// dd($request->all());
+        $Sale = Sale::findOrFail($request->id);
+        $Sale->quantity = $request->quantity;
+        $Sale->selling_price = $request->selling_price;
+        $Sale->buying_price = $request->buying_price;
+        $Sale->created_at = date('Y-m-d', strtotime($request->created_at));
+        $Sale->updated_at = Carbon::now();
+        $Sale->updated_by = Auth::user()->id;
+        $Sale->remarks = $request->remarks;
+        $Sale->save();
+        
+
+        session()->flash("alert-success", "Sale updated successfully!");
+        return back();
+
+    }
+
     public function history()
     {
         $sales = Sale::whereRaw('month(created_at) = month(now()) and year(created_at)=year(now())')->get();
