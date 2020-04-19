@@ -14,20 +14,18 @@ class StockCountController extends Controller
 
 	public function index()
 	{
-		$products = Stock::all();
+		$products = Stock::orderBy('category_id')->orderBy('name')->get();
 	
         return view('inventory.count_sheet')->with(['products' => $products]);
 	}
 
-	public function generateDailyStockCountPDF(Request $request)
+	public function print(Request $request)
 	{
-		$data = $this->summation($request->sale_date);
-		$new_data = array_values($data);
+		$products = Stock::orderBy('category_id')->orderBy('name')->get();
 
-        $pdf = PDF::loadView('stock_management.daily_stock_count.daily_stock_count',
-            compact('new_data'));
+        $pdf = PDF::loadView('inventory.count_sheet_pdf', compact('products'));
 
-        return $pdf->stream('daily_stock_count.pdf');
+        return $pdf->stream('stock_count.pdf');
 
 	}
 

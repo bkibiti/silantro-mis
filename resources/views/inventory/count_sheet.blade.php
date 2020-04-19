@@ -18,6 +18,21 @@ Stock Count Sheet
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
+                <form id="expense_form" action="{{route('daily-stock-count.print')}}" method="GET">
+                   
+                    <div class="form-group row">
+                        <div class="col-md-11">
+                        
+                        </div>
+    
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-success">Print</button>
+                        </div>
+                    </div>
+
+                </form>
+
+
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="row">
                         <div class="col-md-9">
@@ -34,7 +49,6 @@ Stock Count Sheet
                                style="width:100%">
                             <thead>
                             <tr>
-                                <th>Code</th>
                                 <th>Product Name</th>
                                 <th>Category</th>
                                 <th>QOH</th>
@@ -44,7 +58,6 @@ Stock Count Sheet
                                 <tbody>
                                 @foreach($products as $product)
                                     <tr>
-                                        <td>{{$product->id}}</td>
                                         <td>{{$product->name}}</td>
                                         <td>{{$product->category->name}}</td>
                                         <td>{{$product->quantity}}</td>
@@ -63,7 +76,12 @@ Stock Count Sheet
 
         @endsection
 
-        @push("page_scripts")
+    @push("page_scripts")
+        <script>
+                $('#fixed-header1').DataTable({
+                    bAutoWidth: true,
+                });
 
+        </script>
 
     @endpush

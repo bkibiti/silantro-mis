@@ -134,7 +134,7 @@
 
         @endsection
 
-        @push("page_scripts")
+    @push("page_scripts")
 
             @include('partials.notification')
             @include('inventory.set_price_modal')
