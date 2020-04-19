@@ -77,17 +77,17 @@
 
 </li>
 
-<li class="nav-item pcoded-hasmenu">
+<li class="nav-item">
     @can('View Expense Management')
-    <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="fas fa-dollar-sign"></i></span>
+    <a href="{{route('expense.index')}}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-dollar-sign"></i></span>
         <span class="pcoded-mtext">Expenses</span>
     </a>
-    <ul class="pcoded-submenu">
+    {{-- <ul class="pcoded-submenu">
         @can('View Expenses')
         <li class=""><a href="{{route('expense.index')}}" class="">Expenses</a></li>
         @endcan
       
-    </ul>
+    </ul> --}}
     @endcan
 </li>
 

@@ -22,7 +22,7 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                <form id="expense_form" action="{{route('current-stock-filter')}}" method="post">
+                <form id="expense_form" action="{{route('current-stock-filter')}}" method="GET">
                     @csrf()
 
                     <div class="form-group row">
@@ -32,6 +32,14 @@
                                 <option value="0" {{ (old('status')==0 ? "selected":"") }} >All Items</option>
                                 <option value="1" {{ (old('status')==1 ? "selected":"") }} >Out of Stock</option>
                                 <option value="2" {{ (old('status')==2 ? "selected":"") }} >Below Minimum Level</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2"  class="form-control" id="category_id" name="category_id"  data-width="100%">
+                                <option value="1" {{ (old('category_id')==0 ? "selected":"") }} >All Categories</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ ($category->id == old('category_id') ? "selected":"") }} name="category">{{ $category->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                       
@@ -162,7 +170,37 @@
                     modal.find('.modal-body #quantity').val(button.data('quantity'))
                   
                 });
+
+                $('#type').change(function () {
+                    if( $(this).val() == "Positive"){
+                        $('#qntyTxt').text('Quantity to Add');
+                    }
+                    if( $(this).val() == "Negative"){
+                        $('#qntyTxt').text('Quantity to Deduct');
+                    }
+                    
+                });
                 
+                $('#qnty').change(function () {
+                    
+                    var qoh =  parseInt($('#quantity').val());
+                    var qty2adjust =  parseInt($(this).val());
+                    var newQty = 0;
+                    if( $('#type').val() == "Positive"){
+                        newQty = qoh + qty2adjust;
+                    }
+                    if( $('#type').val() == "Negative"){
+                        newQty = qoh - qty2adjust;
+                    }
+                    var qtyTxt ='New QOH = ';
+                    var newTxt = qtyTxt.concat(newQty);
+
+                    $('#newqty').text(newTxt);
+                    
+                    
+                });
+
+
         
 
 

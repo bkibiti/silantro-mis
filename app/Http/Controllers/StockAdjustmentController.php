@@ -29,6 +29,11 @@ class StockAdjustmentController extends Controller
             $remain_qty = $original_qty - $adjusted_qty;
         }
 
+        if ($remain_qty < 0 ){
+            session()->flash("alert-danger", "You can not deduct more that available quantity!");
+            return back();
+        }
+
         $product = Stock::find($request->id);
         $product->quantity = $remain_qty;
         $product->save();

@@ -48,8 +48,9 @@ Route::middleware(["auth"])->group(function () {
     //Purchase Routes
     Route::get('purchases/goods-receiving', 'GoodsReceivingController@index')->name('goods-receiving.index');
     Route::post('purchases/goods-receiving', 'GoodsReceivingController@store')->name('goods-receiving.store');
+    Route::post('purchases/goods-receiving/update', 'GoodsReceivingController@update')->name('goods-receiving.update');
     Route::get('purchases/history', 'GoodsReceivingController@history')->name('goods-receiving.history');
-    Route::post('purchases/history/search', 'GoodsReceivingController@search')->name('goods-receiving.search');
+    Route::get('purchases/history/search', 'GoodsReceivingController@search')->name('goods-receiving.search');
     Route::post('purchases/previous-purchases', 'GoodsReceivingController@itemHistory')->name('goods-receiving.item-history');
 
 
@@ -92,15 +93,12 @@ Route::middleware(["auth"])->group(function () {
     Route::resource('inventory-management/current-stock', 'CurrentStockController')->only([
         'index', 'update'
     ]);
-    Route::post('inventory-management/current-stock/filter','CurrentStockController@filter')->name('current-stock-filter');
+    Route::get('inventory-management/current-stock/filter','CurrentStockController@filter')->name('current-stock-filter');
 
     Route::get('inventory-management/daily-stock-count', 'StockCountController@index')->name('daily-stock-count.index');
     Route::get('inventory-management/monthly-closing-stock', 'StockCountController@closingIndex')->name('monthly-closing-stock.index');
     Route::post('inventory-management/monthly-closing-stock', 'StockCountController@closingStockStore')->name('monthly-closing-stock.store');
     Route::get('inventory-management/monthly-closing-stock/filter', 'StockCountController@closingStockFilter')->name('monthly-closing-stock.filter');
-
-
-
 
 
     /*stock adjustment routes*/
@@ -110,18 +108,11 @@ Route::middleware(["auth"])->group(function () {
     Route::post('inventory/stock-adjustment/search','StockAdjustmentController@search')->name('adjustment.search');
     
 
-  
-    /*outgoingstock routes*/
-    Route::resource('inventory-management/out-going-stock', 'OutGoingStockController')->only([
-        'index'
-    ]);
-
     /*expense routes*/
-    Route::resource('expense-management/expense', 'ExpenseController')->only([
-        'index', 'store'
-    ]);
-    Route::post('expense-management/expense-search', 'ExpenseController@search')->name('expense.search');
+    Route::get('expense-management/expenses', 'ExpenseController@index')->name('expense.index');
+    Route::post('expense-management/expenses', 'ExpenseController@store')->name('expense.store');
     Route::post('expense-management/expense-update', 'ExpenseController@update')->name('expense.update');
+    Route::get('expense-management/expense-search', 'ExpenseController@search')->name('expense.search');
 
     //user roles
     Route::get('user-roles', 'RoleController@index')->name('roles.index');
@@ -140,7 +131,7 @@ Route::middleware(["auth"])->group(function () {
     Route::post('users/change-password', 'UserController@changePassword')->name('change-password');
     Route::get('users/change-password', 'UserController@changePasswordForm')->name('change-pass-form');
     Route::post('user-profile/update', 'UserController@updateProfile')->name("update-profile");
-    Route::post('users/search', 'UserController@search')->name("users.search");
+    Route::get('users/search', 'UserController@search')->name("users.search");
     Route::post('users/user-role-id', 'UserController@getRoleID')->name('getRoleID');
 
 });

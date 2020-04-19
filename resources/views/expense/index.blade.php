@@ -70,7 +70,7 @@ Expense
 <div class="col-sm-12">
     <div class="card">
         <div class="card-body">
-            <form id="expense_form" action="{{route('expense.search')}}" method="post">
+            <form id="expense_form" action="{{route('expense.search')}}" method="GET">
                 @csrf()
 
                 <div class="form-group row">

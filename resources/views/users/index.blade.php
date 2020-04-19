@@ -25,7 +25,7 @@
 
 
     <div class="card-body">
-        <form id="expense_form" action="{{route('users.search')}}" method="post">
+        <form id="expense_form" action="{{route('users.search')}}" method="GET">
             @csrf()
 
             <div class="form-group row">

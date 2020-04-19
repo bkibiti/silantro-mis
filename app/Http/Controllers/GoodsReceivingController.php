@@ -53,6 +53,24 @@ class GoodsReceivingController extends Controller
         return back();
     }
 
+    
+    public function update(Request $request){
+
+        $purchase_date = date('Y-m-d', strtotime($request->created_at));
+
+        $incoming = IncomingStock::find($request->id);
+        $incoming->quantity = $request->quantity;
+        $incoming->supplier_id = $request->supplier_id;
+        $incoming->unit_cost = $request->unit_cost;
+        $incoming->created_at = $purchase_date;
+        $incoming->updated_at = Carbon::now();
+        $incoming->save();
+
+        session()->flash("alert-success", "Purchase updated successfully!");
+        return back();
+    }
+
+
     public function history(){
         $now = Carbon::now();
         $purchases = IncomingStock::whereRaw('month(created_at) = month(now()) and year(created_at)=year(now())')->get();

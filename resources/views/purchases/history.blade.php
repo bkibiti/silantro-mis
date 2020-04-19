@@ -22,7 +22,7 @@
         <div class="card">
             <div class="card-body">
 
-                <form id="expense_form" action="{{route('goods-receiving.search')}}" method="post">
+                <form id="expense_form" action="{{route('goods-receiving.search')}}" method="GET">
                     @csrf()
 
                     <div class="form-group row">
@@ -77,6 +77,9 @@
                                 <th>Total Cost</th>
                                 <th>Supplier</th>
                                 <th>User</th>
+                                @can('Edit Purchase')
+                                <th>Action</th>
+                                @endcan
                             </tr>
                             </thead>
                                 <tbody>
@@ -89,8 +92,27 @@
                                             <td>{{number_format(($p->unit_cost * $p->quantity), 2)}}</td>
                                             <td>{{$p->supplier->name}}</td>
                                             <td>{{$p->user->name}}</td>
-                                       
+
+                                            @can('Edit Purchase')
+                                            <td>
+                                                <a href="#">
+                                                    <button class="btn btn-sm btn-rounded btn-info"
+                                                            data-id="{{$p->id}}"
+                                                            data-name="{{$p->product->name}}"
+                                                            data-quantity="{{$p->quantity}}"
+                                                            data-created_at="{{$p->created_at}}"
+                                                            data-unit_cost="{{$p->unit_cost}}"
+                                                            data-supplier_id="{{$p->supplier_id}}"
+                                                            type="button"
+                                                            data-toggle="modal" data-target="#edit">Edit
+                                                    </button>
+                                                </a>
+                                          
+                                            </td>
+                                            @endcan
                                     </tr>
+
+                                    
                                     @endforeach
                                     
                                 </tbody>
@@ -113,6 +135,7 @@
 
 @push("page_scripts")
 @include('partials.notification')
+@include('purchases.edit_purchase_modal')
 
 
 <script>
@@ -150,6 +173,33 @@
                 format: 'DD-M-YYYY'
             }
         });
+    });
+
+    $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#created_at').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
+
+    $('#edit').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+
+        modal.find('.modal-body #id').val(button.data('id'));
+        modal.find('.modal-body #created_at').val(button.data('created_at'));
+        modal.find('.modal-body #name').val(button.data('name'));
+        modal.find('.modal-body #unit_cost').val(button.data('unit_cost'))
+        modal.find('.modal-body #quantity').val(button.data('quantity'))
+        modal.find('.modal-body #supplier_id').val(button.data('supplier_id'))
     });
 
 

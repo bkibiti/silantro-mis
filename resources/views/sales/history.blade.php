@@ -59,7 +59,9 @@ Sales History
                                 <th>Unit Cost</th>
                                 <th>Total Cost</th>
                                 <th>User</th>
+                                @can('Edit Sales')
                                 <th>Action</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -72,6 +74,7 @@ Sales History
                                 <td>{{number_format($s->selling_price,2)}}</td>
                                 <td>{{number_format(($s->selling_price * $s->quantity), 2)}}</td>
                                 <td>{{$s->user->name}}</td>
+                                @can('Edit Sales')
                                 <td>
                                     <a href="#">
                                         <button class="btn btn-sm btn-rounded btn-info"
@@ -87,6 +90,7 @@ Sales History
                                     </a>
                               
                                 </td>
+                                @endcan
                             </tr>
                             @endforeach
 

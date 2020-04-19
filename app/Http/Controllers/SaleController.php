@@ -86,7 +86,7 @@ class SaleController extends Controller
             'remarks' => 'required',
         ]);
 
-// dd($request->all());
+
         $Sale = Sale::findOrFail($request->id);
         $Sale->quantity = $request->quantity;
         $Sale->selling_price = $request->selling_price;
