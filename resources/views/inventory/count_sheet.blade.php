@@ -18,7 +18,7 @@ Stock Count Sheet
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                <form id="expense_form" action="{{route('daily-stock-count.print')}}" method="GET">
+                <form id="expense_form" action="{{route('daily-stock-count.print')}}" target="_blank" method="GET">
                    
                     <div class="form-group row">
                         <div class="col-md-11">
@@ -26,7 +26,7 @@ Stock Count Sheet
                         </div>
     
                         <div class="col-md-1">
-                            <button type="submit" class="btn btn-success">Print</button>
+                            <button type="submit" class="btn btn-success" >Print</button>
                         </div>
                     </div>
 

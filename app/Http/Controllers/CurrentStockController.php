@@ -58,15 +58,15 @@ class CurrentStockController extends Controller
 
     public function stockOut()
     {
-        $Products = Stock::where('quantity',0)->get();
+        $Products = Stock::where('quantity',0)->where('for_sale','Yes')->get();
         $categories = Category::orderBy('id', 'DESC')->get();
-
+       
         return view('inventory.out_of_stock', compact("Products","categories"));
     }
 
     public function belowMin()
     {
-        $Products = Stock::whereRaw('quantity <= min_quantinty and quantity > 0')->get();
+        $Products = Stock::whereRaw('quantity <= min_quantinty and quantity > 0')->where('for_sale','Yes')->get();
         $categories = Category::orderBy('id', 'DESC')->get();
 
         return view('inventory.below_min', compact("Products","categories"));

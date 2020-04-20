@@ -1,22 +1,8 @@
-<!DOCTYPE html>
-<html>
+@include('pdf_reports.header')
 
-<head>
-    <title>Stock Count Sheet</title>
-
-</head>
-
-<body>
-    <div class="row">
-        <div id="container">
-            <div class="logo-container">
-                {{-- <img src="{{public_path('fileStore/logo/'.$pharmacy['logo'])}}" /> --}}
-            </div>
-        </div>
-    </div>
     <div class="row" style="padding-top: -2%">
 
-        <h2 align="center">Stock Count Sheet</h2>
+        <h3 align="center" style="color:SteelBlue;">Stock Count Sheet</h3>
 
 
         <div class="row">
@@ -25,12 +11,12 @@
 
                 <thead>
                     <tr>
-                        <th>No.</th>
-                        <th>Item</th>
-                        <th>Category</th>
-                        <th>QOH</th>
-                        <th>Physical Count</th>
-                        <th>Difference</th>
+                        <th bgcolor="#bfbfbf" style="text-align:center" >No.</th>
+                        <th bgcolor="#bfbfbf">Item</th>
+                        <th bgcolor="#bfbfbf">Category</th>
+                        <th bgcolor="#bfbfbf" style="text-align:center">QOH</th>
+                        <th bgcolor="#bfbfbf">Physical Count</th>
+                        <th bgcolor="#bfbfbf">Difference</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,10 +25,10 @@
                          <?php $i++ ?>
 
                         <tr>
-                            <td>{{ $i }}</td>
+                            <td style="text-align:center">{{ $i }}</td>
                             <td>{{$product->name}}</td>
                             <td>{{$product->category->name}}</td>
-                            <td>{{$product->quantity}}</td>
+                            <td style="text-align:center">{{$product->quantity}}</td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -51,12 +37,9 @@
                 </tbody>
 
             </table>
+
         </div>
    
     </div>
 
-
-
-</body>
-
-</html>
+@include('pdf_reports.footer')

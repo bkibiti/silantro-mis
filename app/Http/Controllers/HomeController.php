@@ -33,41 +33,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-   
-
-        // $totalSales = Sale::sum(DB::raw('quantity*selling_price'));
-
-        // $days = DB::table('sales')
-        //     ->select(DB::raw('date(created_at)'))
-        //     ->distinct()
-        //     ->get();
-
-        // if ($days->count() == 0) {
-        //     $avgDailySales = 0;
-        // } else {
-        //     $avgDailySales = $totalSales / $days->count();
-        // }
-
-        // $todaySales = DB::table('sales')
-        //     ->whereRaw('date(created_at) = date(now())')
-        //     ->sum(DB::raw('quantity*selling_price'));
-
-        // $totalDailySales = DB::table('sales')
-        //     ->select(DB::raw('date(created_at) date, sum(quantity*selling_price) value'))
-        //     ->groupBy(DB::raw('date(created_at)'))
-        //     ->orderBy('date','Desc')
-        //     ->limit('30')
-        //     ->get();
-
-        // $totalMonthlySales = DB::table('sales')
-        //     ->select(DB::raw("DATE_FORMAT(created_at, '%b %y') month,sum(quantity*selling_price) amount"))
-        //     ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y%m')"))
-        //     ->limit('12')
-        //     ->get();
-
-        $outOfStock = Stock::where('quantity', 0)->where('for_sale','Yes')->count();
-
-        $belowMin = Stock::whereRaw('quantity <= min_quantinty and quantity > 0')->where('for_sale','Yes')->count();
 
         $salesByUser = DB::select("SELECT users.name as user,sum(quantity*selling_price) as amount FROM 
                     sales join users on sales.created_by=users.id
@@ -78,7 +43,7 @@ class HomeController extends Controller
                     where month(staff_advances.date) = month(now()) and type='loss'
                     group by users.name");
 
-        return view('home', compact('outOfStock', 'belowMin','salesByUser','staffLoss'));
+        return view('home', compact('salesByUser','staffLoss'));
 
     }
 

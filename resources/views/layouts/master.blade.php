@@ -111,17 +111,41 @@
             <ul class="navbar-nav ml-auto">
                 <li>
                     <div class="dropdown">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i></a>
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i>
+                        </a>
                         <div class="dropdown-menu dropdown-menu-right notification">
-                            {{-- <div class="noti-head">
+                            <div class="noti-head">
                                 <h6 class="d-inline-block m-b-0">Notifications</h6>
                                 <div class="float-right">
-                                    <a href="#!" class="m-r-10">mark as read</a>
-                                    <a href="#!">clear all</a>
+                                    <a href="#!" class="m-r-10">Mark as read</a>
+                                    <a href="#!">Clear all</a>
                                 </div>
-                            </div> --}}
+                            </div>
                             <ul class="noti-body">
+                                    @if ( outofStock() > 0)
+                                        <li class="notification">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <p ><strong> <span class="text-c-red"> Out of Stock </span></strong></p>
+                                                    <p> <a href="{{route('out-of-stock')}}"> {{ outofStock() }} item(s) out of stock  </a> </p>
+                                                    
+                                                </div>
+                                            </div>
+                                        </li>
 
+                                    @endif
+                                    @if ( belowMin() > 0)
+                                        <li class="notification">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <p><strong> <span class="text-c-blue"> Minimum Stock </span></strong></p>
+                                                    <p> <a href="{{route('below-min-level')}}"> {{ belowMin() }} item(s) below minimum  </a></p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    @endif
+                                   
 
                             </ul>
 

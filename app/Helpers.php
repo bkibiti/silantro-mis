@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\DB;
 use App\Setting;
+use App\Stock;
+
 
 function getRoles(){
     return DB::table('roles')
@@ -22,3 +24,12 @@ function getSettings($settingName){
     return $value;
 }
 
+function outofstock(){
+    $outOfStock = Stock::where('quantity', 0)->where('for_sale','Yes')->count();
+    return  $outOfStock;
+}
+
+function belowMin(){
+    $belowMin = Stock::whereRaw('quantity <= min_quantinty and quantity > 0')->where('for_sale','Yes')->count();
+    return $belowMin;
+}

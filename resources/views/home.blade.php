@@ -43,7 +43,7 @@
                                     <div class="card-block">
                                         <div class="row align-items-center justify-content-center">
                                             <div class="col">
-                                                <h3 class="text-c-red">{{$outOfStock}} Item(s) are Out of Stock</h3>
+                                                <h3 class="text-c-red">{{ outofstock()}} Item(s) are Out of Stock</h3>
                                                 <a href="{{route('out-of-stock')}}" class="badge badge-info">View</a>
                                             </div>
 
@@ -56,7 +56,7 @@
                                     <div class="card-block">
                                         <div class="row align-items-center justify-content-center">
                                             <div class="col">
-                                                <h3 class="text-c-green">{{$belowMin}} Item(s) are Below Minimum Level</h3>
+                                                <h3 class="text-c-green">{{ belowMin()}} Item(s) are Below Minimum Level</h3>
                                                 <a href="{{route('below-min-level')}}" class="badge badge-info">View</a>
                                             
                                             </div>
