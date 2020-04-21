@@ -46,7 +46,7 @@ class SupplierController extends Controller
     {
         try {
             Supplier::destroy($request->id);
-            session()->flash("alert-danger", "Supplier Deleted Successfully!");
+            session()->flash("alert-success", "Supplier Deleted Successfully!");
             return back();
         } catch (Exception $exception) {
             session()->flash("alert-danger", "Supplier In Use!");

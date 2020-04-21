@@ -4,12 +4,12 @@
 @endsection
 
 @section('content-title')
-   Suppliers
+   Reminders
 @endsection
 
 @section('content-sub-title')
 <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
-<li class="breadcrumb-item"><a href="#">Masters / Suppliers</a> </li>
+<li class="breadcrumb-item"><a href="#">Reminders</a> </li>
 @endsection
 
 @section("content")
@@ -19,55 +19,61 @@
         <div class="col-sm-12">
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-secondary btn-sm"
-                                data-toggle="modal"
-                                data-target="#create">
-                            Add Supplier
-                        </button>
+                        
+                        @can('Add Reminders')
+                            <button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-secondary btn-sm"
+                                        data-toggle="modal" data-target="#create">Add Remider 
+                            </button>
+                        @endcan
                         <div class="table-responsive">
                             <table id="fixed-header" class="display table nowrap table-striped table-hover"style="width:100%">
                             <thead>
                                 <tr>
-                                   <th>Name</th>
-                                   <th>Contact Person</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                   <th>Address</th>
-                                    <th>Action</th>
+                                    <th>Reminder</th>
+                                    <th>Star Date</th>
+                                    <th>End Date</th>
+                                    <th>Days to Get Riminder</th>
+                                    @if(Auth::user()->can('Edit Reminders') || Auth::user()->can('Delete Reminders'))
+                                        <th>Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                                  <tbody>
-                                    @foreach($suppliers as $supplier)
+                                    @foreach($reminders as $r)
                                         <tr>
-                                            <td>{{$supplier->name}}</td>
-                                            <td>{{$supplier->contact_person}}</td>
-                                            <td>{{$supplier->mobile}}</td>
-                                            <td>{{$supplier->email}}</td>
-                                            <td>{{$supplier->address}}</td>
-                                            <td>
-                                             <a href="#">
-                                                 <button class="btn btn-sm btn-rounded btn-info"
-                                                         data-id="{{$supplier->id}}"
-                                                         data-name="{{$supplier->name}}"
-                                                         data-contact_person="{{$supplier->contact_person}}"
-                                                         data-address="{{$supplier->address}}"
-                                                         data-phone="{{$supplier->mobile}}"
-                                                         data-email="{{$supplier->email}}"
-                                                         type="button"
-                                                         data-toggle="modal" data-target="#edit">Edit
-                                             </button>
-                                             </a>
-                                                <a href="#">
-                                            <button class="btn btn-sm btn-rounded btn-danger"
-                                            data-id="{{$supplier->id}}"
-                                            data-name="{{$supplier->name}}"
-                                            type="button"
-                                            data-toggle="modal"
-                                            data-target="#delete">
-                                        Delete
-                                                </button>
-                                                </a>
-                                           </td>
+                                            <td>{{$r->name}}</td>
+                                            <td>{{date_format(new DateTime($r->start_date),'d M Y')}}</td>
+                                            <td>{{date_format(new DateTime($r->end_date),'d M Y')}}</td>
+                                            <td>{{$r->days_to_remind}}</td>
+
+                                            @if(Auth::user()->can('Edit Reminders') || Auth::user()->can('Delete Reminders'))
+                                                <td>
+                                                    @can('Edit Reminders')
+                                                        <a href="#">
+                                                            <button class="btn btn-sm btn-rounded btn-info"
+                                                                    data-id="{{$r->id}}"
+                                                                    data-name="{{$r->name}}"
+                                                                    data-start_date="{{$r->start_date}}"
+                                                                    data-end_date="{{$r->end_date}}"
+                                                                    data-days_to_remind="{{$r->days_to_remind}}"
+                                                                    type="button"
+                                                                    data-toggle="modal" data-target="#edit">Edit
+                                                            </button>
+                                                        </a>
+                                                    @endcan
+                                                    @can('Delete Reminders')
+                                                        <a href="#">
+                                                            <button class="btn btn-sm btn-rounded btn-danger"
+                                                                data-id="{{$r->id}}"
+                                                                data-name="{{$r->name}}"
+                                                                type="button"
+                                                                data-toggle="modal"
+                                                                data-target="#delete"> Delete
+                                                            </button>
+                                                        </a>
+                                                    @endcan
+                                                </td>
+                                           @endif
                                         </tr>
                                     @endforeach
                                         </tbody>
@@ -78,9 +84,9 @@
         </div>
 </div>
 
-    @include('masters.suppliers.create')
-    @include('masters.suppliers.delete')
-    @include('masters.suppliers.edit')
+    @include('reminders.create')
+    @include('reminders.delete')
+    @include('reminders.edit')
 
 @endsection
 
@@ -89,17 +95,73 @@
 @include('partials.notification')
 
  <script>
+    $(function () {
+        var start = moment();
+        var end = moment();
 
-              $('#edit').on('show.bs.modal', function (event) {
+        $('#start_date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
+
+    $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#end_date').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
+
+    $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#start_date_edit').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            maxDate: end,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
+
+    $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#end_date_edit').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            autoUpdateInput: true,
+            locale: {
+                format: 'DD-M-YYYY'
+            }
+        });
+    });
+
+            $('#edit').on('show.bs.modal', function (event) {
                   var button = $(event.relatedTarget);
                   var modal = $(this);
 
                   modal.find('.modal-body #id').val(button.data('id'));
                   modal.find('.modal-body #name_edit').val(button.data('name'));
-                  modal.find('.modal-body #address_edit').val(button.data('address'));
-                  modal.find('.modal-body #contact_edit').val(button.data('contact_person'));
-                  modal.find('.modal-body #phone_edit').val(button.data('phone'));
-                modal.find('.modal-body #email_edit').val(button.data('email'))
+                  modal.find('.modal-body #start_date_edit').val(button.data('start_date'));
+                  modal.find('.modal-body #end_date_edit').val(button.data('end_date'));
+                  modal.find('.modal-body #days_edit').val(button.data('days_to_remind'));
 
             });
 
@@ -108,23 +170,13 @@
                 var message = "Are you sure you want to delete '".concat(button.data('name'), "'?");
                 var modal = $(this);
                 modal.find('.modal-body #message').text(message);
-                modal.find('.modal-body #id').val(button.data('id'));
+                modal.find('.modal-body #id_del').val(button.data('id'));
 
             })
-        </script>
 
-          <!-- Input mask Js -->
-    <script src="{{asset("assets/plugins/inputmask/js/inputmask.min.js")}}"></script>
-    <script src="{{asset("assets/plugins/inputmask/js/jquery.inputmask.min.js")}}"></script>
-    <script src="{{asset("assets/plugins/inputmask/js/autoNumeric.js")}}"></script>
+</script>
 
-    <!-- select2 Js -->
-    <script src="{{asset("assets/plugins/select2/js/select2.full.min.js")}}"></script>
-    <!-- form-select-custom Js -->
-    <script src="{{asset("assets/js/pages/form-select-custom.js")}}"></script>
+  
+   
 
-
-    <!-- form-picker-custom Js -->
-    <script src="{{asset("assets/js/pages/form-masking-custom.js")}}"></script>
-
-    @endpush
+@endpush

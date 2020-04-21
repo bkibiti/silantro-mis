@@ -145,6 +145,9 @@
         @can('View Stores')
         <li class=""><a href="{{route('stores.index')}}" class="">Stores</a></li>
         @endcan
+        @can('View Reminders')
+            <li class=""><a href="{{route('reminders.index')}}" class="">Reminders</a></li>
+        @endcan
     </ul>
     @endcan
 

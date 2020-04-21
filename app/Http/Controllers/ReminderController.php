@@ -7,69 +7,44 @@ use Illuminate\Http\Request;
 
 class ReminderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function index()
     {
-        //
+        $reminders = Reminder::get();
+
+        return view('reminders.index', compact("reminders"));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request)
     {
-        //
+        $reminder = new Reminder;
+        $reminder->name = $request->name;
+        $reminder->start_date = date('Y-m-d', strtotime($request->start_date));
+        $reminder->end_date = date('Y-m-d', strtotime($request->end_date));
+        $reminder->days_to_remind = $request->days;
+        $reminder->save();
+        session()->flash("alert-success", "Reminder Added Successfully!");
+        return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Reminder  $reminder
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Reminder $reminder)
+    public function update(Request $request, Reminder $id)
     {
-        //
-    }
+        $reminder = Reminder::find($request->id);
+        $reminder->name = $request->name;
+        $reminder->start_date = date('Y-m-d', strtotime($request->start_date));
+        $reminder->end_date = date('Y-m-d', strtotime($request->end_date));
+        $reminder->days_to_remind = $request->days;
+        $reminder->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Reminder  $reminder
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reminder $reminder)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Reminder  $reminder
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Reminder $reminder)
-    {
-        //
+        session()->flash("alert-success", "Remider Updated Successfully!");
+        return back();
     }
 
     /**
@@ -78,8 +53,10 @@ class ReminderController extends Controller
      * @param  \App\Reminder  $reminder
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reminder $reminder)
+    public function destroy(Request $request, Reminder $id)
     {
-        //
+        Reminder::destroy($request->id);
+        session()->flash("alert-success", "Reminder Deleted Successfully!");
+        return back();
     }
 }
