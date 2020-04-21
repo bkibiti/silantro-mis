@@ -60,6 +60,7 @@ Gross Profit Report
 <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
 <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
 @include('partials.notification')
+@include('reports.hide_show_filters')
 
 <script>
 

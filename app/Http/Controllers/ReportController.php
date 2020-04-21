@@ -19,24 +19,46 @@ class ReportController extends Controller
         $from = date('Y-m-d', strtotime($request->from_date));
         $to = date('Y-m-d', strtotime($request->to_date));
 
+
         switch ($request->report) {
             case 1:
                 $data = $this->TotalDailySales($from, $to);
                 $request->flash();
-                $pdf = PDF::loadView('reports.total_daily_sales_pdf', compact('data'));
-                return $pdf->stream();
-                return view('reports.total_daily_sales', compact('data'));
+
+                if($request->action =="view"){
+                    return view('reports.total_daily_sales', compact('data'));
+                }
+                if($request->action =="print"){
+                    $filterMsg = 'From '. date('d M Y', strtotime($request->from_date)) . '    to '.date('d M Y', strtotime($request->to_date));
+                    $pdf = PDF::loadView('reports.total_daily_sales_pdf', compact('data','filterMsg'));
+                    return $pdf->stream();
+                }
                 break;
             case 2:
                 $data = $this->TotalMonthlySale($from, $to);
                 $request->flash();
-                return view('reports.total_daily_monthly', compact('data'));
+                if($request->action =="view"){
+                    return view('reports.total_monthly', compact('data'));
+                }
+                if($request->action =="print"){
+                    $pdf = PDF::loadView('reports.total_monthly_pdf', compact('data'));
+                    return $pdf->stream();
+                }
                 break;
             case 3:
                 $data = $this->fastMovingItems();
+                $days = DB::table('sales')->select(DB::raw('date(created_at)'))->distinct()->get();
+
                 $request->flash();
-                return view('reports.fast_moving_items', compact('data'));
+                if($request->action =="view"){
+                    return view('reports.fast_moving_items', compact('data','days'));
+                }
+                if($request->action =="print"){
+                    $pdf = PDF::loadView('reports.fast_moving_items_pdf', compact('data','days'));
+                    return $pdf->stream();
+                }
                 break;
+
             case 4:
                 $data = $this->grossProfit($from, $to);
                 $total = 0;
@@ -44,13 +66,39 @@ class ReportController extends Controller
                     $total = $total + $d->profit;
                 }
                 $request->flash();
-                return view('reports.gross_profit', compact('data','total'));
+
+                if($request->action =="view"){
+                    return view('reports.gross_profit', compact('data','total'));
+                }
+                if($request->action =="print"){
+                    $filterMsg = 'From '. date('d M Y', strtotime($request->from_date)) . '    to '.date('d M Y', strtotime($request->to_date));
+                    $pdf = PDF::loadView('reports.gross_profit_pdf', compact('data','total','filterMsg'));
+                    return $pdf->stream();
+                }
                 break;
+
             case 5:
                 $data = $this->stockValue();
                 $total = DB::table('stock')->selectRaw('sum(quantity*unit_cost) total_purchase_value,sum(quantity*sale_price_1) total_sale_value')->get();
                 $request->flash();
-                return view('reports.stock_value', compact('data','total'));
+                if($request->action =="view"){
+                    return view('reports.stock_value', compact('data','total'));
+                }
+                if($request->action =="print"){
+                    $pdf = PDF::loadView('reports.stock_value_pdf', compact('data','total'));
+                    return $pdf->stream();
+                }
+                break;
+            
+            case 6:
+                $data = DB::table('stock')->selectRaw('name,quantity,sale_price_1 as price')
+                        ->where('for_sale','Yes')
+                        ->orderBy('name')
+                        ->get();
+                $request->flash();
+                    
+                $pdf = PDF::loadView('reports.template_daily_sale_report_pdf', compact('data'));
+                return $pdf->stream();
                 break;
             default:
 
@@ -96,6 +144,7 @@ class ReportController extends Controller
         $values = DB::table('stock')
             ->selectRaw('name,quantity,(quantity*unit_cost) purchase_value,(quantity*sale_price_1) sale_value')
             ->where('quantity','>',0)
+            ->orderBy('name')
             ->get();
         return $values;
     }
@@ -107,7 +156,7 @@ class ReportController extends Controller
             ->selectRaw('date(created_at) date,sum((selling_price-buying_price)*quantity) profit')
             ->whereRaw("date(created_at) between '". $from . "' and '". $to ."'")
             ->groupBy(DB::raw('date(created_at)'))
-            ->orderBy('date','Desc')
+            ->orderBy('date','asc')
             ->get();
 
         return $profit;

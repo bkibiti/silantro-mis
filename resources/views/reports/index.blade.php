@@ -8,12 +8,12 @@
 @endsection
 
 @section('content-title')
-Sales Reports
+Reports
 @endsection
 
 @section('content-sub-title')
 <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
-<li class="breadcrumb-item"><a href="#"> Reports/ Sales Reports </a></li>
+<li class="breadcrumb-item"><a href="#"> Reports </a></li>
 @endsection
 
 @section("content")
@@ -40,6 +40,8 @@ Sales Reports
 <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
 <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
 @include('partials.notification')
+
+@include('reports.hide_show_filters')
 
 <script>
 
@@ -78,6 +80,8 @@ Sales Reports
                 }
             });
     });
+
+
 
 
 

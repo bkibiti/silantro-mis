@@ -22,6 +22,11 @@
             display: table-cell;
             width: 20%;
         }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top:15;
+            margin-bottom:15;
+        }
     </style>
 </head>
 

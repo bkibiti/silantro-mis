@@ -2,9 +2,7 @@
 
     <div class="row" style="padding-top: -3%">
 
-        <h3 align="center" style="color:SteelBlue;">Total Daily Sales</h3>
-
-        <h5 align="center" >{{ $filterMsg }}</h5>
+        <h3 align="center" style="color:SteelBlue;">Total Monthly Sales</h3>
         
 
         <div class="row">
@@ -14,7 +12,7 @@
                 <thead>
                     <tr>
                         <th bgcolor="#bfbfbf" style="text-align:center" >No.</th>
-                        <th bgcolor="#bfbfbf" style="text-align:center">Date of Sale</th>
+                        <th bgcolor="#bfbfbf" style="text-align:center">Month</th>
                         <th bgcolor="#bfbfbf" style="text-align:center">Amount</th>
                      
                     </tr>
@@ -27,7 +25,7 @@
 
                         <tr>
                             <td style="text-align:center">{{ $i }}</td>
-                            <td style="text-align:center">{{date_format(new DateTime($d->date),'d M Y')}}</td>
+                            <td>{{$d->month}}</td>
                             <td style="text-align:center">{{number_format($d->amount,2)}}</td>
                         </tr>
                     @endforeach

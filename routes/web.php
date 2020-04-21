@@ -44,6 +44,9 @@ Route::middleware(["auth"])->group(function () {
     Route::resource('masters/stores', 'StoreController')->only([
         'index', 'store', 'update', 'destroy'
     ]);
+    
+    //reminder routes
+    Route::resource('reminders', 'ReminderController');
 
     //Purchase Routes
     Route::get('purchases/goods-receiving', 'GoodsReceivingController@index')->name('goods-receiving.index');
@@ -139,6 +142,7 @@ Route::middleware(["auth"])->group(function () {
     Route::post('user-profile/update', 'UserController@updateProfile')->name("update-profile");
     Route::get('users/search', 'UserController@search')->name("users.search");
     Route::post('users/user-role-id', 'UserController@getRoleID')->name('getRoleID');
+
 
 });
 

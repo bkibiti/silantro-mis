@@ -24,8 +24,9 @@ Fast Moving Items Reports
                 <table id="fixed-header1" class="display table nowrap table-striped table-hover" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Product Name</th>
+                            <th>Item</th>
                             <th>Sold Quantity</th>
+                            <th>Average Qty/Day</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,6 +34,7 @@ Fast Moving Items Reports
                             <tr>
                                 <td>{{$d->name}}</td>
                                 <td>{{$d->qty}}</td>
+                                <td>{{number_format($d->qty/$days->count(),1)}}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -56,6 +58,7 @@ Fast Moving Items Reports
 <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
 <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
 @include('partials.notification')
+@include('reports.hide_show_filters')
 
 <script>
 
