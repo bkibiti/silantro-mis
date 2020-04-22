@@ -104,8 +104,9 @@ Expense
 
                     <div class="col-md-2">
                         @can('Add Expenses')
-                        <input type="button" name="issued_date" value="Add Expense"
-                            class="form-control btn btn-primary" data-toggle="modal" data-target="#create">
+           
+                            <button type="button" style="float: right; margin-bottom: 1%;" class="btn btn-icon btn-rounded btn-warning btn-sm" data-toggle="modal" 
+                                    name="issued_date" value="Add Expense" title="Add Expense" data-target="#create"><i class="feather icon-plus"></i></button>
                         @endcan
                     </div>
                 </div>
@@ -141,7 +142,7 @@ Expense
                                 <td>
 
                                     <a href="#">
-                                        <button class="btn btn-warning btn-sm" data-expense_description="{{$x->expense_description}}"
+                                        <button class="btn btn-info btn-sm" data-expense_description="{{$x->expense_description}}"
                                             data-id="{{$x->id}}"   data-date="{{$x->created_at}}"  
                                             data-amount="{{$x->amount}}"    data-expense_category="{{$x->expense_category_id}}"
                                             type="button" data-toggle="modal" data-target="#edit">Edit</button>

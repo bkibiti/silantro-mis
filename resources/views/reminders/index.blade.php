@@ -8,22 +8,25 @@
 @endsection
 
 @section('content-sub-title')
+
 <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
 <li class="breadcrumb-item"><a href="#">Reminders</a> </li>
+
+
 @endsection
 
 @section("content")
 
+
 <div class="col-sm-12">
     <div class="card-block">
+        
         <div class="col-sm-12">
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        
+                <div class="card" >
+                    <div class="card-body" >
                         @can('Add Reminders')
-                            <button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-secondary btn-sm"
-                                        data-toggle="modal" data-target="#create">Add Remider 
-                            </button>
+                            <button style="float: right; margin-bottom: 1%;" class="btn btn-icon btn-rounded btn-warning btn-sm" data-toggle="modal" 
+                                        title="Add Reminder" data-target="#create"><i class="feather icon-plus"></i></button>
                         @endcan
                         <div class="table-responsive">
                             <table id="fixed-header" class="display table nowrap table-striped table-hover"style="width:100%">

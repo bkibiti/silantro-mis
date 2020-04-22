@@ -22,21 +22,11 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="row">
-                        <div class="col-md-9">
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <button style="float: right;margin-bottom: 2%;" type="button"
-                                        class="btn btn-secondary btn-sm"
-                                        data-toggle="modal"
-                                        data-target="#create">
-                                    Add Product
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+
+                    <button style="float: right; margin-bottom: 1%;" class="btn btn-icon btn-rounded btn-warning btn-sm" data-toggle="modal" 
+                            title="Add Product" data-target="#create"><i class="feather icon-plus"></i>
+                    </button>
 
 
                     <div id="product-table" class="table-responsive">

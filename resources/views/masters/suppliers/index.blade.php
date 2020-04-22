@@ -17,13 +17,13 @@
 <div class="col-sm-12">
     <div class="card-block">
         <div class="col-sm-12">
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-secondary btn-sm"
-                                data-toggle="modal"
-                                data-target="#create">
-                            Add Supplier
+                <div class="card" >
+                    <div class="card-body" id="home" role="tabpanel" aria-labelledby="home-tab">
+                      
+                        <button style="float: right; margin-bottom: 1%;" class="btn btn-icon btn-rounded btn-warning btn-sm" data-toggle="modal" 
+                                title="Add Supplier" data-target="#create"><i class="feather icon-plus"></i>
                         </button>
+
                         <div class="table-responsive">
                             <table id="fixed-header" class="display table nowrap table-striped table-hover"style="width:100%">
                             <thead>

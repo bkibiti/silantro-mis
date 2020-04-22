@@ -46,9 +46,8 @@
                 <div class="col-md-6"></div>
                 <div class="col-md-2">
                     @can('Manage Users')
-                    <button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#register">
-                        Add User
-                    </button>
+                        <button type="button" style="float: right; margin-bottom: 1%;" class="btn btn-icon btn-rounded btn-warning btn-sm" data-toggle="modal" 
+                                     title="Add User" data-target="#register"><i class="feather icon-plus"></i></button>
                     @endcan
                 </div>
             </div>
@@ -98,7 +97,7 @@
                     <td style='white-space: nowrap'>
                 
                         <a href="#">
-                            <button class="btn btn-warning btn-sm" data-name="{{$user->name}}"
+                            <button class="btn btn-info btn-sm" data-name="{{$user->name}}"
                                 data-email="{{$user->email}}" data-id="{{$user->id}}" data-username="{{$user->username}}"
                                 data-job="{{$user->position}}"  data-mobile="{{$user->mobile}}"
                                 data-role="{{ implode(", ", $user->getRoleNames()->toArray()) }}"

@@ -21,8 +21,8 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-secondary btn-sm"
+                <div>
+                    <button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-primary btn-sm"
                             data-toggle="modal"
                             data-target="#create">
                         Add Store

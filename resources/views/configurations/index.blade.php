@@ -55,7 +55,7 @@ Settings
                 @endif
                 <td>
                   <a href="#">
-                    <button class="btn btn-sm btn-rounded btn-primary" id="edit_btn">Edit
+                    <button class="btn btn-sm btn-rounded btn-info" id="edit_btn">Edit
                     </button>
                   </a>
                 </td>

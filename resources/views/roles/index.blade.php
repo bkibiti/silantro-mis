@@ -26,8 +26,8 @@
 
     <div class="card-body">
             <a href="{{route('roles.create')}}">
-                <button style="float: right;margin-bottom: 2%;" type="button" class="btn btn-secondary btn-sm">
-                    Add Role
+                <button type="button" style="float: right; margin-bottom: 1%;" class="btn btn-icon btn-rounded btn-warning btn-sm" data-toggle="modal" 
+                        title="Add Role" data-target="#register"><i class="feather icon-plus"></i>
                 </button>
             </a>
         <div class="table-responsive">
@@ -46,7 +46,7 @@
                 <td>{{$role->description}}</td>
                 <td>
                     <a href="{{route('roles.edit',$role->id)}}">
-                        <button class="btn btn-warning btn-sm"  type="button">Edit</button>
+                        <button class="btn btn-info btn-sm"  type="button">Edit</button>
                     </a>
                     <a href="#">
                         <button class="btn btn-danger btn-sm" data-id="{{$role->id}}" data-name="{{$role->name}}" type="button" data-toggle="modal" data-target="#deleteModal" > Delete</button>
