@@ -14,7 +14,12 @@ class Sale extends Model
     {
         return $this->belongsTo('App\User', 'created_by'); 
     }
-    
+
+    public function updater()
+    {
+        return $this->belongsTo('App\User', 'updated_by'); 
+    }
+
     public function product()
     {
         return $this->belongsTo('App\Stock', 'stock_id');

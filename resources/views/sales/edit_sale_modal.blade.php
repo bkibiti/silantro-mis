@@ -59,7 +59,7 @@
                                 <label for="expense_description"
                                     class="col-md-4 col-form-label text-md-right">Remarks<span style="color: red;">*</span></label>
                                 <div class="col-md-8">
-                                    <textarea class="form-control" name="remarks" rows="3" required></textarea>
+                                    <textarea class="form-control" name="remarks" rows="3" minlength="5"  maxlength="200" required></textarea>
                                 </div>
                             </div>
 

@@ -88,6 +88,15 @@ Sales History
                                                 data-toggle="modal" data-target="#edit">Edit
                                         </button>
                                     </a>
+                                    @if ($s->remarks <> '')
+                                        <button class="btn btn-sm btn-rounded btn-success"
+                                                data-updated_by="{{'Updated by: '. $s->updater->name . '  at: '. $s->updated_at }}"
+                                                data-updated_at="{{$s->updated_at}}"
+                                                data-remarks="{{$s->remarks}}"
+                                                type="button"
+                                                data-toggle="modal" data-target="#view">View
+                                        </button>
+                                    @endif
                               
                                 </td>
                                 @endcan
@@ -115,6 +124,7 @@ Sales History
     @push("page_scripts")
 
     @include('sales.edit_sale_modal')
+    @include('sales.view_sale_modal')
     @include('partials.notification')
 
     <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
@@ -185,6 +195,20 @@ Sales History
         modal.find('.modal-body #quantity').val(button.data('quantity'))
         modal.find('.modal-body #buying_price').val(button.data('buying_price'))
     });
+
+    $('#view').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+
+        modal.find('.modal-body #remarks').text(button.data('remarks'));
+        modal.find('.modal-body #by').text(button.data('updated_by'));
+        modal.find('.modal-body #at').text(button.data('updated_at'));
+
+
+    });
+
+
+
 
     </script>
     @endpush

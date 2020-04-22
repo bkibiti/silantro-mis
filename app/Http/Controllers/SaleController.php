@@ -88,13 +88,19 @@ class SaleController extends Controller
 
 
         $Sale = Sale::findOrFail($request->id);
+        
+        if ( $Sale->quantity <> $request->quantity){
+            $remarks = $request->remarks.' (Qty from: '.   $Sale->quantity . ' to: ' . $request->quantity;
+        }else{
+            $remarks = $request->remarks;
+        }
         $Sale->quantity = $request->quantity;
         $Sale->selling_price = $request->selling_price;
         $Sale->buying_price = $request->buying_price;
         $Sale->created_at = date('Y-m-d', strtotime($request->created_at));
         $Sale->updated_at = Carbon::now();
         $Sale->updated_by = Auth::user()->id;
-        $Sale->remarks = $request->remarks;
+        $Sale->remarks = $remarks;
         $Sale->save();
         
 
