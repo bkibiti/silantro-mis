@@ -59,8 +59,9 @@
                         </div>
 
                         <div class="col-md-2">
-                            <input type="button" value="Month End Stock"
-                                class="form-control btn btn-primary" data-toggle="modal" data-target="#create">
+                            <button type="button" style="float: right; margin-bottom: 1%;" class="btn btn-icon btn-rounded btn-warning btn-sm" data-toggle="modal" 
+                                    title="Add Monthly Closing Stock" data-target="#create"><i class="feather icon-plus"></i>
+                            </button>
                         </div>
                       
                     </div>

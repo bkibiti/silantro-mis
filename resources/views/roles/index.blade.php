@@ -46,10 +46,10 @@
                 <td>{{$role->description}}</td>
                 <td>
                     <a href="{{route('roles.edit',$role->id)}}">
-                        <button class="btn btn-info btn-sm"  type="button">Edit</button>
+                        <button class="btn btn-info btn-rounded btn-sm"  type="button">Edit</button>
                     </a>
                     <a href="#">
-                        <button class="btn btn-danger btn-sm" data-id="{{$role->id}}" data-name="{{$role->name}}" type="button" data-toggle="modal" data-target="#deleteModal" > Delete</button>
+                        <button class="btn btn-danger btn-rounded btn-sm" data-id="{{$role->id}}" data-name="{{$role->name}}" type="button" data-toggle="modal" data-target="#deleteModal" > Delete</button>
                     </a>
 
 

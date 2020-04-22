@@ -47,8 +47,9 @@ Daily Sale Report
                
                         <div class="col-md-2">
                             @can('Manage Daily Report')
-                                <input type="button" name="create_report" value="Add Report"
-                                    class="form-control btn btn-primary" data-toggle="modal" data-target="#create">
+                                <button type="button" name="create_report" value="Add Report" style="float: right; margin-bottom: 1%;" class="btn btn-icon btn-rounded btn-warning btn-sm" data-toggle="modal" 
+                                    title="Add Report" data-target="#create"><i class="feather icon-plus"></i>
+                                </button>
                             @endcan
                         </div>
                     </div>
@@ -85,7 +86,7 @@ Daily Sale Report
                                     <td>{{$s->status}}</td>
                                     <td>
                                         <a href="#">
-                                            <button class="btn btn-success btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
+                                            <button class="btn btn-success btn-rounded btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
                                                 data-submitted_by="{{$s->submitter->name}}" data-submitted_at="{{$s->submitted_at}}"
                                                 data-approver_remarks="{{$s->approver_remarks}}"   
                                                 type="button" data-toggle="modal" data-target="#details">Details</button>
@@ -93,7 +94,7 @@ Daily Sale Report
                                         @can('Manage Daily Report')
                                             @if ($s->status=="Pending" or $s->status=="Rejected")
                                                 <a href="#">
-                                                    <button class="btn btn-warning btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
+                                                    <button class="btn btn-info btn-rounded btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
                                                         data-id="{{$s->id}}" 
                                                         data-other_income="{{$s->other_income}}"    data-report_date="{{$s->report_date}}"
                                                         type="button" data-toggle="modal" data-target="#edit">Edit</button>
@@ -104,7 +105,7 @@ Daily Sale Report
                                         @can('Approve Daily Report')
                                             @if ($s->status=="Pending")
                                                 <a href="#">
-                                                    <button class="btn btn-primary btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
+                                                    <button class="btn btn-secondary btn-rounded btn-sm" data-submission_remarks="{{$s->submission_remarks}}"
                                                         data-id="{{$s->id}}"  data-submitted_by="{{$s->submitter->name}}" data-submitted_at="{{$s->submitted_at}}"
                                                         type="button" data-toggle="modal" data-target="#Review">Review</button>
                                                 </a>

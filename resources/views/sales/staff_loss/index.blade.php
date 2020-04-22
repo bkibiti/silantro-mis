@@ -48,8 +48,9 @@ Staff Losses
 
                             <div class="col-md-2">
                                 @can('Add Staff Loss')
-                                    <input type="button" name="create_report" value="Add Loss"
-                                        class="form-control btn btn-primary" data-toggle="modal" data-target="#create">
+                                    <button type="button" style="float: right; margin-bottom: 1%;" class="btn btn-icon btn-rounded btn-warning btn-sm" data-toggle="modal" 
+                                        title="Add Staff Loss" data-target="#create"><i class="feather icon-plus"></i>
+                                    </button>
                                 @endcan
                             </div>
                         </div>
@@ -89,7 +90,7 @@ Staff Losses
                                     <td>
 
                                         <a href="#">
-                                            <button class="btn btn-warning btn-sm" data-remarks="{{$s->remarks}}"
+                                            <button class="btn btn-info btn-rounded btn-sm" data-remarks="{{$s->remarks}}"
                                                 data-id="{{$s->id}}"   data-user="{{$s->user_id}}"    data-type="{{$s->type}}"
                                                 data-amount="{{$s->amount}}"    data-date="{{$s->date}}"
                                                 type="button" data-toggle="modal" data-target="#edit">Edit</button>

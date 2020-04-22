@@ -142,7 +142,7 @@ Expense
                                 <td>
 
                                     <a href="#">
-                                        <button class="btn btn-info btn-sm" data-expense_description="{{$x->expense_description}}"
+                                        <button class="btn btn-info btn-rounded btn-sm" data-expense_description="{{$x->expense_description}}"
                                             data-id="{{$x->id}}"   data-date="{{$x->created_at}}"  
                                             data-amount="{{$x->amount}}"    data-expense_category="{{$x->expense_category_id}}"
                                             type="button" data-toggle="modal" data-target="#edit">Edit</button>

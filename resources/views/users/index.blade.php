@@ -97,7 +97,7 @@
                     <td style='white-space: nowrap'>
                 
                         <a href="#">
-                            <button class="btn btn-info btn-sm" data-name="{{$user->name}}"
+                            <button class="btn btn-rounded btn-info btn-sm" data-name="{{$user->name}}"
                                 data-email="{{$user->email}}" data-id="{{$user->id}}" data-username="{{$user->username}}"
                                 data-job="{{$user->position}}"  data-mobile="{{$user->mobile}}"
                                 data-role="{{ implode(", ", $user->getRoleNames()->toArray()) }}"
@@ -107,12 +107,12 @@
 
                             @if ($user->status == 1)
                             <a href="#">
-                                <button class="btn btn-danger btn-sm"  type="button" data-toggle="modal" data-target="#disableUser" data-id="{{$user->id}}" data-status="{{$user->status}}" data-name="{{$user->name}}">De Activate</button>
+                                <button class="btn btn-danger btn-rounded btn-sm"  type="button" data-toggle="modal" data-target="#disableUser" data-id="{{$user->id}}" data-status="{{$user->status}}" data-name="{{$user->name}}">De Activate</button>
                             </a>
                             @endif
                             @if ($user->status == 0)
                             <a href="#">
-                            <button class="btn btn-success btn-sm"  type="button" data-toggle="modal" data-target="#disableUser" data-id="{{$user->id}}" data-status="{{$user->status}}" data-name="{{$user->name}}">Activate</button>
+                            <button class="btn btn-success btn-rounded btn-sm"  type="button" data-toggle="modal" data-target="#disableUser" data-id="{{$user->id}}" data-status="{{$user->status}}" data-name="{{$user->name}}">Activate</button>
                             </a>
                             @endif
 
