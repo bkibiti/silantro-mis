@@ -33,7 +33,13 @@
 <body>
     <div class="RowHeader">
         <div class="Column1">
-                <img src="{{public_path('/logo/'. getSettings('logo'))}}"  height="40" width="80" />
+                @php
+                    $path = public_path('/logo/'. getSettings('logo')) ;
+                    $fileExists = File::exists($path);
+                @endphp
+                @if ($fileExists)
+                    <img src="{{public_path('/logo/'. getSettings('logo'))}}"  height="40" width="80" >
+                @endif
         </div>
         <div class="Column2">
             <h2 align="center" style="color:SteelBlue;" > {{ getSettings('business_name') }}  </h2>
