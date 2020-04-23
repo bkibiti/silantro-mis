@@ -77,6 +77,10 @@
     @include('partials.notification')
 
     <script>
+        var title = document.title;
+        document.title = title.concat(" | Locations");
+    </script>
+    <script>
 
         $('#edit').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);

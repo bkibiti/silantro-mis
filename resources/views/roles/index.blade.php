@@ -72,6 +72,10 @@
 @include('roles.delete')
 
 @include('partials.notification')
+<script>
+    var title = document.title;
+    document.title = title.concat(" | Roles");
+</script>
 
 <script>
 

@@ -137,6 +137,10 @@
 @include('partials.notification')
 @include('purchases.edit_purchase_modal')
 
+<script>
+    var title = document.title;
+    document.title = title.concat(" | Purchase History");
+</script>
 
 <script>
 

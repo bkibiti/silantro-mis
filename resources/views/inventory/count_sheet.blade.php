@@ -83,5 +83,10 @@ Stock Count Sheet
                 });
 
         </script>
+          <script>
+            var title = document.title;
+            document.title = title.concat(" | Inventory | Count Sheet");
+        </script>
+
 
     @endpush

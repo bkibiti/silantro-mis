@@ -77,6 +77,10 @@
 
 @push("page_scripts")
     @include('partials.notification')
+    <script>
+        var title = document.title;
+        document.title = title.concat(" | Product Category");
+    </script>
 
     <script>
 

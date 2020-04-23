@@ -135,6 +135,10 @@
 <script src="{{asset("assets/plugins/amcharts4/themes/animated.js")}}"></script>
 <script src="{{asset("assets/plugins/amcharts4/themes/dataviz.js")}}"></script>
 
+<script>
+    var title = document.title;
+    document.title = title.concat(" | Advance Dashboard");
+</script>
 
 {{-- daily sales chart  --}}
 <script>

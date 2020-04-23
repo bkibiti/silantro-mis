@@ -59,7 +59,10 @@ Fast Moving Items Reports
 <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
 @include('partials.notification')
 @include('reports.hide_show_filters')
-
+<script>
+    var title = document.title;
+    document.title = title.concat(" | Reports - Fast Moving Items");
+</script>
 <script>
 
     $('#fixed-header1').DataTable({

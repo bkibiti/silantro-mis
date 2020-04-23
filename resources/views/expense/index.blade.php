@@ -193,6 +193,11 @@ Expense
 @include('partials.notification')
 
 <script>
+    var title = document.title;
+    document.title = title.concat(" | Expenses");
+</script>
+
+<script>
 
     $('#fixed-header1').DataTable({
       bAutoWidth: true,

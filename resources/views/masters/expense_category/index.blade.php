@@ -67,7 +67,10 @@
 
 @push("page_scripts")
     @include('partials.notification')
-
+    <script>
+        var title = document.title;
+        document.title = title.concat(" | Expense Category");
+    </script>
     <script>
 
         $('#edit').on('show.bs.modal', function (event) {

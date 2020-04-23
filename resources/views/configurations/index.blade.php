@@ -84,6 +84,10 @@ Settings
   <script src="{{asset("assets/js/pages/form-masking-custom.js")}}"></script>
 
   <script>
+      var title = document.title;
+      document.title = title.concat(" | Settings");
+  </script>
+  <script>
     var setting_table = $('#setting_table').DataTable(
 {
 lengthMenu: [[10, 20, -1], ["Ten",'Twenty', "All"]]

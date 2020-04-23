@@ -130,7 +130,10 @@ Sales History
     <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
     <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
 
-
+    <script>
+        var title = document.title;
+        document.title = title.concat(" | Sales | History");
+    </script>
     <script>
         $('#fixed-header1').DataTable({
           bAutoWidth: true,

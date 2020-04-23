@@ -140,7 +140,10 @@
             @include('inventory.set_price_modal')
             @include('inventory.stock_adjustment_modal')
 
-
+            <script>
+                var title = document.title;
+                document.title = title.concat(" | Inventory | Current Stock");
+            </script>
 
             <script>
 

@@ -96,7 +96,10 @@
         @push("page_scripts")
 
             @include('partials.notification')
-
+            <script>
+                var title = document.title;
+                document.title = title.concat(" | Inventory | Out of Stock");
+            </script>
             <script>
 
                 $('#fixed-header1').DataTable({

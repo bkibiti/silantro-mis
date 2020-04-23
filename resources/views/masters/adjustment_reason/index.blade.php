@@ -76,7 +76,10 @@
 
     @include('partials.notification')
 
-
+    <script>
+        var title = document.title;
+        document.title = title.concat(" | Adjustment Reason");
+    </script>
     <script>
 
         $('#edit').on('show.bs.modal', function (event) {

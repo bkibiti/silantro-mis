@@ -99,7 +99,10 @@
 
             @include('partials.notification')
 
-
+            <script>
+                var title = document.title;
+                document.title = title.concat(" | Products");
+            </script>
             <script>
 
                 $('#fixed-header1').DataTable({

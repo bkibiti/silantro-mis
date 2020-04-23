@@ -155,6 +155,10 @@ Staff Losses
 @include('partials.notification')
 
 <script>
+    var title = document.title;
+    document.title = title.concat(" | Sales | Staff Loss");
+</script>
+<script>
     $('#fixed-header1').DataTable({
       bAutoWidth: true,
       order: [[0, "desc"]]

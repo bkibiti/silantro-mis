@@ -99,9 +99,13 @@ Stock Adjustment History
             @include('partials.notification')
 
 
+    <script>
+        var title = document.title;
+        document.title = title.concat(" | Inventory | Stock Adjustment");
+    </script>
 
 
-            <script>
+    <script>
 
                 $('#fixed-header1').DataTable({
                     bAutoWidth: true,

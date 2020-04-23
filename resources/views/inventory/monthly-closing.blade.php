@@ -129,6 +129,12 @@
             @include('inventory.monthly-closing-modal')
 
             <script>
+                var title = document.title;
+                document.title = title.concat(" | Inventory | Monthly Closing Stock");
+            </script>
+
+
+            <script>
 
                 $('#fixed-header1').DataTable({
                     bAutoWidth: true,

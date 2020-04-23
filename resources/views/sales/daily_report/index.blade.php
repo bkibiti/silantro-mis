@@ -162,6 +162,10 @@ Daily Sale Report
 @include('partials.notification')
 
 <script>
+    var title = document.title;
+    document.title = title.concat(" | Sales | Daily Sale Report");
+</script>
+<script>
     $('#fixed-header1').DataTable({
       bAutoWidth: true,
       order: [[0, "desc"]]

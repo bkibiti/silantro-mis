@@ -71,6 +71,10 @@ Current Stock Value
 @include('reports.hide_show_filters')
 
 <script>
+    var title = document.title;
+    document.title = title.concat(" | Reports - Stock Value");
+</script>
+<script>
 
     $('#fixed-header1').DataTable({
       bAutoWidth: true,
