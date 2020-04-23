@@ -33,7 +33,7 @@
 <body>
     <div class="RowHeader">
         <div class="Column1">
-                <img src="{{public_path('fileStore/logo/'. getSettings('logo'))}}"  height="40" width="80" />
+                <img src="{{public_path('/logo/'. getSettings('logo'))}}"  height="40" width="80" />
         </div>
         <div class="Column2">
             <h2 align="center" style="color:SteelBlue;" > {{ getSettings('business_name') }}  </h2>

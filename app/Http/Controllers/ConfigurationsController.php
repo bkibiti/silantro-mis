@@ -38,21 +38,24 @@ class ConfigurationsController extends Controller
     public function update(Request $request) {      
         $logo=$request->file('logo');
         $setting =Setting::find($request->setting_id);
-    if($logo)
-    {  
-        File::delete(public_path() . '/fileStore/logo/'.$setting->value);
-        $originalLogoName = $logo->getClientOriginalName();
-        $logoExtension = $logo->getClientOriginalExtension();
-        $logoStore = base_path().'/public/fileStore/logo/';
-        $logoName = $logo ->getFilename().'.'.$logoExtension;
-        $logo->move($logoStore,$logoName);
-        $setting->value=$logoName;
-    }else
-    {
-      $setting->value=$request->formdata;  
-    }
+
+        if($logo)
+        {  
+            File::delete(public_path() . '/logo/'.$setting->value);
+            $originalLogoName = $logo->getClientOriginalName();
+            $logoExtension = $logo->getClientOriginalExtension();
+            $logoStore = base_path().'/public/logo/';
+            $logoName = $logo ->getFilename().'.'.$logoExtension;
+            $logo->move($logoStore,$logoName);
+            $setting->value=$logoName;
+        }else
+        {
+            $setting->value=$request->formdata;  
+        }
+
         $setting->updated_by=Auth::user()->id;
         $setting->save();
+        
         session()->flash("alert-success", "Changes saved successfully!");
         return back();
     }

@@ -47,7 +47,7 @@ Settings
                 <td>{{$setting->id}}</td>
                 <td>{{$setting->display_name}}</td>
                 @if($setting->id == 105)
-                <td> <img src="/fileStore/logo/{{$setting->value}}" /></td>
+                <td> <img src="/logo/{{$setting->value}}" /></td>
                 @elseif($setting->id == 120)
                 <td>{{$setting->value.'%'}}</td>
                 @else
