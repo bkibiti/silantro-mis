@@ -122,7 +122,13 @@ Route::middleware(["auth"])->group(function () {
     Route::post('expense-management/expenses', 'ExpenseController@store')->name('expense.store');
     Route::post('expense-management/expense-update', 'ExpenseController@update')->name('expense.update');
     Route::get('expense-management/expense-search', 'ExpenseController@search')->name('expense.search');
-
+    
+    //customers
+    Route::get('customers', 'CustomerController@index')->name('customers.index');
+    Route::post('customers', 'CustomerController@store')->name("customers.store");
+    Route::post('customers/update', 'CustomerController@update')->name("customers.update");
+    Route::put('customers/delete', 'CustomerController@delete')->name("customers.delete");
+    
     //user roles
     Route::get('user-roles', 'RoleController@index')->name('roles.index');
     Route::get('user-roles/create', 'RoleController@create')->name('roles.create');

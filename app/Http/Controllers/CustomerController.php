@@ -12,20 +12,19 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::orderBy('id', 'ASC')->get();
-        return view('sales.customers.index', compact("customers"));
+        return view('customers.index', compact("customers"));
 
     }
 
     public function store(Request $request)
     {
-
         $customer = new Customer;
+        $customer->cno = $this->getCustomerNo();
         $customer->name = $request->name;
-        $customer->credit_limit = $request->credit_limit;
-        $customer->address = $request->address;
-        $customer->phone = $request->phone;
+        $customer->dob = date('Y-m-d', strtotime($request->dob));
+        $customer->mobile = $request->mobile;
         $customer->email = $request->email;
-
+        $customer->status = 'Active';
         $customer->save();
 
         session()->flash("alert-success", "Customer Added Successfully!");
@@ -37,13 +36,10 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($request->id);
         $customer->name = $request->name;
-        $customer->address = $request->address;
-        $customer->phone = $request->phone;
+        $customer->dob = date('Y-m-d', strtotime($request->dob));
+        $customer->mobile = $request->mobile;
         $customer->email = $request->email;
-        if (!empty($request->credit_limit)) {
-            $customer->credit_limit = $request->credit_limit;
-        }
-
+        $customer->status = $request->status;
         $customer->save();
 
         session()->flash("alert-success", "Customer Updated Successfully!");
@@ -56,5 +52,17 @@ class CustomerController extends Controller
         Customer::find($request->id)->delete();
         session()->flash("alert-danger", "Customer Deleted successfully!");
         return back();
+    }
+
+    public function getCustomerNo(){
+        $lastno = Customer::orderBy('id','desc')->first();
+        if ($lastno == ''){
+            $id = 10000;
+        }else{
+            $id = substr($lastno->cno, -5);
+            $id = (int)$id + 1;
+        }
+        $no = "CNO". $id;
+        return $no;
     }
 }

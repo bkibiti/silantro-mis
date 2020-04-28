@@ -1,6 +1,7 @@
 @extends("layouts.master")
 @section('content-title')
-Point of Sale
+
+Point of Sales
 @endsection
 
 
@@ -53,50 +54,54 @@ Point of Sale
 </div>
 
 <div class="col-sm-7">
+    
     <form method="POST" action="{{ route('sales.store') }}">
         @csrf
         <input type="hidden" name="sale_order" id="sale_order" required>
 
         <div class="card">
-            <div class="card-body">
-                @if (getSettings('enable_sale_date_select')=='YES')
+            <div class="alert alert-success" role="alert">
                 <div class="form-group row">
-                    <label for="product_name" class="col-md-2 col-form-label text-md-left">Sales Date:</label>
-                    <div class="col-md-4">
-                        <div id="date" style="border: 2px solid white; border-radius: 6px;">
-                            <input type="text" name="sale_date" class="form-control" id="sale_date" value="{{ old('sale_date') }}" required>
+                    @if (getSettings('enable_sale_date_select')=='YES')
+                        
+                        <div class="col-md-3">
+                            <div id="date" style="border-radius: 6px;">
+                                <input type="text" name="sale_date" class="form-control " id="sale_date" value="{{ old('sale_date') }}" required >
+                            </div>
                         </div>
-                    </div>
-                </div>
-                @else
-                    <input type="hidden" name="sale_date" value="NA">
-                @endif
-
-                <div class="form-group row">
-                    <div class="col-md-4">
-                        <select class="form-control select2" class="form-control" name="created_by"
-                            data-placeholder="Select Staff" required data-width="100%">
-                            <option value="">Select Staff</option>
+                    @else
+                        <input type="hidden" name="sale_date" value="NA">
+                    @endif
+                    <div class="col-md-3">
+                        <select class="form-control  select2" name="created_by" required data-width="100%">
+                            <option value="">Select User</option>
 
                             @foreach($users as $u)
-                            <option value="{{$u->id}}" {{ (old('created_by')==$u->id ? "selected":"") }}>{{$u->name}}</option>
+                                <option value="{{$u->id}}" {{ (old('created_by')==$u->id ? "selected":"") }}>{{$u->name}}</option>
                             @endforeach
                         </select>
 
                     </div>
-                    <label class="col-md-2 col-form-label text-md-right">Table #</label>
                     <div class="col-md-2">
-                        <input type="text" class="form-control" name="table_number">
+                        <input type="text" class="form-control " name="table_number" placeholder="Table No.">
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" name="customer" placeholder="Enter customer name">
+                        <select class="form-control  select2" name="customer_id"  data-width="100%">
+                            <option value="">Select Customer</option>
+
+                            @foreach($customers as $c)
+                                <option value="{{$c->id}}" }}>{{$c->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
+            </div>
+            <div class="card-body">
+
                 <div id="order-table" class="table-responsive">
                     <table id="order" class="display table nowrap table-striped table-hover" style="width:100%">
 
                     </table>
-
 
                 </div>
                 <hr>
@@ -153,7 +158,7 @@ Point of Sale
     $('#products').DataTable({
         bAutoWidth: true,
         lengthChange: false,
-        scrollY:  "400px",
+        scrollY:  "500px",
         scrollCollapse: true,
         paging: false,
         bInfo: false,

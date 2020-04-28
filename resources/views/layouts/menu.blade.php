@@ -100,6 +100,17 @@
 </li>
 
 
+<li class="nav-item">
+    @can('View Customers')
+
+    <a href="{{ route('customers.index') }}" class="nav-link"><span class="pcoded-micon"><i class="fas fa-user-friends"></i></span>
+        <span class="pcoded-mtext">Customers</span>
+    </a>
+
+    @endcan
+
+</li>
+
 <li class="nav-item pcoded-hasmenu">
     @can('View User Management')
 
@@ -118,7 +129,6 @@
     @endcan
 
 </li>
-
 <li class="nav-item pcoded-hasmenu">
     @can('View Masters')
 

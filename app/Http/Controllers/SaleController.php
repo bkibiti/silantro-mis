@@ -6,6 +6,8 @@ use App\Stock;
 use App\Category;
 use App\Sale;
 use App\User;
+use App\Customer;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
@@ -19,10 +21,11 @@ class SaleController extends Controller
     public function index()
     {
         $current_stock = Stock::where('quantity','>',0)->get();
-        $categories = Category::orderBy('name')->get();
-        // $users = User::orderBy('name')->get();
+        
         $users = User::permission('POS Users')->get();
-        return view('sales.pos', compact('current_stock','categories','users'));
+        $customers = Customer::orderBy('name', 'ASC')->get();
+
+        return view('sales.pos', compact('current_stock','customers','users'));
     }
 
     public function store(Request $request){
@@ -31,7 +34,7 @@ class SaleController extends Controller
             'created_by' => 'required',
             'sale_order' => 'required',
         ]);
-
+       
         $data = json_decode($request->sale_order,true);
         $receiptNo = $this->generateReceiptNo();
         $orderNo = $this->generateOrderNo();
@@ -49,7 +52,7 @@ class SaleController extends Controller
             $order_details[] = [
                 'order_number' => $orderNo,
                 'table_number' => $request->table_number,
-                'customer' => $request->customer,
+                'customer_id' => $request->customer_id,
                 'receipt_number' => $receiptNo,
                 'stock_id' => $data[$i][0],
                 'quantity' => $data[$i][3],
