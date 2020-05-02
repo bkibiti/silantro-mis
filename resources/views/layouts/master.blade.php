@@ -9,9 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- Favicon icon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset("silantro_sys.ico")}}">
-    <!-- range slider -->
-    <link rel="stylesheet" href="{{asset("/assets/plugins/range-slider/css/bootstrap-slider.min.css")}}">
-    <link rel="stylesheet" href="{{asset("/assets/css/pages/rangeslider.css")}}">
+   
     <!-- fontawesome icon -->
     <link rel="stylesheet" href="{{asset("assets/fonts/fontawesome/css/fontawesome-all.min.css")}}">
     <!-- animation css -->
@@ -24,38 +22,23 @@
     <link rel="stylesheet" href="{{asset("assets/css/style.css")}}">
     <!-- select2 css -->
     <link rel="stylesheet" href="{{asset("assets/plugins/select2/css/select2.min.css")}}">
-     <!-- multi-select css -->
-    <link rel="stylesheet" href="{{asset("assets/plugins/multi-select/css/multi-select.css")}}">
-      <!-- tel-input css -->
+     
+    <!-- tel-input css -->
     <link rel="stylesheet" href="{{asset("assets/plugins/intl-tel-input/css/intlTelInput.css")}}">
    <!-- Bootstrap Datepicker css -->
-    <link href="{{asset("assets/plugins/bootstrap-datetimepicker/css/prettify.css")}}" rel="stylesheet">
-    <link href="{{asset("assets/plugins/bootstrap-datetimepicker/css/bootstrap-datepicker3.min.css")}}" rel="stylesheet">
-      <!-- Datepicker css -->
     <link href="{{asset("assets/plugins/bootstrap-datetimepicker/css/prettify.css")}}" rel="stylesheet">
     <link href="{{asset("assets/plugins/bootstrap-datetimepicker/css/bootstrap-datepicker3.min.css")}}" rel="stylesheet">
     <link href="{{asset("assets/plugins/daterangepicker-master/css/daterangepicker.css")}}" rel="stylesheet">
 
     @yield("page_css")
 
-
     <style>
-        .select2-container .select2-selection--single{
-            height: 43px !important;
-            background-color: #f4f7fa !important;
-            border: 1px solid #ced4da;
+        .notification-count {
+        position: relative;
+        top: -12px;
+        right: -28px;
         }
-
-        .select2-selection__rendered{
-            line-height: 43px !important;
-        }
-
-        .select2-selection__arrow{
-            height: 43px !important;
-        }
-
     </style>
-
 
 
 </head>
@@ -72,7 +55,7 @@
                         <img src="{{asset('silantro_sys.ico')}}"  alt="Silantro">
                     </div> --}}
                     <div class="b-bg">
-                        <i class="fas fa-glass-martini"></i>
+                        <i class="fas fa-wine-glass"></i>
                     </div>
                     <span class="b-title">Silantro B & L</span>
                 </a>
@@ -93,10 +76,10 @@
     <header class="navbar pcoded-header navbar-expand-lg navbar-light header-blue">
         <div class="m-header">
             <a class="mobile-menu" id="mobile-collapse1" href="#!"><span></span></a>
-            <a href="index.html" class="b-brand">
-                   <div class="b-bg">
-                       <i class="fa fas fa-leaf"></i>
-                   </div>
+                <a href="{{route('home')}}" class="b-brand">
+                    <div class="b-bg">
+                        <i class="fas fa-wine-glass"></i>
+                    </div>
                    <span class="b-title">Silantro B & L</span>
                </a>
         </div>
@@ -111,9 +94,14 @@
             <ul class="navbar-nav ml-auto">
                 <li>
                     <div class="dropdown">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i>
+                        
+                        @if (notifications()>0)
+                            <span class="badge badge-pill badge-warning notification-count">{{ notifications() }}</span>
+                        @endif
+
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i> 
                         </a>
-                     `   <div class="dropdown-menu dropdown-menu-right notification">
+                        <div class="dropdown-menu dropdown-menu-right notification">
                             <div class="noti-head">
                                 <h6 class="d-inline-block m-b-0">Notifications</h6>
                                 <div class="float-right">
@@ -270,7 +258,6 @@
 
 
     <!-- Required Js -->
-
     <script src="{{asset("assets/js/vendor-all.min.js")}}"></script>
     <script src="{{asset("assets/plugins/bootstrap/js/bootstrap.min.js")}}"></script>
     <script src="{{asset("assets/js/pcoded.min.js")}}"></script>
@@ -286,13 +273,6 @@
       <!-- select2 Js -->
     <script src="{{asset("assets/plugins/select2/js/select2.full.min.js")}}"></script>
 
-    <!-- multi-select Js -->
-    <script src="{{asset("assets/plugins/multi-select/js/jquery.quicksearch.js")}}"></script>
-    <script src="{{asset("assets/plugins/multi-select/js/jquery.multi-select.js")}}"></script>
-
-    <!-- form-select-custom Js -->
-    <script src="{{asset("assets/js/pages/form-select-custom.js")}}"></script>
-
       <!-- Input mask Js -->
     <script src="{{asset("assets/plugins/inputmask/js/inputmask.min.js")}}"></script>
     <script src="{{asset("assets/plugins/inputmask/js/jquery.inputmask.min.js")}}"></script>
@@ -303,10 +283,6 @@
     <script src="{{asset("assets/plugins/moment/js/moment.js")}}"></script>
     <!-- boostrap js -->
     <script src="{{asset("assets/plugins/daterangepicker-master/js/daterangepicker.js")}}"></script>
-    {{-- <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script> --}}
-
-    
-  
   
 
    {{-- custom java scripts for the page --}}

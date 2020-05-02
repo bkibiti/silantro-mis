@@ -88,8 +88,7 @@ Route::middleware(["auth"])->group(function () {
     Route::get('expense-management/staff-loss', 'StaffLossController@index')->name('losses.index');
     Route::post('expense-management/staff-loss', 'StaffLossController@store')->name('losses.store');
     Route::post('expense-management/staff-loss-edit', 'StaffLossController@update')->name('losses.update');
-    Route::post('expense-management/staff-loss-search', 'StaffLossController@search')->name('losses.search');
-
+    Route::get('expense-management/staff-loss-search', 'StaffLossController@search')->name('losses.search');
 
  
     /*Inventory Routes*/

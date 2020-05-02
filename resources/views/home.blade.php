@@ -1,22 +1,22 @@
 @extends("layouts.master")
 
 @section('page_css')
-    <style>
-        #daily_sales {
-            width: 100%;
-            height: 500px;
-        }
+<style>
+    #daily_sales {
+        width: 100%;
+        height: 500px;
+    }
 
-        #staff_loss {
-            width: 100%;
-            height: 400px;
-        }
-        #sales_by_user {
-            width: 100%;
-            height: 400px;
-        }
+    #staff_loss {
+        width: 100%;
+        height: 400px;
+    }
 
-    </style>
+    #sales_by_user {
+        width: 100%;
+        height: 400px;
+    }
+</style>
 @endsection
 
 
@@ -27,65 +27,121 @@
 
 <div class="col-sm-12">
 
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active"  data-toggle="pill" href="#pills-home" role="tab" aria-selected="true">Dashboard</a>
-            </li>
-    
-        </ul>
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-              
-                    <div class="row">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#pills-home" role="tab"
+                aria-selected="true">Dashboard</a>
+        </li>
 
-                        <div class="col-xl-6 col-md-6">
-                                <div class="card">
-                                    <div class="card-block">
-                                        <div class="row align-items-center justify-content-center">
-                                            <div class="col">
-                                                <h3 class="text-c-red">{{ outofstock()}} Item(s) are Out of Stock</h3>
-                                                <a href="{{route('out-of-stock')}}" class="badge badge-info">View</a>
-                                            </div>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
-                                        </div>
-                                    </div>
+            {{-- <div class="row">
+
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="row align-items-center justify-content-center">
+                                <div class="col">
+                                    <h3 class="text-c-red">Out of stock - {{ outofstock()}} Item(s)</h3>
+                                    <a href="{{route('out-of-stock')}}" class="badge badge-info">View</a>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-md-6">
-                                <div class="card">
-                                    <div class="card-block">
-                                        <div class="row align-items-center justify-content-center">
-                                            <div class="col">
-                                                <h3 class="text-c-green">{{ belowMin()}} Item(s) are Below Minimum Level</h3>
-                                                <a href="{{route('below-min-level')}}" class="badge badge-info">View</a>
-                                            
-                                            </div>
 
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                         
-                </div>
-
-                     {{-- row 3 start --}}
-                     <div class="row">
-                        <div class="col-md-6 col-xl-6">
-                            <div id='staff_loss'></div>
-                        </div>
-                        <div class="col-md-6 col-xl-6">
-                            <div id='sales_by_user'></div>
                         </div>
                     </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="row align-items-center justify-content-center">
+                                <div class="col">
+                                    <h3 class="text-c-green">Below minimum level - {{ belowMin()}} Item(s) </h3>
+                                    <a href="{{route('below-min-level')}}" class="badge badge-info">View</a>
 
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> --}}
+            <div class="row">
+                <div class="col-md-12 col-xl-4">
+                    <div class="card">
+                        <div class="card-block border-bottom">
+                            <h5 class="m-0">Out of Stock</h5>
+                        </div>
+                        <div class="card-block">
+                            <div class="row  align-items-center">
+                                <div class="col-8">
+                                    <h2 class=" m-0">{{ outofstock()}}</h2>
+                                    <span class="text-muted">Items</span>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <h5 class="text-c-red f-w-400">{{ number_format(outofstock()/stockItems()*100,1) }}%</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-4">
+                    <div class="card">
+                        <div class="card-block border-bottom">
+                            <h5 class="m-0">Below Minimum</h5>
+                        </div>
+                        <div class="card-block">
+                            <div class="row  align-items-center">
+                                <div class="col-8">
+                                    <h2 class=" m-0">{{ belowMin()}}</h2>
+                                    <span class="text-muted">Items</span>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <h5 class="text-c-green f-w-400">{{ number_format(belowMin()/stockitems()*100,1) }}%</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-4">
+                    <div class="card">
+                        <div class="card-block border-bottom">
+                            <h5 class="m-0">Total Stock</h5>
+                        </div>
+                        <div class="card-block">
+                            <div class="row  align-items-center">
+                                <div class="col-8">
+                                    <h2 class=" m-0">{{ stockItems() }}</h2>
+                                    <span class="text-muted">Items</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
-            {{-- /Tab 1 --}}
 
+            {{-- row 3 start --}}
+            <div class="row">
+                <div class="col-md-6 col-xl-6">
+                    <div id='staff_loss'></div>
+                </div>
+                <div class="col-md-6 col-xl-6">
+                    <div id='sales_by_user'></div>
+                </div>
+            </div>
 
 
         </div>
+        {{-- /Tab 1 --}}
+
+
+
     </div>
+</div>
 
 
 @endsection
@@ -105,7 +161,7 @@
 
 <!-- Losses by user -->
 <script>
-        am4core.ready(function() {
+    am4core.ready(function() {
         am4core.useTheme(am4themes_animated);
 
         // Create chart instance
@@ -198,6 +254,6 @@
 
     
     }); // end am4core.ready()
-    </script>
+</script>
 
 @endpush

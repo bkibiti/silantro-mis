@@ -24,19 +24,19 @@ Staff Losses
     <div class="card">
         <div class="card-body">
 
-                    <form id="expense_form" action="{{route('losses.search')}}" method="post">
+                    <form id="expense_form" action="{{route('losses.search')}}" method="GET">
                         @csrf()
     
                         <div class="form-group row">
     
                             <div class="col-md-2">
                                 <div style="border: 2px solid white; border-radius: 6px;">
-                                    <input type="text" name="from_date" class="form-control" id="from_date" value="{{ old('from_date') }}" required>
+                                    <input type="text" name="from_date" class="my-date form-control" id="from_date" value="{{ old('from_date') }}" required>
                                 </div> 
                             </div>
                             <div class="col-md-2">
                                 <div style="border: 2px solid white; border-radius: 6px;">
-                                    <input type="text" name="to_date" class="form-control" id="to_date" value="{{ old('to_date') }}" required>
+                                    <input type="text" name="to_date" class="my-date form-control" id="to_date" value="{{ old('to_date') }}" required>
                                 </div>
                             </div>
                            
@@ -159,6 +159,8 @@ Staff Losses
     document.title = title.concat(" | Sales | Staff Loss");
 </script>
 <script>
+ 
+    
     $('#fixed-header1').DataTable({
       bAutoWidth: true,
       order: [[0, "desc"]]
@@ -169,21 +171,7 @@ Staff Losses
     var start = moment();
     var end = moment();
 
-    $('#from_date').daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true,
-            maxDate: end,
-            autoUpdateInput: true,
-            locale: {
-                format: 'DD-M-YYYY'
-            }
-        });
-    });
-    $(function () {
-    var start = moment();
-    var end = moment();
-
-    $('#to_date').daterangepicker({
+    $('.my-date').daterangepicker({
             singleDatePicker: true,
             showDropdowns: true,
             maxDate: end,
@@ -194,37 +182,7 @@ Staff Losses
         });
     });
 
-    $(function () {
-    var start = moment();
-    var end = moment();
-
-    $('#date').daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true,
-            maxDate: end,
-            autoUpdateInput: true,
-            locale: {
-                format: 'DD-M-YYYY'
-            }
-        });
-    });
     
-    $(function () {
-    var start = moment();
-    var end = moment();
-
-    $('#date1').daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true,
-            maxDate: end,
-            autoUpdateInput: true,
-            locale: {
-                format: 'DD-M-YYYY'
-            }
-        });
-    });
-
-
 
       $('#edit').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)

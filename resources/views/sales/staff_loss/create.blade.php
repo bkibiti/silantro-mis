@@ -27,15 +27,14 @@
                                 <label for="expense_date" class="col-md-4 col-form-label text-md-right">{{ __('Date') }}<span style="color: red;">*</span></label>
                                 <div class="col-md-8">
                                     <div style="border: 2px solid white; border-radius: 6px;">
-                                        <input type="text" id="date" name="date" class="form-control"
-                                            required>
+                                        <input type="text" id="date" name="date" class="my-date form-control" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-md-4 col-form-label text-md-right">{{ __('Staff') }}<span style="color: red;">*</span></label>
                                 <div class="col-md-8">
-                                    <select class="form-control select2" class="form-control" name="user" data-placeholder="Select Staff" required data-width="100%">
+                                    <select class="form-control"  name="user" required data-width="100%">
                                         <option value="">Select Staff</option>
             
                                         @foreach($users as $u)

@@ -1,4 +1,4 @@
-<form action="{{route('reports.getreport')}}" method="get">
+<form action="{{route('reports.getreport')}}" method="get" >
     @csrf()
 
     <div class="form-group row">
@@ -28,8 +28,7 @@
       
         <div class="col-md-2">
             <button type="submit" class="btn btn-success" name="action" value="view">View</button>
-       
-            <button type="submit" class="btn btn-info " name="action" value="print" >Print</button>
+            <button type="submit" class="btn btn-info " name="action" value="print"  >Print</button>
         </div>
        
 
