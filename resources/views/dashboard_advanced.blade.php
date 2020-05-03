@@ -1,22 +1,27 @@
 @extends("layouts.master")
 
 @section('page_css')
-    <style>
-        #daily_sales {
-            width: 100%;
-            height: 500px;
-        }
+<style>
+    #daily_sales {
+        width: 100%;
+        height: 500px;
+    }
 
-        #sale_by_day {
-            width: 100%;
-            height: 400px;
-        }
-        #sales_by_month {
-            width: 100%;
-            height: 400px;
-        }
+    #sale_by_day {
+        width: 100%;
+        height: 400px;
+    }
 
-    </style>
+    #sales_by_month {
+        width: 100%;
+        height: 400px;
+    }
+
+    #monthly-sales {
+        width: 100%;
+        height: 400px;
+    }
+</style>
 @endsection
 
 
@@ -27,99 +32,290 @@
 
 <div class="col-sm-12">
 
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active"  data-toggle="pill" href="#pills-home" role="tab" aria-selected="true">Advanced Dashboard</a>
-            </li>
-    
-        </ul>
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                 <!-- start row 1-->    
-                <div class="row">
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card Online-Order">
-                                <div class="card-block">
-                                    <h5>Purchases</h5>
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">This Month<span class="float-right f-18 text-c-yellow">{{ number_format($purchaseThisMonth[0]->Amount, 2) }}</span></h6>
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between">Last Month<span class="float-right f-18 text-c-yellow">{{ number_format($purchaseLastMonth[0]->Amount, 2) }}</span></h6>
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">Average Daily Purchaces<span class="float-right f-18 text-c-yellow">{{ number_format($avgDailyPurchases, 2) }}</span></h6>
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between">Average Monthly Purchases<span class="float-right f-18 text-c-yellow">{{ number_format($avgDailyPurchases * 30,2) }}</span></h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card Online-Order">
-                                <div class="card-block">
-                                    <h5>Sales</h5>
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">This Month<span class="float-right f-18 text-c-purple">{{ number_format($salesThisMonth[0]->Amount, 2) }}</span></h6>
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between">Last Month<span class="float-right f-18 text-c-purple">{{ number_format($salesLastMonth[0]->Amount,2) }}</span></h6>
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">Average Daily Sales<span class="float-right f-18 text-c-purple">{{ number_format($avgDailySales, 2) }}</span></h6>
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between">Average Monthly Sales<span class="float-right f-18 text-c-purple">{{ number_format($avgDailySales * 30,2) }}</span></h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-xl-4">
-                            <div class="card Online-Order">
-                                <div class="card-block">
-                                    <h5>Expenses</h5>
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">This Month<span class="float-right f-18 text-c-blue">{{ number_format($expensesThisMonth[0]->Amount, 2) }}</span></h6>
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between">Last Month<span class="float-right f-18 text-c-blue">{{ number_format($expensesLastMonth[0]->Amount, 2) }}</span></h6>
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between m-t-30">Average Daily Expenses<span class="float-right f-18 text-c-blue">{{ number_format($avgDailyExpenses, 2) }}</span></h6>
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between">Average Monthly Expenses<span class="float-right f-18 text-c-blue">{{ number_format($avgDailyExpenses * 30,2) }}</span></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                     <!-- end row 1 -->
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#pills-home" role="tab" aria-selected="true">Advanced
+                Dashboard</a>
+        </li>
 
-               <!-- start row 2-->    
-               <div class="row">
-                <div class="col-md-12 col-xl-12">
-                    <div class="card Online-Order">
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <!-- start row 1-->
+            <div class="row">
+                <div class="col">
+                    <div class="card statistial-visit">
+                        <div class="card-header">
+                            <h5>This Month</h5>
+                        </div>
                         <div class="card-block">
-                            <div class="row">
-                                <div class="col-md-4 col-xl-4">
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between ">Gross Profit This Month<span class="float-right f-18 text-c-green">{{ number_format($proftThisMonth[0]->Amount, 2) }}</span></h6>
+
+                            <div class="media">
+                                <div class="photo-table">
+                                    <h6> Purchases</h6>
                                 </div>
-                                <div class="col-md-4 col-xl-4">
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between ">Gross Profit Last Month<span class="float-right f-18 text-c-green">{{ number_format($profitLastMonth[0]->Amount, 2) }}</span></h6>
-                                </div>
-                                <div class="col-md-4 col-xl-4">
-                                    <h6 class="text-muted d-flex align-items-center justify-content-between ">Average Daily Gross Profit<span class="float-right f-18 text-c-green">{{ number_format($avgDailyProfit, 2) }}</span></h6>
+                                <div class="media-body">
+                                    <span
+                                        class="label theme-bg text-white f-14 f-w-400 float-right">{{ number_format($thisMonth['purchase'],2) }}</span>
                                 </div>
                             </div>
-                          
+                            <div class="media">
+                                <div class="photo-table">
+                                    <h6> Sales</h6>
+                                </div>
+                                <div class="media-body">
+                                    <label
+                                        class="label theme-bg2 text-white f-14 f-w-400 float-right">{{ number_format($thisMonth['sales'], 2) }}</label>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <div class="photo-table">
+                                    <h6> Expenses</h6>
+                                </div>
+                                <div class="media-body">
+                                    <label
+                                        class="label bg-c-blue text-white f-14 f-w-400 float-right">{{ number_format($thisMonth['expense'], 2) }}</label>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <div class="photo-table">
+                                    <h6> Gross Profit</h6>
+                                </div>
+                                <div class="media-body">
+                                    <label
+                                        class="label bg-c-green text-white f-14 f-w-400 float-right">{{ number_format($thisMonth['profit'], 2) }}</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-             
-            </div> 
-             <!-- end row 12 -->
+                <div class="col">
+                    <div class="card statistial-visit">
+                        <div class="card-header">
+                            <h5>Last Month</h5>
+                        </div>
+                        <div class="card-block">
 
-                     {{-- row 3 start --}}
-                     <div class="row">
-                        <div class="col-md-6 col-xl-6">
+                            <div class="media">
+                                <div class="photo-table">
+                                    <h6> Purchases</h6>
+                                </div>
+                                <div class="media-body">
+                                    <span
+                                        class="label theme-bg text-white f-14 f-w-400 float-right">{{ number_format($lastMonth['purchase'],2) }}</span>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <div class="photo-table">
+                                    <h6> Sales</h6>
+                                </div>
+                                <div class="media-body">
+                                    <label
+                                        class="label theme-bg2 text-white f-14 f-w-400 float-right">{{ number_format($lastMonth['sales'], 2) }}</label>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <div class="photo-table">
+                                    <h6> Expenses</h6>
+                                </div>
+                                <div class="media-body">
+                                    <label
+                                        class="label bg-c-blue text-white f-14 f-w-400 float-right">{{ number_format($lastMonth['expense'], 2) }}</label>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <div class="photo-table">
+                                    <h6> Gross Profit</h6>
+                                </div>
+                                <div class="media-body">
+                                    <label
+                                        class="label bg-c-green text-white f-14 f-w-400 float-right">{{ number_format($lastMonth['profit'], 2) }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card statistial-visit">
+                        <div class="card-header">
+                            <h5>Daily Averages</h5>
+                        </div>
+                        <div class="card-block">
+
+                            <div class="media">
+                                <div class="photo-table">
+                                    <h6> Purchases</h6>
+                                </div>
+                                <div class="media-body">
+                                    <span
+                                        class="label theme-bg text-white f-14 f-w-400 float-right">{{ number_format($dailyAverage['purchase'],2) }}</span>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <div class="photo-table">
+                                    <h6> Sales</h6>
+                                </div>
+                                <div class="media-body">
+                                    <label
+                                        class="label theme-bg2 text-white f-14 f-w-400 float-right">{{ number_format($dailyAverage['sales'], 2) }}</label>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <div class="photo-table">
+                                    <h6> Expenses</h6>
+                                </div>
+                                <div class="media-body">
+                                    <label
+                                        class="label bg-c-blue text-white f-14 f-w-400 float-right">{{ number_format($dailyAverage['expense'], 2) }}</label>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <div class="photo-table">
+                                    <h6> Gross Profit</h6>
+                                </div>
+                                <div class="media-body">
+                                    <label
+                                        class="label bg-c-green text-white f-14 f-w-400 float-right">{{ number_format($dailyAverage['profit'], 2) }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+            </div>
+            <!-- end row 1 -->
+
+            <!-- start row 2-->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Sales and Expenses </h5>
+                            <div class="card-header-right">
+                                <div class="btn-group card-option">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="feather icon-more-horizontal"></i>
+                                    </button>
+                                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-item full-card"><a href="#!"><span><i
+                                                        class="feather icon-maximize"></i> maximize</span><span
+                                                    style="display:none"><i class="feather icon-minimize"></i>
+                                                    Restore</span></a></li>
+                                        <li class="dropdown-item minimize-card"><a href="#!"><span><i
+                                                        class="feather icon-minus"></i> collapse</span><span
+                                                    style="display:none"><i class="feather icon-plus"></i>
+                                                    expand</span></a></li>
+                                        <li class="dropdown-item reload-card"><a href="#!"><i
+                                                    class="feather icon-refresh-cw"></i> reload</a></li>
+                                        <li class="dropdown-item close-card"><a href="#!"><i
+                                                    class="feather icon-trash"></i> remove</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            <div id="monthly-sales"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+
+                        <div class="card-block" style="height: 520px;">
+                            <h5 class="text-left">Stock Value</h5>
+                            <div class="row align-items-center justify-content-center">
+                                <div class="col-auto">
+                                    <h3 class="f-w-300 m-t-20">TZS {{ number_format($stockValue,2) }}
+
+                                </div>
+                                <div class="col text-right">
+                                    <i class="fas fa-wallet f-30 text-c-purple"></i>
+                                </div>
+                            </div>
+                            <div class="leads-progress mt-3">
+                                @foreach ($valueByCategory as $v)
+                                <h6 class="text-muted f-w-300 mt-4">{{ $v->name }} <span class="float-right">
+                                        {{number_format($v->amount,2)}}</span> </h6>
+
+                                @endforeach
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- end row 12 -->
+
+            {{-- row 3 start --}}
+            <div class="row">
+                <div class="col-md-6 col-xl-6">
+                    <div class="card">
+                        <div class="card-block">
                             <div id='sale_by_day'></div>
                         </div>
-                      
-                        <div class="col-md-6 col-xl-6">
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 col-xl-6">
+                    <div class="card">
+                        <div class="card-block">
                             <div id='sales_by_month'></div>
                         </div>
                     </div>
 
-                    {{-- row 3 start --}}
-                    <div class="row">
+                </div>
+            </div>
+
+            {{-- row 4 start --}}
+            <div class="row">
+                <div class="card col-md-12">
+                    <div class="card-header">
+                        <h5>Daily Sales</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="feather icon-more-horizontal"></i>
+                                </button>
+                                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                    <li class="dropdown-item full-card"><a href="#!"><span><i
+                                                    class="feather icon-maximize"></i> maximize</span><span
+                                                style="display:none"><i class="feather icon-minimize"></i>
+                                                Restore</span></a></li>
+                                    <li class="dropdown-item minimize-card"><a href="#!"><span><i
+                                                    class="feather icon-minus"></i> collapse</span><span
+                                                style="display:none"><i class="feather icon-plus"></i> expand</span></a>
+                                    </li>
+                                    <li class="dropdown-item reload-card"><a href="#!"><i
+                                                class="feather icon-refresh-cw"></i> reload</a></li>
+                                    <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i>
+                                            remove</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-block">
                         <div id='daily_sales'></div>
                     </div>
+                </div>
 
             </div>
-            {{-- /Tab 1 --}}
-
-
 
         </div>
+        {{-- /Tab 1 --}}
+
+
+
     </div>
+</div>
 
 
 
@@ -142,7 +338,6 @@
 
 {{-- daily sales chart  --}}
 <script>
-
     // Themes begin
     am4core.useTheme(am4themes_animated);
     // Themes end
@@ -162,7 +357,7 @@
 
     //title
     var title = chart.titles.create();
-    title.text = "Daily Sales Last 30 Days";
+    // title.text = "Daily Sales";
     title.fontSize = 16;
     title.marginBottom = 15;
 
@@ -261,5 +456,54 @@
     }); // end
 </script>
 
+<!-- Sales Monthly trend -->
+<script>
+    am4core.ready(function() {
+    
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+    
+    // Create chart instance
+    var chart = am4core.create("monthly-sales", am4charts.XYChart);
+    
+    // Add data
+    chart.data = @json($monthlyTrends)
+
+    // Create category axis
+    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = "month";
+    
+    // Create value axis
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.title.text = "Amount";
+    
+    // Create series
+    var series1 = chart.series.push(new am4charts.LineSeries());
+    series1.dataFields.valueY = "sales";
+    series1.dataFields.categoryX = "month";
+    series1.name = "Sales";
+    series1.strokeWidth = 3;
+    series1.bullets.push(new am4charts.CircleBullet());
+    series1.legendSettings.valueText = "{valueY}";
+    
+    
+    var series2 = chart.series.push(new am4charts.LineSeries());
+    series2.dataFields.valueY = "expenses";
+    series2.dataFields.categoryX = "month";
+    series2.name = 'Expenses';
+    series2.strokeWidth = 3;
+    series2.bullets.push(new am4charts.CircleBullet());
+    series2.legendSettings.valueText = "{valueY}";
+    
+    // Add chart cursor
+    chart.cursor = new am4charts.XYCursor();
+    chart.cursor.behavior = "zoomY";
+    
+    // Add legend
+    chart.legend = new am4charts.Legend();
+    
+    }); // end am4core.ready()
+</script>
 
 @endpush

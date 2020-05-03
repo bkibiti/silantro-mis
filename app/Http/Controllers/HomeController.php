@@ -54,10 +54,7 @@ class HomeController extends Controller
         $totalExpenses = DB::table('expenses')->select(DB::raw('sum(Amount) Amount'))->get();
         $totalPurchases = DB::table('incoming_stock')->select(DB::raw('sum(unit_cost*quantity) Amount'))->get();
         $totalProft = DB::table('sales')->select(DB::raw('sum((selling_price-buying_price)*quantity) Amount'))->get();
-        $days = DB::table('sales')
-            ->select(DB::raw('date(created_at)'))
-            ->distinct()
-            ->get();
+        $days = DB::table('sales')->select(DB::raw('date(created_at)'))->distinct()->get();
 
         if ($days->count() == 0) {
             $avgDailySales = 0;
@@ -71,18 +68,28 @@ class HomeController extends Controller
             $avgDailyProfit = $totalProft[0]->Amount / $days->count();
         }
 
+        $stockValue = Stock::sum(DB::raw('quantity*sale_price_1'));
+
+        $valueByCategory = DB::select("SELECT p.name,sum(s.quantity * s.sale_price_1) amount FROM stock s
+                            JOIN product_categories p on s.category_id=p.id GROUP BY p.name HAVING amount > 0");         
+       
         $totalDailySales = DB::table('sales')
             ->select(DB::raw('date(created_at) date, sum(quantity*selling_price) value'))
             ->groupBy(DB::raw('date(created_at)'))
             ->orderBy('date','Desc')
             ->limit('30')
             ->get();
-        // $totalMonthlySales = DB::table('sales')
-        //     ->select(DB::raw("DATE_FORMAT(created_at, '%b %y') month,sum(quantity*selling_price) amount"))
-        //     ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y%m')"))
-        //     ->limit('12')
-        //     ->get();
 
+        $monthlyTrends = DB::select("select Q1.month_no,Q1.month,Q1.amount as sales,Q2.amount as expenses from 
+                    (SELECT DATE_FORMAT(created_at,'%Y-%m') month_no, DATE_FORMAT(created_at,'%b-%y') month, sum(quantity*selling_price) as amount 
+                    FROM sales GROUP BY month_no,month ORDER BY month_no desc limit 6) as Q1
+                    left join 
+                    (SELECT DATE_FORMAT(created_at,'%Y-%m') month_no, DATE_FORMAT(created_at,'%b-%y') month, sum(amount) as amount 
+                    FROM expenses GROUP BY month_no,month ORDER BY month_no desc limit 6) as Q2
+                    on Q1.month_no = Q2.month_no 
+                    order by Q1.month_no
+                    ");
+       
         $saleByDay = DB::table('sales')
             ->select(DB::raw('WEEKDAY(created_at) DayNumber,DAYNAME(created_at) DayName,sum(selling_price*quantity) Amount'))
             ->groupBy(DB::raw('WEEKDAY(created_at),DAYNAME(created_at)'))
@@ -126,8 +133,27 @@ class HomeController extends Controller
             ->whereRaw('YEAR(created_at) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) AND MONTH(created_at) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH)')
             ->get();
 
-        return view('dashboard_advanced', compact('avgDailySales','totalDailySales','saleByDay','salesThisMonth','salesLastMonth','purchaseThisMonth','purchaseLastMonth',
-                    'expensesThisMonth','expensesLastMonth','avgDailyExpenses','avgDailyPurchases','saleByMonth','proftThisMonth','profitLastMonth','avgDailyProfit'));
+        $thisMonth = [];
+        $thisMonth['purchase'] = $purchaseThisMonth[0]->Amount;
+        $thisMonth['sales'] = $salesThisMonth[0]->Amount;
+        $thisMonth['expense'] = $expensesThisMonth[0]->Amount;
+        $thisMonth['profit'] = $proftThisMonth[0]->Amount;
+
+        $LastMonth = [];
+        $lastMonth['purchase'] = $purchaseLastMonth[0]->Amount;
+        $lastMonth['sales'] = $salesLastMonth[0]->Amount;
+        $lastMonth['expense'] = $expensesLastMonth[0]->Amount;
+        $lastMonth['profit'] = $profitLastMonth[0]->Amount;
+       
+        $dailyAverage = [];
+        $dailyAverage['purchase'] = $avgDailyPurchases;
+        $dailyAverage['sales'] = $avgDailySales;
+        $dailyAverage['expense'] = $avgDailyExpenses;
+        $dailyAverage['profit'] = $avgDailyProfit;
+
+
+        return view('dashboard_advanced', compact('dailyAverage','thisMonth','lastMonth','totalDailySales','saleByDay','saleByMonth',
+                    'monthlyTrends','stockValue','valueByCategory'));
 
     }
 }
