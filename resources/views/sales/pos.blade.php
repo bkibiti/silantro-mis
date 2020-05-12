@@ -26,19 +26,19 @@ Point of Sales
                             <td>{{ $stock->name }}</td>
                             <td>
                                 <a href="#">
-                                    <button type="button"
-                                        class="btn btn-sm btn-icon btn-rounded btn-success selectproduct"
+                                    <button type="button" 
+                                        class="btn btn-sm btn-rounded btn-icon btn-success selectproduct"
                                         data-id="{{$stock->id}}" data-name="{{$stock->name}}"
                                         data-sale_price_1="{{$stock->sale_price_1}}"
                                         data-unit_cost="{{$stock->unit_cost}}" data-quantity="{{$stock->quantity}}"
-                                        data-toggle="button"><i class="feather icon-plus"></i>
+                                        data-toggle="button"><i class="feather icon-chevron-right"></i>
                                     </button>
                                     <button type="button"
-                                        class="btn btn-sm btn-icon btn-rounded btn-primary selectProducts"
+                                        class="btn btn-sm btn-rounded btn-icon btn-secondary selectProducts"
                                         data-id="{{$stock->id}}" data-name="{{$stock->name}}"
                                         data-sale_price_1="{{$stock->sale_price_1}}"
                                         data-unit_cost="{{$stock->unit_cost}}" data-quantity="{{$stock->quantity}}"
-                                        data-toggle="modal" data-target="#addItemsModal">1+
+                                        data-toggle="modal" data-target="#addItemsModal"><i class="feather icon-chevrons-right"></i>
                                     </button>
                                 
                                 </a>
@@ -189,10 +189,29 @@ Point of Sales
     var order_list = []; //hold data displayed in datatable
 
 
-    $('.selectproduct').click(function() {
-        var data = [];
-        if(! rowExist($(this).data('id'),order_list)){
+        $('.selectproduct').click(function() {
+            var data = [];
 
+            //if row exist increment quantity of existing record
+            if( rowExist($(this).data('id'),order_list)){
+                for (var i = 0; i < order_list.length; i++) {
+                    if(order_list[i][0] == $(this).data('id')){
+                        order_list[i][3] = parseInt(order_list[i][3]) + 1;
+                        //check if quantity is > QOH
+                        if (parseInt(order_list[i][3]) > parseInt(order_list[i][1])) { //OrderQty > QOH
+                            order_list[i][3] = order_list[i][1]
+                        }
+                        order_list[i][5] = formatMoney(parseFloat(order_list[i][4].replace(/\,/g, '')) * parseInt(order_list[i][3]));
+
+                        order_table.clear();
+                        order_table.rows.add(order_list).draw();
+                        $('#total').text(formatMoney(totalOrder(order_list)));
+                        $('#sale_order').val(JSON.stringify(order_list));
+                        break;
+                    }
+                }
+                 
+            } else{ //add item
                 data.push($(this).data('id'));
                 data.push($(this).data('quantity'));
                 data.push($(this).data('name'));
@@ -207,9 +226,11 @@ Point of Sales
                 order_table.rows.add(order_list).draw();
                 $('#total').text(formatMoney(totalOrder(order_list)));
                 $('#sale_order').val(JSON.stringify(order_list));
-        }
-        
-    });
+
+            }
+          
+            
+        });
      
         $('#order tbody').on('click', '#edit_btn', function () {
             var row_data = order_table.row($(this).parents('tr')).data();
@@ -277,6 +298,7 @@ Point of Sales
 
         });
 
+        //on click of modal form add data to data table order list
         $( '#addItemForm' ).submit(function( event ) {
             event.preventDefault();
 

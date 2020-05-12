@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Reminder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReminderController extends Controller
 {
@@ -29,6 +30,7 @@ class ReminderController extends Controller
         $reminder->start_date = date('Y-m-d', strtotime($request->start_date));
         $reminder->end_date = date('Y-m-d', strtotime($request->end_date));
         $reminder->days_to_remind = $request->days;
+        $reminder->created_by = Auth::user()->id;
         $reminder->save();
         session()->flash("alert-success", "Reminder Added Successfully!");
         return back();
