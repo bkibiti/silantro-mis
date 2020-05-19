@@ -55,11 +55,14 @@
                                                     $end_date = new DateTime($r->end_date);
                                                     $dd = date_diff($start_date,$end_date);
                                                    
-                                                    if ($start_date < $end_date) {
+                                                    if (($start_date < $end_date) && $r->status=='On' ) {
                                                         echo "$dd->m months $dd->d days";
                                                     }
-                                                    if ($start_date > $end_date) {
+                                                    if (($start_date > $end_date) && $r->status=='On') {
                                                         echo "Overdue by " . "$dd->m months $dd->d days";
+                                                    }
+                                                    if ($r->status=='Off') {
+                                                        echo "Complete";
                                                     }
                                                 @endphp     
                                             </td>
