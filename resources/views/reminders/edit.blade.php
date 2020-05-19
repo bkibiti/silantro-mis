@@ -19,7 +19,7 @@
                           <label for="name" class="col-md-4 col-form-label text-md-right">Reminder <font color="red">*</font></label>
                            <div class="col-md-8">
                               <input type="text" class="form-control" id="name_edit" name="name"
-                                     required maxlength="20">
+                                     required maxlength="200">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -45,6 +45,15 @@
                               <input type="number" min="1" class="form-control" id="days_edit" name="days" placeholder="# of days to get reminder" required>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Status <font color="red">*</font></label>
+                             <div class="col-md-8">
+                                <select class="form-control  select2" id="status" name="status" required data-width="100%">
+                                    <option value="On">On</option>
+                                    <option value="Off">Off</option>
+                                </select>
+                              </div>
+                          </div>
 
                                           
                       <div class="modal-footer">

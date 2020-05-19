@@ -33,9 +33,10 @@
                             <thead>
                                 <tr>
                                     <th>Reminder</th>
-                                    <th>Star Date</th>
+                                    <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Days to Get Riminder</th>
+                                    <th>Status</th>
                                     @if(Auth::user()->can('Edit Reminders') || Auth::user()->can('Delete Reminders'))
                                         <th>Action</th>
                                     @endif
@@ -48,6 +49,14 @@
                                             <td>{{date_format(new DateTime($r->start_date),'d M Y')}}</td>
                                             <td>{{date_format(new DateTime($r->end_date),'d M Y')}}</td>
                                             <td>{{$r->days_to_remind}}</td>
+                                            <td>
+                                                @if ($r->status == "On")
+                                                    <span class="badge badge-pill badge-success">{{$r->status}}</span>
+                                                @else
+                                                    <span class="badge badge-pill badge-danger">{{$r->status}}</span>
+                                                @endif
+                                                
+                                            </td>
 
                                             @if(Auth::user()->can('Edit Reminders') || Auth::user()->can('Delete Reminders'))
                                                 <td>
@@ -59,6 +68,7 @@
                                                                     data-start_date="{{$r->start_date}}"
                                                                     data-end_date="{{$r->end_date}}"
                                                                     data-days_to_remind="{{$r->days_to_remind}}"
+                                                                    data-status="{{$r->status}}"
                                                                     type="button"
                                                                     data-toggle="modal" data-target="#edit">Edit
                                                             </button>
@@ -168,6 +178,7 @@
                   modal.find('.modal-body #start_date_edit').val(button.data('start_date'));
                   modal.find('.modal-body #end_date_edit').val(button.data('end_date'));
                   modal.find('.modal-body #days_edit').val(button.data('days_to_remind'));
+                  modal.find('.modal-body #status').val(button.data('status'));
 
             });
 

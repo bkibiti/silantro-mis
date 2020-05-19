@@ -48,6 +48,29 @@ function notifications(){
     if (outofstock() > 0){
         $num = $num + 1;
     }
+    if (count(getReminders()) > 0) {
+        $num = $num + count(getReminders());
+    }
 
     return $num;
+}
+
+function getReminders(){
+    $reminders = DB::table('reminders')
+        ->select(DB::raw('name,end_date,datediff(end_date,now()) days'))
+        ->whereRaw("datediff(end_date,now()) <= days_to_remind and status='On'")
+        ->get();
+     
+    $msg =[];
+    foreach ($reminders as $r) {
+        if ($r->days > 0) {
+            $msg[] = $r->name . ' is due in '. $r->days . ' days';
+        } else if ($r->days < 0) {
+            $msg[] = $r->name . ' is overdue by '. (0 - (int)$r->days) . ' days';
+        }else{
+            $msg[] = $r->name . ' is due today';
+        }       
+    }
+ 
+    return $msg;
 }

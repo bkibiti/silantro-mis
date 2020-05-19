@@ -133,6 +133,18 @@
                                         </li>
 
                                     @endif
+                                    @can('View Reminders')
+                                        @foreach (getReminders() as $r)
+                                            <li class="notification">
+                                                <div class="media">
+                                                    <div class="media-body">
+                                                        <p><strong> <span class="text-warning mb-1"> Reminder </span></strong></p>
+                                                        <p> <a href="{{route('reminders.index')}}"> {{ $r }}  </a></p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    @endcan
                                    
 
                             </ul>

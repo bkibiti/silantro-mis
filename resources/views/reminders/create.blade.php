@@ -15,7 +15,7 @@
                           <label for="name" class="col-md-4 col-form-label text-md-right">Reminder <font color="red">*</font></label>
                            <div class="col-md-8">
                               <input type="text" class="form-control" id="name" name="name"
-                                     required maxlength="20">
+                                     required maxlength="200">
                             </div>
                         </div>
                         <div class="form-group row">

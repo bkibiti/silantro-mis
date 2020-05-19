@@ -11,6 +11,7 @@ class ReminderController extends Controller
  
     public function index()
     {
+   
         $reminders = Reminder::get();
 
         return view('reminders.index', compact("reminders"));
@@ -43,6 +44,7 @@ class ReminderController extends Controller
         $reminder->start_date = date('Y-m-d', strtotime($request->start_date));
         $reminder->end_date = date('Y-m-d', strtotime($request->end_date));
         $reminder->days_to_remind = $request->days;
+        $reminder->status = $request->status;
         $reminder->save();
 
         session()->flash("alert-success", "Remider Updated Successfully!");
