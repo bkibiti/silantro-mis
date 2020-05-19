@@ -33,9 +33,10 @@
                             <thead>
                                 <tr>
                                     <th>Reminder</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Days to Get Riminder</th>
+                                    <th>Start</th>
+                                    <th>Due Date</th>
+                                    <th>Due in</th>
+                                    <th>Reminder</th>
                                     <th>Status</th>
                                     @if(Auth::user()->can('Edit Reminders') || Auth::user()->can('Delete Reminders'))
                                         <th>Action</th>
@@ -48,7 +49,22 @@
                                             <td>{{$r->name}}</td>
                                             <td>{{date_format(new DateTime($r->start_date),'d M Y')}}</td>
                                             <td>{{date_format(new DateTime($r->end_date),'d M Y')}}</td>
-                                            <td>{{$r->days_to_remind}}</td>
+                                            <td>
+                                                @php
+                                                    $start_date = new DateTime(date("Y/m/d"));
+                                                    $end_date = new DateTime($r->end_date);
+                                                    $dd = date_diff($start_date,$end_date);
+                                                   
+                                                    if ($start_date < $end_date) {
+                                                        echo "$dd->m months $dd->d days";
+                                                    }
+                                                    if ($start_date > $end_date) {
+                                                        echo "Overdue by " . "$dd->m months $dd->d days";
+                                                    }
+                                                @endphp     
+                                            </td>
+                                            <td>{{$r->days_to_remind . ' days before'}}</td>
+
                                             <td>
                                                 @if ($r->status == "On")
                                                     <span class="badge badge-pill badge-success">{{$r->status}}</span>
