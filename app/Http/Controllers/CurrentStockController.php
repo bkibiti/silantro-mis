@@ -66,7 +66,7 @@ class CurrentStockController extends Controller
 
     public function belowMin()
     {
-        $Products = Stock::whereRaw('quantity <= min_quantinty and quantity > 0')->where('for_sale','Yes')->get();
+        $Products = Stock::whereRaw('quantity < min_quantinty and quantity > 0')->where('for_sale','Yes')->get();
         $categories = Category::orderBy('id', 'DESC')->get();
 
         return view('inventory.below_min', compact("Products","categories"));

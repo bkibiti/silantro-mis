@@ -30,7 +30,7 @@ function outofstock(){
 }
 
 function belowMin(){
-    $belowMin = Stock::whereRaw('quantity <= min_quantinty and quantity > 0')->where('for_sale','Yes')->count();
+    $belowMin = Stock::whereRaw('quantity < min_quantinty and quantity > 0')->where('for_sale','Yes')->count();
     return $belowMin;
 }
 
