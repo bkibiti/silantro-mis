@@ -29,7 +29,7 @@
                                         title="Add Reminder" data-target="#create"><i class="feather icon-plus"></i></button>
                         @endcan
                         <div class="table-responsive">
-                            <table id="fixed-header" class="display table nowrap table-striped table-hover"style="width:100%">
+                            <table id="reminder-tb" class="display table nowrap table-striped table-hover"style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Reminder</th>
@@ -130,6 +130,12 @@
     document.title = title.concat(" | Reminders");
 </script>
  <script>
+
+       $('#reminder-tb').DataTable({
+            order: [[ 3, "asc" ]]
+        });
+
+
     $(function () {
         var start = moment();
         var end = moment();
