@@ -34,7 +34,7 @@
                                style="width:100%">
                             <thead>
                             <tr>
-                                <th>Id #</th>
+                                {{-- <th>Id #</th> --}}
                                 <th>Name</th>
                                 <th>Category</th>
                                 <th>Purchase Unit</th>
@@ -46,7 +46,7 @@
                                 <tbody>
                                     @foreach($products as $prod)
                                     <tr>
-                                            <td>{{$prod->id}}</td>
+                                            {{-- <td>{{$prod->id}}</td> --}}
                                             <td>{{$prod->name}}</td>
                                             <td>{{$prod->category->name}}</td>
                                             <td>{{$prod->purchase_uom}}</td>
