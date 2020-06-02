@@ -91,10 +91,13 @@ class ReportController extends Controller
                 break;
             
             case 6:
-                $data = DB::table('stock')->selectRaw('name,quantity,sale_price_1 as price')
+                $data = DB::table('stock')->selectRaw('product_categories.name as category,stock.name,quantity,sale_price_1 as price')
+                        ->join('product_categories', 'product_categories.id', '=', 'stock.category_id')  
                         ->where('for_sale','Yes')
-                        ->orderBy('name')
+                        ->orderBy('product_categories.name')
+                        ->orderBy('stock.name')
                         ->get();
+
                 $request->flash();
                     
                 $pdf = PDF::loadView('reports.template_daily_sale_report_pdf', compact('data'));

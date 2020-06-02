@@ -22,10 +22,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i = 0 ?>
+                    @php
+                        $i = 0;
+                        $category = 'na';
+                    @endphp
               
                     @foreach($data as $d)
                         <?php $i++ ?>
+                        
+                        @if ($category <> $d->category)
+                            <tr>
+                                <td colspan="2"> <strong> {{$d->category}} </strong></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>                           
+                            </tr>
+                            <?php $category = $d->category ?>
+
+                        @endif
 
                         <tr>
                             <td style="text-align:center">{{ $i }}</td>
@@ -41,7 +58,7 @@
 
                 </tbody>
                 <tr>
-                    <td bgcolor="#bfbfbf" style="text-align:center" colspan="7" >Total</td>
+                    <td bgcolor="#bfbfbf" style="text-align:center" colspan="7" > <strong>Total</strong> </td>
                     <td bgcolor="#bfbfbf" style="text-align:right"> </td>
                 </tr>
 
