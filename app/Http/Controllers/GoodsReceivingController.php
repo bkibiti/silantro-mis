@@ -31,7 +31,7 @@ class GoodsReceivingController extends Controller
 
 
         $totalQty = $request->quantity * $request->quantity_per_unit;
-        $salableUnitPrice = $request->unit_cost / $request->quantity_per_unit;
+        $UnitBuyingPrice = $request->unit_cost / $request->quantity_per_unit;
 
         $incoming = new IncomingStock;
         $incoming->product_id = $request->id;
@@ -44,8 +44,9 @@ class GoodsReceivingController extends Controller
         $incoming->save();
 
         $stock = Stock::find($request->id);
+        $unit_cost = ($stock->quantity * $stock->unit_cost + $totalQty * $UnitBuyingPrice)/($totalQty + $stock->quantity);
         $stock->quantity = $stock->quantity + $totalQty;
-        $stock->unit_cost = $salableUnitPrice;
+        $stock->unit_cost = $unit_cost;
         $stock->save();
         $request->flash();
 
