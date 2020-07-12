@@ -31,7 +31,7 @@ class SaleController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'created_by' => 'required',
+            // 'created_by' => 'required',
             'sale_order' => 'required',
         ]);
        
@@ -58,7 +58,8 @@ class SaleController extends Controller
                 'quantity' => $data[$i][3],
                 'buying_price' => $data[$i][6],
                 'selling_price' => str_replace(',','',$data[$i][4]) ,
-                'created_by' => $request->created_by,
+                // 'created_by' => $request->created_by,
+                'created_by' => Auth::User()->id,
                 'created_at' => $sale_date,
                 'updated_at' => Carbon::now(),
                 'status' => '1',

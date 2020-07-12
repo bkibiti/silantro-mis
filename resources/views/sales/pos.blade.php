@@ -74,7 +74,7 @@ Point of Sales
                     @else
                         <input type="hidden" name="sale_date" value="NA">
                     @endif
-                    <div class="col-md-3">
+                    {{-- <div class="col-md-3">
                         <select class="form-control  select2" name="created_by" required data-width="100%">
                             <option value="">Select User</option>
 
@@ -83,7 +83,7 @@ Point of Sales
                             @endforeach
                         </select>
 
-                    </div>
+                    </div> --}}
                     <div class="col-md-2">
                         <input type="text" class="form-control " name="table_number" placeholder="Table No.">
                     </div>
@@ -156,6 +156,7 @@ Point of Sales
             }
         });
     });
+
 
     $('#products').DataTable({
         bAutoWidth: true,
