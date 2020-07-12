@@ -16,7 +16,8 @@ Point of Sales
                 <table id="products" class="display table nowrap table-striped table-hover" style="width:100%">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>Item</th>
+                            <th>QOH</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -24,6 +25,7 @@ Point of Sales
                         @foreach($current_stock as $stock)
                         <tr>
                             <td>{{ $stock->name }}</td>
+                            <td>{{$stock->quantity}}</td>
                             <td>
                                 <a href="#">
                                     <button type="button" 
