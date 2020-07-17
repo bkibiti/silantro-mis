@@ -44,6 +44,8 @@
                                             <option value="Bottles" name="category">Bottles</option>
                                             <option value="Shots" name="category">Shots</option>
                                             <option value="Weight" name="category">Weight</option>
+                                            <option value="Pieces" name="category">Pieces</option>
+
                                         </select>
                                     </div>
                             </div>
