@@ -58,6 +58,8 @@
                                 <form method="POST" action="{{ route('goods-receiving.store') }}" >
                                     @csrf
                                     <input type="hidden" name="id" id="id">
+                                    <input type="hidden" name="purchaseUOM" id="purchaseUOM">
+
                                   
                                     <div class="form-group row">
                                         <label for="product_name" class="col-md-4 col-form-label text-md-right">Date<font color="red">*</font></label>
@@ -199,6 +201,8 @@
         $('.selectproduct').click(function() {
             $('#id').val($(this).data('id'));
             $('#name').val($(this).data('name'))
+            $('#purchaseUOM').val($(this).data('purchase_uom'))
+
             var purchaseUnit = '';
             var pu = purchaseUnit.concat($(this).data('purchase_uom'),' (',$(this).data('quantity_per_unit'),' ',$(this).data('sold_by'),')');
             $('#purchase_uom').val(pu);

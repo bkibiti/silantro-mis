@@ -29,13 +29,14 @@ class GoodsReceivingController extends Controller
             $purchase_date = date('Y-m-d', strtotime($request->purchase_date));
         }
 
-
         $totalQty = $request->quantity * $request->quantity_per_unit;
         $UnitBuyingPrice = $request->unit_cost / $request->quantity_per_unit;
 
         $incoming = new IncomingStock;
         $incoming->product_id = $request->id;
         $incoming->quantity = $request->quantity;
+        $incoming->quantity_per_unit = $request->quantity_per_unit;
+        $incoming->purchase_uom = $request->purchaseUOM;
         $incoming->supplier_id = $request->supplier;
         $incoming->unit_cost = $request->unit_cost;
         $incoming->created_by = Auth::User()->id;
