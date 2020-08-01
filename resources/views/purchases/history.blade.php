@@ -82,6 +82,8 @@
                                 <th>Purchase Date</th>
                                 <th>Item</th>
                                 <th>Purchase Qty</th>
+                                <th>Purchase Unit</th>
+                                <th>Qty per Unit</th>
                                 <th>Unit Cost</th>
                                 <th>Total Cost</th>
                                 <th>Supplier</th>
@@ -96,7 +98,9 @@
                                     <tr>
                                             <td>{{date_format($p->created_at,'d M Y')}}</td>
                                             <td>{{$p->product->name}}</td>
-                                            <td>{{number_format($p->quantity,0) . " (". $p->product->purchase_uom .")"}}</td>
+                                            <td>{{number_format($p->quantity,0) }}</td>
+                                            <td>{{$p->purchase_uom}}</td>
+                                            <td>{{$p->quantity_per_unit}}</td>
                                             <td>{{number_format($p->unit_cost,2)}}</td>
                                             <td>{{number_format(($p->unit_cost * $p->quantity), 2)}}</td>
                                             <td>{{$p->supplier->name}}</td>
