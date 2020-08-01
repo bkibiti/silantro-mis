@@ -116,13 +116,14 @@ class SaleController extends Controller
     public function history()
     {
         $sales = Sale::whereRaw('month(created_at) = month(now()) and year(created_at)=year(now())')->get();
+        $products = Stock::select('id','name')->orderBy('name')->get();
 
         $total = 0;
         foreach ($sales as $s) {
             $total = $total + ($s->quantity * $s->selling_price);
         }
 
-        return view('sales.history', compact('sales','total'));
+        return view('sales.history', compact('sales','total','products'));
     }
 
     public function historySearch(Request $request)
@@ -130,15 +131,18 @@ class SaleController extends Controller
         $from = date('Y-m-d', strtotime($request->from_date));
         $to = date('Y-m-d', strtotime($request->to_date));
 
-        $sales = Sale::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")->get();
+        $sales = Sale::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")
+                ->where('stock_id','like','%'. $request->product. '%')
+                ->get();
 
         $total = 0;
         foreach ($sales as $s) {
             $total = $total + ($s->quantity * $s->selling_price);
         }
-
+        
+        $products = Stock::select('id','name')->orderBy('name')->get();
         $request->flash();
-        return view('sales.history', compact('sales','total'));
+        return view('sales.history', compact('sales','total','products'));
     }
 
 

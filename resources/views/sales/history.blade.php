@@ -28,6 +28,15 @@ Sales History
                     @csrf()
 
                     <div class="form-group row">
+                        <div class="col-md-3">
+                            <select class="form-control select2"  class="form-control" name="product" data-width="100%">
+                                    <option value="1" {{ (old('product')==0 ? "selected":"") }}>All Products</option>
+
+                                    @foreach($products as $p)
+                                    <option value="{{ $p->id }}" {{ (old('product')==$p->id ? "selected":"") }}>{{ $p->name }}</option>
+                                    @endforeach
+                            </select>
+                        </div>
 
                         <div class="col-md-2">
                             <div id="date" style="border: 2px solid white; border-radius: 6px;">

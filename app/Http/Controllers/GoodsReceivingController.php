@@ -83,8 +83,9 @@ class GoodsReceivingController extends Controller
         }
 
         $suppliers = Supplier::all();
+        $products = Stock::select('id','name')->orderBy('name')->get();
 
-        return view('purchases.history', compact("purchases","total",'suppliers'));
+        return view('purchases.history', compact("purchases","total",'suppliers','products'));
     }
 
     public function search(Request $request)
@@ -93,10 +94,14 @@ class GoodsReceivingController extends Controller
         $to = date('Y-m-d', strtotime($request->to_date));
 
         if($request->supplier == 0){
-            $purchases = IncomingStock::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")->get();
+            $purchases = IncomingStock::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")
+                        ->where('product_id','like','%'. $request->product. '%')
+                        ->get();
         }else{
             $purchases = IncomingStock::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")
-                        ->where('supplier_id',$request->supplier)->get();
+                        ->where('product_id','like','%'. $request->product. '%')
+                        ->where('supplier_id',$request->supplier)
+                        ->get();
         }
         
         $total = 0;
@@ -105,9 +110,10 @@ class GoodsReceivingController extends Controller
         }
 
         $suppliers = Supplier::all();
+        $products = Stock::all();
         $request->flash();
 
-        return view('purchases.history', compact('purchases','total','suppliers'));
+        return view('purchases.history', compact('purchases','total','suppliers','products'));
     }
 
     public function itemHistory(Request $request)

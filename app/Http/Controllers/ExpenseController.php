@@ -36,6 +36,7 @@ class ExpenseController extends Controller
         $expense->expense_category_id = $request->expense_category;
         $expense->expense_description = $request->expense_description;
         $expense->created_at = date('Y-m-d', strtotime($request->expense_date));
+        $expense->updated_at = date('Y-m-d', strtotime($request->expense_date));
         $expense->updated_by = Auth::user()->id;
         $expense->save();
 
