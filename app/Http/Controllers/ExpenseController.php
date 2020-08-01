@@ -7,6 +7,7 @@ use App\Expense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ExpenseController extends Controller
 {
@@ -56,7 +57,8 @@ class ExpenseController extends Controller
         $expense->amount = $request->expense_amount;
         $expense->expense_category_id = $request->expense_category;
         $expense->expense_description = $request->expense_description;
-        $expense->updated_at = date('Y-m-d', strtotime($request->expense_date));
+        $expense->updated_at = Carbon::now();
+        $expense->created_at = date('Y-m-d', strtotime($request->expense_date));
         $expense->updated_by = Auth::user()->id;
         $expense->save();
 
