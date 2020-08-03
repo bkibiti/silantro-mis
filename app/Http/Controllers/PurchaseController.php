@@ -119,9 +119,9 @@ class PurchaseController extends Controller
     public function itemHistory(Request $request)
     {
          $history = Purchase::where('product_id', $request->prod_id)
-        ->orderBy('id','desc')
-        ->limit('7')
-        ->get();
+                ->orderBy('id','desc')
+                ->limit('7')
+                ->get();
 
         $data = [];
         $prevPrice = [];
