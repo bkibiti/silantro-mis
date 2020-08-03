@@ -32,7 +32,7 @@ class PurchaseController extends Controller
         $totalQty = $request->quantity * $request->quantity_per_unit;
         $UnitBuyingPrice = $request->unit_cost / $request->quantity_per_unit;
 
-        $incoming = new Purchase;
+        $incoming = new purchase;
         $incoming->product_id = $request->id;
         $incoming->quantity = $request->quantity;
         $incoming->quantity_per_unit = $request->quantity_per_unit;

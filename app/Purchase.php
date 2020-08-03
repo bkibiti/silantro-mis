@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Purchase extends Model
 {
-    protected $table = 'Purchases';
+    protected $table = 'purchases';
 
 
     public function supplier()
