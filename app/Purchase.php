@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class IncomingStock extends Model
+class Purchase extends Model
 {
-    protected $table = 'incoming_stock';
+    protected $table = 'Purchases';
 
 
     public function supplier()
@@ -23,6 +23,4 @@ class IncomingStock extends Model
     {
         return $this->belongsTo('App\User', 'created_by'); 
     }
-
 }
-

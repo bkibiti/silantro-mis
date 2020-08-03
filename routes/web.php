@@ -49,12 +49,12 @@ Route::middleware(["auth"])->group(function () {
     Route::resource('reminders', 'ReminderController');
 
     //Purchase Routes
-    Route::get('purchases/goods-receiving', 'GoodsReceivingController@index')->name('goods-receiving.index');
-    Route::post('purchases/goods-receiving', 'GoodsReceivingController@store')->name('goods-receiving.store');
-    Route::post('purchases/goods-receiving/update', 'GoodsReceivingController@update')->name('goods-receiving.update');
-    Route::get('purchases/history', 'GoodsReceivingController@history')->name('goods-receiving.history');
-    Route::get('purchases/history/search', 'GoodsReceivingController@search')->name('goods-receiving.search');
-    Route::post('purchases/previous-purchases', 'GoodsReceivingController@itemHistory')->name('goods-receiving.item-history');
+    Route::get('purchases/goods-receiving', 'PurchaseController@index')->name('goods-receiving.index');
+    Route::post('purchases/goods-receiving', 'PurchaseController@store')->name('goods-receiving.store');
+    Route::post('purchases/goods-receiving/update', 'PurchaseController@update')->name('goods-receiving.update');
+    Route::get('purchases/history', 'PurchaseController@history')->name('goods-receiving.history');
+    Route::get('purchases/history/search', 'PurchaseController@search')->name('goods-receiving.search');
+    Route::post('purchases/previous-purchases', 'PurchaseController@itemHistory')->name('goods-receiving.item-history');
 
 
 

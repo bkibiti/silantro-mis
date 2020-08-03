@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Stock;
 use App\Supplier;
-use App\IncomingStock;
+use App\Purchase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class GoodsReceivingController extends Controller
+class PurchaseController extends Controller
 {
 
     public function index()
@@ -32,7 +32,7 @@ class GoodsReceivingController extends Controller
         $totalQty = $request->quantity * $request->quantity_per_unit;
         $UnitBuyingPrice = $request->unit_cost / $request->quantity_per_unit;
 
-        $incoming = new IncomingStock;
+        $incoming = new Purchase;
         $incoming->product_id = $request->id;
         $incoming->quantity = $request->quantity;
         $incoming->quantity_per_unit = $request->quantity_per_unit;
@@ -60,7 +60,7 @@ class GoodsReceivingController extends Controller
 
         $purchase_date = date('Y-m-d', strtotime($request->created_at));
 
-        $incoming = IncomingStock::find($request->id);
+        $incoming = Purchase::find($request->id);
         $incoming->quantity = $request->quantity;
         $incoming->supplier_id = $request->supplier_id;
         $incoming->unit_cost = $request->unit_cost;
@@ -75,7 +75,7 @@ class GoodsReceivingController extends Controller
 
     public function history(){
         $now = Carbon::now();
-        $purchases = IncomingStock::whereRaw('month(created_at) = month(now()) and year(created_at)=year(now())')->get();
+        $purchases = Purchase::whereRaw('month(created_at) = month(now()) and year(created_at)=year(now())')->get();
 
         $total = 0;
         foreach ($purchases as $p) {
@@ -94,11 +94,11 @@ class GoodsReceivingController extends Controller
         $to = date('Y-m-d', strtotime($request->to_date));
 
         if($request->supplier == 0){
-            $purchases = IncomingStock::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")
+            $purchases = Purchase::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")
                         ->where('product_id','like','%'. $request->product. '%')
                         ->get();
         }else{
-            $purchases = IncomingStock::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")
+            $purchases = Purchase::whereRaw("date(created_at) between '". $from . "' and '". $to ."'")
                         ->where('product_id','like','%'. $request->product. '%')
                         ->where('supplier_id',$request->supplier)
                         ->get();
@@ -110,7 +110,7 @@ class GoodsReceivingController extends Controller
         }
 
         $suppliers = Supplier::all();
-        $products = Stock::all();
+        $products = Stock::select('id','name')->orderBy('name')->get();
         $request->flash();
 
         return view('purchases.history', compact('purchases','total','suppliers','products'));
@@ -118,7 +118,7 @@ class GoodsReceivingController extends Controller
 
     public function itemHistory(Request $request)
     {
-         $history = IncomingStock::where('product_id', $request->prod_id)
+         $history = Purchase::where('product_id', $request->prod_id)
         ->orderBy('id','desc')
         ->limit('7')
         ->get();

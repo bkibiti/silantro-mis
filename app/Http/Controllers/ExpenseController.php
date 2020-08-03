@@ -66,7 +66,6 @@ class ExpenseController extends Controller
         return back();
     }
 
-
     public function search(Request $request)
     {
         $from = date('Y-m-d', strtotime($request->from_date));

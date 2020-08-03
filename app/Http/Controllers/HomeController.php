@@ -52,7 +52,7 @@ class HomeController extends Controller
 
         $totalSales = Sale::sum(DB::raw('quantity*selling_price'));
         $totalExpenses = DB::table('expenses')->select(DB::raw('sum(Amount) Amount'))->get();
-        $totalPurchases = DB::table('incoming_stock')->select(DB::raw('sum(unit_cost*quantity) Amount'))->get();
+        $totalPurchases = DB::table('purchases')->select(DB::raw('sum(unit_cost*quantity) Amount'))->get();
         $totalProft = DB::table('sales')->select(DB::raw('sum((selling_price-buying_price)*quantity) Amount'))->get();
         $days = DB::table('sales')->select(DB::raw('date(created_at)'))->distinct()->get();
 
@@ -116,11 +116,11 @@ class HomeController extends Controller
             ->select(DB::raw('sum((selling_price-buying_price)*quantity) Amount'))
             ->whereRaw('YEAR(created_at) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) AND MONTH(created_at) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH)')
             ->get();
-        $purchaseThisMonth = DB::table('incoming_stock')
+        $purchaseThisMonth = DB::table('purchases')
             ->select(DB::raw('sum(unit_cost*quantity) Amount'))
             ->whereRaw('MONTH(created_at) = MONTH(NOW())')
             ->get();
-        $purchaseLastMonth = DB::table('incoming_stock')
+        $purchaseLastMonth = DB::table('purchases')
             ->select(DB::raw('sum(unit_cost*quantity) Amount'))
             ->whereRaw('YEAR(created_at) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) AND MONTH(created_at) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH)')
             ->get();
