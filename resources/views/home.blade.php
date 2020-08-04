@@ -12,10 +12,7 @@
         height: 400px;
     }
 
-    #sales_by_user {
-        width: 100%;
-        height: 400px;
-    }
+ 
 </style>
 @endsection
 
@@ -37,37 +34,7 @@
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
-            {{-- <div class="row">
-
-                <div class="col-xl-6 col-md-6">
-                    <div class="card">
-                        <div class="card-block">
-                            <div class="row align-items-center justify-content-center">
-                                <div class="col">
-                                    <h3 class="text-c-red">Out of stock - {{ outofstock()}} Item(s)</h3>
-                                    <a href="{{route('out-of-stock')}}" class="badge badge-info">View</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-md-6">
-                    <div class="card">
-                        <div class="card-block">
-                            <div class="row align-items-center justify-content-center">
-                                <div class="col">
-                                    <h3 class="text-c-green">Below minimum level - {{ belowMin()}} Item(s) </h3>
-                                    <a href="{{route('below-min-level')}}" class="badge badge-info">View</a>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div> --}}
+    
             <div class="row">
                 <div class="col-md-12 col-xl-4">
                     <div class="card">
@@ -124,14 +91,65 @@
 
             </div>
 
-            {{-- row 3 start --}}
+            {{-- row 2 start --}}
             <div class="row">
-                <div class="col-md-6 col-xl-6">
+                <div class="col-md-6 col-xl-4">
+                    <div class="card">
+                      
+                        <div class="card-block">
+                            <div class="table-responsive">
+                                <table id="table1" class="display table nowrap table-striped table-hover"
+                                       style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                    </tr>
+                                    </thead>
+                                        <tbody>
+                                            @foreach($StockOut as $prod)
+                                            <tr>
+                                                    <td>{{$prod->name}}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-4">
+                    <div class="card">
+                     
+                        <div class="card-block">
+                            <div class="table-responsive">
+                                <table id="table2" class="display table nowrap table-striped table-hover"
+                                       style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>QOH</th>
+                                        <th>Mini Qty</th>
+                                    </tr>
+                                    </thead>
+                                        <tbody>
+                                            @foreach($Products as $prod)
+                                            <tr>
+                                                    <td>{{$prod->name}}</td>
+                                                    <td>{{$prod->quantity}}</td>
+                                                    <td>{{$prod->min_quantinty}}</td>
+        
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-4">
                     <div id='staff_loss'></div>
                 </div>
-                <div class="col-md-6 col-xl-6">
-                    <div id='sales_by_user'></div>
-                </div>
+               
             </div>
 
 
@@ -157,6 +175,20 @@
 <script>
     var title = document.title;
     document.title = title.concat(" | Home");
+
+    $('#table1').DataTable({
+        searching: false,
+        scrollY:  "250px",
+        bPaginate: false,
+    });
+
+    $('#table2').DataTable({
+        searching: false,
+        scrollY:  "250px",
+        bPaginate: false,
+    });
+
+
 </script>
 
 <!-- Losses by user -->
@@ -221,39 +253,6 @@
         }); 
 </script>
 
-<!-- Sales by Users -->
 
-<script>
-    am4core.ready(function() {
-    
-    // Themes begin
-    am4core.useTheme(am4themes_animated);
-    // Themes end
-    
-    // Create chart
-     var chart = am4core.create("sales_by_user", am4charts.PieChart);
-     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-
-        chart.data = @json($salesByUser);
-      //title
-      var title = chart.titles.create();
-            title.text = "Total Sales By Staff this Month";
-            title.fontSize = 16;
-            title.marginBottom = 15;
-
-    
-    var series = chart.series.push(new am4charts.PieSeries());
-    series.dataFields.value = "amount";
-    series.dataFields.radiusValue = "amount";
-    series.dataFields.category = "user";
-    series.slices.template.cornerRadius = 6;
-    series.colors.step = 3;
-    
-    series.hiddenState.properties.endAngle = 90;
-    
-
-    
-    }); // end am4core.ready()
-</script>
 
 @endpush
