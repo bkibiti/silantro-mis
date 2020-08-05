@@ -17,8 +17,8 @@
             </div>
         </div>
         <div class="col-md-2" id="product_list">
-            <select class="form-control select2"  class="form-control" name="product" data-width="100%">
-                    <option value="1" {{ (old('product')==0 ? "selected":"") }}>All Products</option>
+            <select class="form-control select2"  class="form-control" name="product" data-width="100%" required>
+                    <option value="" }}>Select Product</option>
 
                     @foreach($products as $p)
                     <option value="{{ $p->id }}" {{ (old('product')==$p->id ? "selected":"") }}>{{ $p->name }}</option>
