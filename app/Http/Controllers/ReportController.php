@@ -6,18 +6,22 @@ use App\Sale;
 use DB;
 use Illuminate\Http\Request;
 use PDF;
+use App\Stock;
+
 
 class ReportController extends Controller
 {
     public function index()
     {
-        return view('reports.index');
+        $products = Stock::select('id','name')->orderBy('name')->get();
+        return view('reports.index',compact('products'));
     }
 
     protected function getReport(Request $request)
     {
         $from = date('Y-m-d', strtotime($request->from_date));
         $to = date('Y-m-d', strtotime($request->to_date));
+        $products = Stock::select('id','name')->orderBy('name')->get();
 
 
         switch ($request->report) {
@@ -103,6 +107,24 @@ class ReportController extends Controller
                 $pdf = PDF::loadView('reports.template_daily_sale_report_pdf', compact('data'));
                 return $pdf->stream();
                 break;
+            case 7:
+                    $data = DB::select("SELECT * FROM 
+                            (SELECT s.Date,s.Action,SUM(s.qty) as Qty,
+                                    (   SELECT SUM(sm.qty) 
+                                        FROM stock_movements sm
+                                        WHERE sm.Date <= s.Date and sm.id = $request->product
+                                    ) AS QOH
+                                        FROM stock_movements s
+                            WHERE s.id = $request->product
+                            GROUP BY s.date,s.action
+                            ORDER BY s.Date
+                            ) AS Q
+                            WHERE Q.Date between'". $from ."' and '". $to ."'");
+
+                    $request->flash();
+                        
+                    return view('reports.item_movement_history', compact('data','products'));
+                    break;
             default:
 
         }

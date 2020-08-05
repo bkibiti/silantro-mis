@@ -8,25 +8,46 @@
 @endsection
 
 @section('content-title')
-Reports
+Item Movement History
 @endsection
 
-@section('content-sub-title')
-<li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
-<li class="breadcrumb-item"><a href="#"> Reports </a></li>
-@endsection
 
 @section("content")
-
 
 <div class="col-sm-12">
     <div class="card">
         <div class="card-body">
-     
-            @include('reports.search')
 
-         <hr>
-     
+            @include('reports.search')
+    <hr>
+            <div class="table-responsive">
+                <table id="fixed-header1" class="display table nowrap table-striped table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Action</th>
+                            <th>Quantity</th>
+                            <th>QOH</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($data as $d)
+                            <tr>
+                                <td>{{$d->Date}}</td>
+                                <td>{{$d->Action}}</td>
+                                <td>{{$d->Qty}}</td>
+                                <td>{{$d->QOH}}</td>
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+            
+                </table>
+            
+
+            </div>
+
+            <hr>
  
   
         </div>
@@ -40,22 +61,20 @@ Reports
 <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
 <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
 @include('partials.notification')
-
 @include('reports.hide_show_filters')
 
 <script>
     var title = document.title;
-    document.title = title.concat(" | Reports");
+    document.title = title.concat(" | Reports - Item Movement History");
 </script>
 
 <script>
 
     $('#fixed-header1').DataTable({
       bAutoWidth: true,
-      order: [[0, "desc"]]
+      ordering: false
     });
 
-    $('#product_list').hide();
 
     $(function () {
         var start = moment();
@@ -86,10 +105,6 @@ Reports
                 }
             });
     });
-
-
-
-
 
 </script>
 

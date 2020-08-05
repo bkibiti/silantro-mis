@@ -12,8 +12,18 @@
                     <option value="4" {{ (old('report')==4 ? "selected":"") }}>Gross Profit</option>
                     <option value="5" {{ (old('report')==5 ? "selected":"") }}>Current Stock Value</option>
                     <option value="6" {{ (old('report')==6 ? "selected":"") }}>Daily Sale Report Template</option>
+                    <option value="7" {{ (old('report')==7 ? "selected":"") }}>Item Movement History</option>
                 </select>
             </div>
+        </div>
+        <div class="col-md-2" id="product_list">
+            <select class="form-control select2"  class="form-control" name="product" data-width="100%">
+                    <option value="1" {{ (old('product')==0 ? "selected":"") }}>All Products</option>
+
+                    @foreach($products as $p)
+                    <option value="{{ $p->id }}" {{ (old('product')==$p->id ? "selected":"") }}>{{ $p->name }}</option>
+                    @endforeach
+            </select>
         </div>
         <div class="col-md-2" id = "fromDateDiv">
             <div style="border: 2px solid white; border-radius: 6px;" >
@@ -25,6 +35,7 @@
                 <input type="text" name="to_date" class="form-control" id="to_date" value="{{ old('to_date') }}">
             </div>
         </div>
+      
       
         <div class="col-md-2">
             <button type="submit" class="btn btn-success" name="action" value="view">View</button>

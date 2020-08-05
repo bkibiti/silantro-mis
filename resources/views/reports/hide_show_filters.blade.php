@@ -1,5 +1,5 @@
 <script>
-    var NeedDateFilter = ["1","4"];
+    var NeedDateFilter = ["1","4","7"];
     var NoDateFilter = ["2","3","5","6"];
 
     var reportType = $('#report_type').val();
@@ -23,6 +23,11 @@
         if( NoDateFilter.includes(value)){
             $('#fromDateDiv').hide();
             $('#toDateDiv').hide();
+        }
+        if(value == 7){
+            $('#product_list').show();
+        }else{
+            $('#product_list').hide();
         }
     
     });
