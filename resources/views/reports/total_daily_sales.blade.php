@@ -19,7 +19,7 @@ Total Daily Sales Reports
     <div class="card">
         <div class="card-body">
      
-            @include('reports.search')
+            @include('reports._search')
 
     <hr>
             <div class="table-responsive">
@@ -59,7 +59,7 @@ Total Daily Sales Reports
 <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
 <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
 @include('partials.notification')
-@include('reports.hide_show_filters')
+@include('reports._hide_show_filters')
 <script>
     var title = document.title;
     document.title = title.concat(" | Reports - Daily Sales");

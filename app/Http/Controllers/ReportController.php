@@ -30,7 +30,7 @@ class ReportController extends Controller
                 $request->flash();
 
                 if($request->action =="view"){
-                    return view('reports.total_daily_sales', compact('data'));
+                    return view('reports.total_daily_sales', compact('data','products'));
                 }
                 if($request->action =="print"){
                     $filterMsg = 'From '. date('d M Y', strtotime($request->from_date)) . '    to '.date('d M Y', strtotime($request->to_date));
@@ -42,7 +42,7 @@ class ReportController extends Controller
                 $data = $this->TotalMonthlySale($from, $to);
                 $request->flash();
                 if($request->action =="view"){
-                    return view('reports.total_monthly', compact('data'));
+                    return view('reports.total_monthly', compact('data','products'));
                 }
                 if($request->action =="print"){
                     $pdf = PDF::loadView('reports.total_monthly_pdf', compact('data'));
@@ -55,7 +55,7 @@ class ReportController extends Controller
 
                 $request->flash();
                 if($request->action =="view"){
-                    return view('reports.fast_moving_items', compact('data','days'));
+                    return view('reports.fast_moving_items', compact('data','days','products'));
                 }
                 if($request->action =="print"){
                     $pdf = PDF::loadView('reports.fast_moving_items_pdf', compact('data','days'));
@@ -72,7 +72,7 @@ class ReportController extends Controller
                 $request->flash();
 
                 if($request->action =="view"){
-                    return view('reports.gross_profit', compact('data','total'));
+                    return view('reports.gross_profit', compact('data','total','products'));
                 }
                 if($request->action =="print"){
                     $filterMsg = 'From '. date('d M Y', strtotime($request->from_date)) . '    to '.date('d M Y', strtotime($request->to_date));
@@ -86,7 +86,7 @@ class ReportController extends Controller
                 $total = DB::table('stock')->selectRaw('sum(quantity*unit_cost) total_purchase_value,sum(quantity*sale_price_1) total_sale_value')->get();
                 $request->flash();
                 if($request->action =="view"){
-                    return view('reports.stock_value', compact('data','total'));
+                    return view('reports.stock_value', compact('data','total','products'));
                 }
                 if($request->action =="print"){
                     $pdf = PDF::loadView('reports.stock_value_pdf', compact('data','total'));
@@ -152,7 +152,7 @@ class ReportController extends Controller
 
         return $totalMonthlySales;
     }
-
+    
     private function fastMovingItems()
     {
         $soldqty = DB::table('sales')

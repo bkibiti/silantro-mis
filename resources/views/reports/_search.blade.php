@@ -16,9 +16,9 @@
                 </select>
             </div>
         </div>
-        <div class="col-md-2" id="product_list">
+        <div class="col-md-2" id="product_list" style="display: none">
             <select class="form-control select2"  class="form-control" name="product" data-width="100%" required>
-                    <option value="" }}>Select Product</option>
+                    <option value="1" }}>Select Product</option>
 
                     @foreach($products as $p)
                     <option value="{{ $p->id }}" {{ (old('product')==$p->id ? "selected":"") }}>{{ $p->name }}</option>

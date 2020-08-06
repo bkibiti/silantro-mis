@@ -4,6 +4,7 @@
 
     var reportType = $('#report_type').val();
 
+
     if( NeedDateFilter.includes(reportType)){
         $('#fromDateDiv').show();
         $('#toDateDiv').show();

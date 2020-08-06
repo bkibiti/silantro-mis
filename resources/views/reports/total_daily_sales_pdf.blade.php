@@ -1,4 +1,4 @@
-@include('pdf_reports.header')
+@include('reports_pdf.header')
 
     <div class="row" style="padding-top: -3%">
 
@@ -40,4 +40,4 @@
    
     </div>
 
-@include('pdf_reports.footer')
+@include('reports_pdf.footer')

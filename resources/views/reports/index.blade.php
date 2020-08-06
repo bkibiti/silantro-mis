@@ -23,7 +23,7 @@ Reports
     <div class="card">
         <div class="card-body">
      
-            @include('reports.search')
+            @include('reports._search')
 
          <hr>
      
@@ -41,7 +41,7 @@ Reports
 <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
 @include('partials.notification')
 
-@include('reports.hide_show_filters')
+@include('reports._hide_show_filters')
 
 <script>
     var title = document.title;

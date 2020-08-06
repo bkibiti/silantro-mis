@@ -18,7 +18,7 @@ Item Movement History
     <div class="card">
         <div class="card-body">
 
-            @include('reports.search')
+            @include('reports._search')
     <hr>
             <div class="table-responsive">
                 <table id="fixed-header1" class="display table nowrap table-striped table-hover" style="width:100%">
@@ -61,7 +61,7 @@ Item Movement History
 <script src="{{asset("assets/plugins/bootstrap-datetimepicker/js/bootstrap-datepicker.min.js")}}"></script>
 <script src="{{asset("assets/js/pages/ac-datepicker.js")}}"></script>
 @include('partials.notification')
-@include('reports.hide_show_filters')
+@include('reports._hide_show_filters')
 
 <script>
     var title = document.title;
@@ -69,6 +69,9 @@ Item Movement History
 </script>
 
 <script>
+
+    $('#product_list').show();
+
 
     $('#fixed-header1').DataTable({
       bAutoWidth: true,
