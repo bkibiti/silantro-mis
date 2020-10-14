@@ -24,8 +24,9 @@ class SaleController extends Controller
         
         $users = User::permission('POS Users')->get();
         $customers = Customer::orderBy('name', 'ASC')->get();
+        $categories = Category::orderBy('name', 'ASC')->get();
 
-        return view('sales.pos', compact('current_stock','customers','users'));
+        return view('sales.pos', compact('current_stock','customers','users','categories'));
     }
 
     public function store(Request $request){

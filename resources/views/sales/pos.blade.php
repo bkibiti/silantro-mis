@@ -11,11 +11,26 @@ Point of Sales
 <div class="col-sm-5">
     <div class="card">
         <div class="card-body">
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <select class="form-control select2" id="product_category" data-width="100%">
+                            <option value="">Select Category</option>
 
+                            @foreach($categories as $c)
+                                <option value="{{ $c->name }}" }}>{{ $c->name }}</option>
+                            @endforeach
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control " id="search_products" placeholder="Search Item">
+                </div>
+                
+            </div>
             <div id="product-table" class="table-responsive">
                 <table id="products" class="display table nowrap table-striped table-hover" style="width:100%">
                     <thead>
                         <tr>
+                            <th>Category</th>
                             <th>Item</th>
                             <th>QOH</th>
                             <th></th>
@@ -24,6 +39,7 @@ Point of Sales
                     <tbody>
                         @foreach($current_stock as $stock)
                         <tr>
+                            <td>{{ $stock->category->name }}</td>
                             <td>{{ $stock->name }}</td>
                             <td>{{$stock->quantity}}</td>
                             <td>
@@ -142,6 +158,7 @@ Point of Sales
 </script>
 
 <script>
+
     $(function () {
         var start = moment();
         var end = moment();
@@ -158,15 +175,39 @@ Point of Sales
     });
 
 
-    $('#products').DataTable({
+    var prod_table = $('#products').DataTable({
         bAutoWidth: true,
         lengthChange: false,
         scrollY:  "500px",
         scrollCollapse: true,
         paging: false,
         bInfo: false,
+        dom: 'lrtip',
+        order: [[ 1, "asc" ]],
+        columnDefs: [{
+            targets: 0,
+            searchable: true,
+            visible: false
+        }]
+        
     });
-    
+
+    //on dropdown change, filter items
+    $('#product_category').change(function(){
+        prod_table
+            .columns(0)
+            .search( this.value )
+            .draw();
+    }); 
+
+
+    $('#search_products').keyup(function(){
+        prod_table
+            .columns(1)
+            .search(this.value)
+            .draw();
+    });
+
     var order_table = $('#order').DataTable({
         searching: false,
         bPaginate: false,
