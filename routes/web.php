@@ -150,6 +150,20 @@ Route::middleware(["auth"])->group(function () {
     Route::post('users/user-role-id', 'UserController@getRoleID')->name('getRoleID');
 
 
+    //Lodge
+    Route::get('lodge/dashboard', 'LodgeDashboardController@index')->name('lodge.index');
+
+    Route::get('lodge/expenses', 'LodgeExpenseController@index')->name('lodge-expense.index');
+    Route::post('lodge/expenses', 'LodgeExpenseController@store')->name('lodge-expense.store');
+    Route::post('lodge/expense-update', 'LodgeExpenseController@update')->name('lodge-expense.update');
+    Route::get('lodge/expense-search', 'LodgeExpenseController@search')->name('lodge-expense.search');
+
+    Route::get('lodge/sales', 'LodgeSalesController@index')->name('lodge-sales.index');
+    Route::post('lodge/sales', 'LodgeSalesController@store')->name('lodge-sales.store');
+    Route::post('lodge/sales-update', 'LodgeSalesController@update')->name('lodge-sales.update');
+    Route::get('lodge/sales-search', 'LodgeSalesController@search')->name('lodge-sales.search');
+
+
 });
 
 

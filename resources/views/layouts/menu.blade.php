@@ -32,6 +32,28 @@
 </li>
 @endcan
 
+@can('View Lodge Module')
+<li class="nav-item pcoded-hasmenu">
+    <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="fas fa-bed"></i></span>
+        <span class="pcoded-mtext">Lodge</span>
+    </a>
+    <ul class="pcoded-submenu">
+        @can('View Lodge Dashboard')
+        <li class=""><a href="{{route('lodge.index')}}" class="">Dashboard</a></li>
+        @endcan
+     
+        @can('Manage Lodge Sales')
+        <li class=""><a href="{{route('lodge-sales.index')}}" class="">Sales</a></li>
+        @endcan
+
+        @can('Manage Lodge Expenses')
+        <li class=""><a href="{{route('lodge-expense.index')}}" class="">Expenses</a></li>
+        @endcan
+   
+
+</ul>
+</li>
+@endcan
 
 <li class="nav-item pcoded-hasmenu">
     @can('View Inventory Management')
