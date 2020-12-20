@@ -51,6 +51,13 @@ Point of Sales
                                         data-unit_cost="{{$stock->unit_cost}}" data-quantity="{{$stock->quantity}}"
                                         data-toggle="button"><i class="feather icon-chevron-right"></i>
                                     </button>
+                                    <button type="button"
+                                        class="btn btn-sm btn-rounded btn-icon btn-secondary selectProducts"
+                                        data-id="{{$stock->id}}" data-name="{{$stock->name}}"
+                                        data-sale_price_1="{{$stock->sale_price_1}}"
+                                        data-unit_cost="{{$stock->unit_cost}}" data-quantity="{{$stock->quantity}}"
+                                        data-toggle="modal" data-target="#addItemsModal"><i class="feather icon-chevrons-right"></i>
+                                    </button>
                             
                                 
                                 </a>
