@@ -40,7 +40,7 @@ class LodgeDashboardController extends Controller
         
         $salesThisMonth = DB::table('lodge_sales')
             ->select(DB::raw('sum(amount) Amount'))
-            ->whereRaw('MONTH(created_at) = MONTH(NOW())')
+            ->whereRaw('MONTH(created_at) = MONTH(NOW()) and YEAR(created_at) = YEAR(NOW())')
             ->get();
         $salesLastMonth = DB::table('lodge_sales')
             ->select(DB::raw('sum(amount) Amount'))
@@ -48,12 +48,12 @@ class LodgeDashboardController extends Controller
             ->get();
         $salesBeforeLastMonth = DB::table('lodge_sales')
             ->select(DB::raw('sum(amount) Amount'))
-            ->whereRaw('YEAR(created_at) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) AND MONTH(created_at) = MONTH(CURRENT_DATE - INTERVAL 2 MONTH)')
+            ->whereRaw('YEAR(created_at) = YEAR(CURRENT_DATE - INTERVAL 2 MONTH) AND MONTH(created_at) = MONTH(CURRENT_DATE - INTERVAL 2 MONTH)')
             ->get();
    
         $expensesThisMonth = DB::table('lodge_expenses')
             ->select(DB::raw('sum(amount) Amount'))
-            ->whereRaw('MONTH(created_at) = MONTH(NOW())')
+            ->whereRaw('MONTH(created_at) = MONTH(NOW()) and YEAR(created_at) = YEAR(NOW())')
             ->get();
         $expensesLastMonth = DB::table('lodge_expenses')
             ->select(DB::raw('sum(amount) Amount'))
@@ -61,7 +61,7 @@ class LodgeDashboardController extends Controller
             ->get();
         $expensesBeforeLastMonth = DB::table('lodge_expenses')
             ->select(DB::raw('sum(amount) Amount'))
-            ->whereRaw('YEAR(created_at) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) AND MONTH(created_at) = MONTH(CURRENT_DATE - INTERVAL 2 MONTH)')
+            ->whereRaw('YEAR(created_at) = YEAR(CURRENT_DATE - INTERVAL 2 MONTH) AND MONTH(created_at) = MONTH(CURRENT_DATE - INTERVAL 2 MONTH)')
             ->get();
 
         $thisMonth = [];

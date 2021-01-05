@@ -33,7 +33,29 @@
     </ul>
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-
+            <div class="row">
+                <div class="col-md-6 col-xl-4">
+                    <div class="card theme-bg">
+                        <div class="card-block">
+                            <h5 class="text-white mb-2">Last Purchase: {{date_format(date_create($lastPurchase[0]->date),"d M Y")}} </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-4">
+                    <div class="card theme-bg2">
+                        <div class="card-block">
+                            <h5 class="text-white mb-2">Last Sale: {{date_format(date_create($lastSale[0]->date),"d M Y")}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xl-4">
+                    <div class="card bg-c-blue">
+                        <div class="card-block">
+                            <h5 class="text-white mb-2">Last Expense: {{date_format(date_create($lastExpense[0]->date),"d M Y")}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
     
             <div class="row">
                 <div class="col-md-12 col-xl-4">

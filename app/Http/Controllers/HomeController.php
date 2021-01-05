@@ -42,7 +42,12 @@ class HomeController extends Controller
                     where month(staff_advances.date) = month(now()) and type='loss'
                     group by users.name");
 
-        return view('home', compact('Products','staffLoss','StockOut'));
+        $lastExpense = DB::select("select max(created_at) as date from expenses");
+        $lastSale = DB::select("select max(created_at) as date from sales");
+        $lastPurchase = DB::select("select max(created_at) as date from purchases");
+
+
+        return view('home', compact('Products','staffLoss','StockOut','lastExpense','lastSale','lastPurchase'));
 
     }
 
@@ -101,7 +106,7 @@ class HomeController extends Controller
         
         $salesThisMonth = DB::table('sales')
             ->select(DB::raw('sum(selling_price*quantity) Amount'))
-            ->whereRaw('MONTH(created_at) = MONTH(NOW())')
+            ->whereRaw('MONTH(created_at) = MONTH(NOW()) and YEAR(created_at) = YEAR(NOW())')
             ->get();
         $salesLastMonth = DB::table('sales')
             ->select(DB::raw('sum(selling_price*quantity) Amount'))
@@ -109,7 +114,7 @@ class HomeController extends Controller
             ->get();
         $proftThisMonth = DB::table('sales')
             ->select(DB::raw('sum((selling_price-buying_price)*quantity) Amount'))
-            ->whereRaw('MONTH(created_at) = MONTH(NOW())')
+            ->whereRaw('MONTH(created_at) = MONTH(NOW()) and YEAR(created_at) = YEAR(NOW())')
             ->get();
         $profitLastMonth = DB::table('sales')
             ->select(DB::raw('sum((selling_price-buying_price)*quantity) Amount'))
@@ -117,7 +122,7 @@ class HomeController extends Controller
             ->get();
         $purchaseThisMonth = DB::table('purchases')
             ->select(DB::raw('sum(unit_cost*quantity) Amount'))
-            ->whereRaw('MONTH(created_at) = MONTH(NOW())')
+            ->whereRaw('MONTH(created_at) = MONTH(NOW()) and YEAR(created_at) = YEAR(NOW())')
             ->get();
         $purchaseLastMonth = DB::table('purchases')
             ->select(DB::raw('sum(unit_cost*quantity) Amount'))
@@ -125,7 +130,7 @@ class HomeController extends Controller
             ->get();
         $expensesThisMonth = DB::table('expenses')
             ->select(DB::raw('sum(Amount) Amount'))
-            ->whereRaw('MONTH(created_at) = MONTH(NOW())')
+            ->whereRaw('MONTH(created_at) = MONTH(NOW()) and YEAR(created_at) = YEAR(NOW())')
             ->get();
         $expensesLastMonth = DB::table('expenses')
             ->select(DB::raw('sum(Amount) Amount'))
