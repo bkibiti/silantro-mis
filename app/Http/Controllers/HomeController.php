@@ -39,7 +39,7 @@ class HomeController extends Controller
 
         $staffLoss = DB::select("SELECT users.name as user,sum(amount) as amount FROM 
                     staff_advances join users on staff_advances.user_id=users.id
-                    where month(staff_advances.date) = month(now()) and type='loss'
+                    where month(staff_advances.date) = month(now()) and year(staff_advances.date) = year(now()) and type='loss'
                     group by users.name");
 
         $lastExpense = DB::select("select max(created_at) as date from expenses");

@@ -49,7 +49,16 @@
                             <h5>This Month</h5>
                         </div>
                         <div class="card-block">
-
+                            <span class="d-block">Net Profit</span>
+                            <h4 class="f-w-300 ">TZS {{ number_format( ((double)$thisMonth['profit']- (double)$thisMonth['expense']), 2) }}  
+                                @if (((double)$thisMonth['profit']- (double)$thisMonth['expense']) > 0)
+                                    <i class="far fa-smile text-c-green f-20"></i>
+                                @else
+                                    <i class="far fa-frown text-c-red f-20"></i>
+                                @endif
+                            </h4>
+                           
+                            <hr>
                             <div class="media">
                                 <div class="photo-table">
                                     <h6> Purchases</h6>
@@ -86,6 +95,7 @@
                                         class="label bg-c-green text-white f-14 f-w-400 float-right">{{ number_format($thisMonth['profit'], 2) }}</label>
                                 </div>
                             </div>
+                     
                         </div>
                     </div>
                 </div>
@@ -95,6 +105,15 @@
                             <h5>Last Month</h5>
                         </div>
                         <div class="card-block">
+                            <span class="d-block">Net Profit</span>
+                            <h4 class="f-w-300 ">TZS {{ number_format( ((double)$lastMonth['profit']- (double)$lastMonth['expense']), 2) }}
+                                @if (((double)$lastMonth['profit']- (double)$lastMonth['expense']) > 0)
+                                    <i class="far fa-smile text-c-green f-20"></i>
+                                @else
+                                    <i class="far fa-frown text-c-red f-20"></i>
+                                @endif
+                            </h4>
+                            <hr>
 
                             <div class="media">
                                 <div class="photo-table">
@@ -142,6 +161,15 @@
                             <h5>Daily Averages</h5>
                         </div>
                         <div class="card-block">
+                            <span class="d-block">Net Profit</span>
+                            <h4 class="f-w-300 ">TZS {{ number_format( ((double)$dailyAverage['profit']- (double)$dailyAverage['expense']), 2) }}
+                                @if (((double)$dailyAverage['profit']- (double)$dailyAverage['expense']) > 0)
+                                    <i class="far fa-smile text-c-green f-20"></i>
+                                @else
+                                    <i class="far fa-frown text-c-red f-20"></i>
+                                @endif
+                            </h4>
+                            <hr>
 
                             <div class="media">
                                 <div class="photo-table">

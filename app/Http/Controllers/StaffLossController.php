@@ -13,11 +13,11 @@ class StaffLossController extends Controller
 {
     public function index()
     {
-        $StaffLOss = StaffAdvance::whereRaw('month(date) = month(now())')->get();
+        $StaffLOss = StaffAdvance::whereRaw('month(date) = month(now()) and year(date) = year(now())')->get();
         $users = User::where('status',1)->orderBy('name')->get();
         $staffLossTotal = DB::select("SELECT users.name as user,sum(amount) as amount FROM 
                     staff_advances join users on staff_advances.user_id=users.id
-                    where month(staff_advances.date) = month(now()) and type='loss'
+                    where month(staff_advances.date) = month(now()) and year(staff_advances.date) = year(now())and type='loss'
                     group by users.name");
         $total = 0;
         foreach ($staffLossTotal as $s) {
