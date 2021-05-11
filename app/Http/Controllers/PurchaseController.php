@@ -16,7 +16,7 @@ class PurchaseController extends Controller
     public function index()
     {
         $suppliers = Supplier::all();
-        $products = Stock::all();
+        $products = Stock::where('for_sale','Yes')->get();
 
         return View('purchases.goods_receiving', (compact( 'suppliers','products')));
     }
@@ -55,7 +55,7 @@ class PurchaseController extends Controller
         return back();
     }
 
-    
+
     public function update(Request $request){
 
         $purchase_date = date('Y-m-d', strtotime($request->created_at));
@@ -103,7 +103,7 @@ class PurchaseController extends Controller
                         ->where('supplier_id',$request->supplier)
                         ->get();
         }
-        
+
         $total = 0;
         foreach ($purchases as $p) {
             $total = $total + ($p->quantity * $p->unit_cost);

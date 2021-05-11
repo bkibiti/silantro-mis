@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Silantro Systems | Login</title>
+    <title>Smart Pub | Login</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">

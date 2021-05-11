@@ -60,7 +60,7 @@
                                     <input type="hidden" name="id" id="id">
                                     <input type="hidden" name="purchaseUOM" id="purchaseUOM">
 
-                                  
+
                                     <div class="form-group row">
                                         <label for="product_name" class="col-md-4 col-form-label text-md-right">Date<font color="red">*</font></label>
                                         <div class="col-md-8">
@@ -96,9 +96,9 @@
                                                     <input type="text" class="form-control" id="purchase_uom" readonly>
                                             </div>
                                     </div>
-                                
+
                                     <input type="hidden" class="form-control" id="quantity_per_unit" name="quantity_per_unit" >
-                                 
+
 
                                     <div class="form-group row">
                                             <label for="category" class="col-md-4 col-form-label text-md-right" id="numberofunits"># of Units<font color="red">*</font></label>
@@ -109,7 +109,7 @@
                                     <div class="form-group row">
                                             <label for="category" class="col-md-4 col-form-label text-md-right">Total Price<font color="red">*</font></label>
                                             <div class="col-md-8">
-                                                    <input  class="form-control" id="total_cost" name="total_cost" min="1" required placeholder="Total Purchase">
+                                                    <input  class="form-control" id="total_cost" name="total_cost" min="1" required placeholder="Total Purchase Price">
                                             </div>
                                     </div>
                                     <div class="form-group row">
@@ -125,7 +125,7 @@
                                 </div>
                             </form>
 
-                  
+
 
                         </div>
                 </div>
@@ -137,7 +137,7 @@
         <div class="card">
             <div class="card-body">
                     <div class="panel-body">
-                     
+
                         <div  class="table-responsive">
                             <h6>Product Purchase History</h6>
                             <table id="purchase_history" class="display table nowrap table-striped table-hover" style="width:100%">
@@ -196,7 +196,8 @@
                 }
             });
         });
-        
+
+        var lastPurchasePrice = 0;
 
         $('.selectproduct').click(function() {
             $('#id').val($(this).data('id'));
@@ -210,9 +211,9 @@
             $('#numberofunits').text(units.concat('# of ',$(this).data('purchase_uom'),'(s)'));
             $('#quantity_per_unit').val($(this).data('quantity_per_unit'));
 
-                      
+
             $('#purchase_history').find('tbody').detach();
-            $('#purchase_history').append($('<tbody>')); 
+            $('#purchase_history').append($('<tbody>'));
             var _token = $('input[name="_token"]').val();
             var prod_id = $(this).data('id');
             $.ajax({
@@ -221,11 +222,14 @@
                     data:{prod_id:prod_id,_token:_token},
                     success:function(result)
                     {
-                      
+
                         for(i=0;i<result.length;i++){
                             $("#purchase_history > tbody:first").append("<tr><td>"+ $.date(result[i].created_at) + "</td><td>"+result[i].unit_cost+"</td><td>"+result[i].supplier.name+"</td></tr>");
+                            if (i == 0){
+                                lastPurchasePrice = result[i].unit_cost;
+                            }
                         }
-                    }         
+                    }
             });
 
         });
@@ -235,9 +239,15 @@
             // alert( $('#quantity_per_unit').val());
             var unitcost = $(this).val()/$('#quantity').val();
             $('#unit_cost').val(unitcost);
-            
-            
+
         });
+
+        $('#quantity').change(function () {
+            var totalC = $(this).val() * lastPurchasePrice;
+            $('#unit_cost').val(lastPurchasePrice);
+            $('#total_cost').val(totalC);
+        });
+
 
 
         $.date = function(dateObject) {

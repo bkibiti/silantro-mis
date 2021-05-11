@@ -13,38 +13,42 @@ class CurrentStockController extends Controller
 
     public function index()
     {
-        $Products = Stock::all();
+
+        $Products = Stock::where('for_sale','Yes')->get();
         $PriceCategory = PriceCategory::all();
-        $categories = Category::orderBy('id', 'DESC')->get();
+        $categories = Category::orderBy('name')->get();
 
         return view('inventory.index', compact("Products","PriceCategory","categories"));
     }
 
     public function update(Request $request){
-       
+
         $product = Stock::find($request->id);
         $product->unit_cost = $request->unit_cost;
         $product->sale_price_1 = $request->sale_price_1;
         $product->sale_price_2 = $request->sale_price_2;
         $product->sale_price_3 = $request->sale_price_3;
         $product->save();
-     
+
         session()->flash("alert-success", "Price Updated successfully!");
         return back();
 
     }
 
     public function filter(Request $request){
-     
+
         if ($request->status == '0'){
-            $Products = Stock::where('category_id', 'like', '%' . $request->category_id. '%')->get();;
+            $Products = Stock::where('category_id', 'like', '%' . $request->category_id. '%')
+                                ->where('for_sale','Yes')->get();
         }
         if ($request->status == '1'){
-            $Products = Stock::where('quantity',0)->where('category_id', 'like', '%' . $request->category_id . '%')->get();
+            $Products = Stock::where('quantity',0)->where('category_id', 'like', '%' . $request->category_id . '%')
+                        ->where('for_sale','Yes')->get();
         }
         if ($request->status == '2'){
             $Products = Stock::whereRaw('quantity <= min_quantinty and quantity > 0')
                                 ->where('category_id', 'like', '%' . $request->category_id . '%')
+                                ->where('for_sale','Yes')
                                 ->get();
         }
 
@@ -60,7 +64,7 @@ class CurrentStockController extends Controller
     {
         $Products = Stock::where('quantity',0)->where('for_sale','Yes')->get();
         $categories = Category::orderBy('id', 'DESC')->get();
-       
+
         return view('inventory.out_of_stock', compact("Products","categories"));
     }
 
@@ -71,7 +75,7 @@ class CurrentStockController extends Controller
 
         return view('inventory.below_min', compact("Products","categories"));
     }
-   
- 
+
+
 
 }

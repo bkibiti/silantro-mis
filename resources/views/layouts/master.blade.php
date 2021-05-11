@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <title>Silantro Systems</title>
+    <title>Smart Pub</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- Favicon icon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset("silantro_sys.ico")}}">
-   
+
     <!-- fontawesome icon -->
     <link rel="stylesheet" href="{{asset("assets/fonts/fontawesome/css/fontawesome-all.min.css")}}">
     <!-- animation css -->
@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="{{asset("assets/css/style.css")}}">
     <!-- select2 css -->
     <link rel="stylesheet" href="{{asset("assets/plugins/select2/css/select2.min.css")}}">
-     
+
     <!-- tel-input css -->
     <link rel="stylesheet" href="{{asset("assets/plugins/intl-tel-input/css/intlTelInput.css")}}">
    <!-- Bootstrap Datepicker css -->
@@ -57,7 +57,7 @@
                     <div class="b-bg">
                         <i class="fas fa-wine-glass"></i>
                     </div>
-                    <span class="b-title">Silantro B & L</span>
+                    <span class="b-title">Smart Pub</span>
                 </a>
                 <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
             </div>
@@ -80,7 +80,7 @@
                     <div class="b-bg">
                         <i class="fas fa-wine-glass"></i>
                     </div>
-                   <span class="b-title">Silantro B & L</span>
+                   <span class="b-title">Smart Pub</span>
                </a>
         </div>
         <a class="mobile-menu" id="mobile-header" href="#!">
@@ -94,12 +94,12 @@
             <ul class="navbar-nav ml-auto">
                 <li>
                     <div class="dropdown">
-                        
+
                         @if (notifications()>0)
                             <span class="badge badge-pill badge-warning notification-count">{{ notifications() }}</span>
                         @endif
 
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i> 
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right notification">
                             <div class="noti-head">
@@ -116,7 +116,7 @@
                                                 <div class="media-body">
                                                     <p ><strong> <span class="text-c-red"> Out of Stock </span></strong></p>
                                                     <p> <a href="{{route('out-of-stock')}}"> {{ outofStock() }} item(s) out of stock  </a> </p>
-                                                    
+
                                                 </div>
                                             </div>
                                         </li>
@@ -145,7 +145,7 @@
                                             </li>
                                         @endforeach
                                     @endcan
-                                   
+
 
                             </ul>
 
@@ -274,7 +274,7 @@
     <script src="{{asset("assets/plugins/bootstrap/js/bootstrap.min.js")}}"></script>
     <script src="{{asset("assets/js/pcoded.min.js")}}"></script>
 
-  
+
     <!-- notification Js -->
     <script src="{{asset("assets/plugins/notification/js/bootstrap-growl.min.js")}}"></script>
 
@@ -295,7 +295,7 @@
     <script src="{{asset("assets/plugins/moment/js/moment.js")}}"></script>
     <!-- boostrap js -->
     <script src="{{asset("assets/plugins/daterangepicker-master/js/daterangepicker.js")}}"></script>
-  
+
 
    {{-- custom java scripts for the page --}}
     @stack("page_scripts")
